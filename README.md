@@ -6,6 +6,8 @@ A deliberately limited, brand-agnostic **Universal Site Score** describing the m
 
 This independently designed public rubric is illustrative and uncalibrated. It is not a revenue forecast, lease recommendation, brand-fit model, or substitute for diligence. It favors mapped, mixed-use, transit-served settings. More complete mapping can raise scores without any change in the real place.
 
+[Public demo](https://site-selection-engine-lite.cherrry577.chatgpt.site) · [Release candidate](https://github.com/DazCherry/site-selection-engine-lite/releases/tag/v0.1.0-rc.1) · [Delivery report](FINAL_DELIVERY_REPORT.md)
+
 ## Run locally
 
 Requires Node.js 22 or newer and a modern browser. There are **no runtime or development package dependencies** and no API keys.

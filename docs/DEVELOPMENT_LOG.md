@@ -61,3 +61,10 @@ Stable release remains withheld pending successful live map-context acceptance. 
 
 
 The owner explicitly approved public access to the specific hosted demo. Updated its audience to public through the normal Sites access tool. The demo now permits anyone with the link. The earlier approval-review blocker is resolved; live context-provider validation remains the release limitation.
+
+
+## 2026-10-06 — Candidate released
+
+Published v0.1.0-rc.1 as an explicit GitHub prerelease at commit d1be8818fad54e7f96b269753219512c56a499fc. An anonymous clone of that exact public commit passes all 33 tests and publication/history checks. GitHub Actions runs 37426886117 and 37426997657 both report success for the same commit. All eight deployed runtime files match the public checkout byte for byte. Report and README now link the public demo and verified release.
+
+Open blocker: live Overpass data retrieval has not passed acceptance because provider requests time out after successful connection/TLS. No stable-release completion is claimed. Options are recovery of the public provider or an owner-approved reliable Overpass-compatible service, followed by live browser acceptance and regression. Do not remove the preview label without that evidence. No paid service or credentials have been obtained.

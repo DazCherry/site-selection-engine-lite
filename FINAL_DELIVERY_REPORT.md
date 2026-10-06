@@ -10,7 +10,8 @@ Site Selection Engine Lite is implemented as an independent, brand-agnostic stat
 
 - Public repository: https://github.com/DazCherry/site-selection-engine-lite
 - Reviewed implementation checkpoint: `cad92bed15097f0a061657835c68a392ab2a03ac` (32-test checkpoint).
-- Release-candidate target: `v0.1.0-rc.1`; the tag is the immutable reference for final candidate source after publication. Stable release remains withheld.
+- Published prerelease: [v0.1.0-rc.1](https://github.com/DazCherry/site-selection-engine-lite/releases/tag/v0.1.0-rc.1).
+- Tagged release commit: `d1be8818fad54e7f96b269753219512c56a499fc`. Stable release remains withheld.
 - Deployable browser application: `dist/`, without build or package installation.
 - Hosted demo: https://site-selection-engine-lite.cherrry577.chatgpt.site
 - Sites deployment succeeded for the validated runtime source. The owner explicitly approved public sharing of this specific hosted demo; access is now public.
@@ -29,7 +30,8 @@ OSM-derived map data via Photon and Private.coffee, with visible OSM/ODbL attrib
 
 - 32 automated tests passed in the development tree and in a fresh clone with no installed packages.
 - GitHub Actions [run 37426140032](https://github.com/DazCherry/site-selection-engine-lite/actions/runs/37426140032) completed successfully for the 32-test implementation checkpoint.
-- Final review added a cache-freshness boundary regression. All **33 tests pass**, including in the fresh release-candidate checkout; its browser reproduces the synthetic result and shows the preview limitation.
+- Final review added a cache-freshness boundary regression. All **33 tests pass** from the final anonymous GitHub checkout. Its runtime files match the deployed static files byte for byte. The clean candidate browser reproduces the synthetic result and shows the preview limitation.
+- GitHub Actions [run 37426997657](https://github.com/DazCherry/site-selection-engine-lite/actions/runs/37426997657) completed successfully for the tagged 33-test release commit.
 - Browser: fictional mixed-use example 7.5; sparse example withholds total; address confirmation; malicious-looking input rejected without HTML execution; old result cleared; recovery to synthetic example; downloadable snapshot; desktop and 390 px responsive inspection without horizontal overflow.
 - Downloaded synthetic browser snapshot independently recalculated in Python: 7.5. Node snapshot replay matches.
 - Source normalization and model tests cover malformed/incomplete data, duplicate identities and conflicting duplicates, input order, coordinate bounds, dateline/poles/antipodes, radius edge, stale/future/invalid dates, unknown tags and unretained names.
