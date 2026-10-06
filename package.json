@@ -1,9 +1,11 @@
 {
   "name": "site-selection-engine-lite",
-  "version": "0.1.0",
+  "version": "0.1.0-rc.1",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "test": "node --test tests/*.test.mjs",
     "check:publication": "node scripts/publication-check.mjs",

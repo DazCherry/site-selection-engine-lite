@@ -1,6 +1,6 @@
 # Model card
 
-**Rubric:** `lite-map-context-1.0.0` · **Application:** `0.1.0` · **Status:** illustrative, deterministic, uncalibrated.
+**Rubric:** `lite-map-context-1.0.0` · **Application:** `0.1.0-rc.1` · **Status:** illustrative, deterministic, uncalibrated.
 
 ## Intended use
 

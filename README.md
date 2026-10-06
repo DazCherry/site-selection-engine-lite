@@ -1,5 +1,7 @@
 # Site Selection Engine Lite
 
+**Release candidate 0.1.0-rc.1.** Synthetic scoring and regression gates pass. Live map retrieval is not yet validated end-to-end because the public context provider timed out during acceptance testing. This is not a completed production release.
+
 A deliberately limited, brand-agnostic **Universal Site Score** describing the mapped context around a public address. Enter an address, confirm a geocoded match, and inspect retail variety, everyday amenities, and transit proximity within 600 meters. Missing observations stay unknown; the overall score is withheld unless all three dimensions are available.
 
 This independently designed public rubric is illustrative and uncalibrated. It is not a revenue forecast, lease recommendation, brand-fit model, or substitute for diligence. It favors mapped, mixed-use, transit-served settings. More complete mapping can raise scores without any change in the real place.
