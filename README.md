@@ -1,12 +1,12 @@
 # Site Selection Engine Lite
 
-**v0.1.0 release validation.** Repeated live checks pass across seven U.S. public civic addresses; the deployed browser also reproduces Honolulu, Anchorage and Chicago results. The final public-checkout, CI and stable-tag gates are being completed. See the acceptance record for exact evidence.
+**v0.1.0.** Repeated live checks pass across seven U.S. public civic addresses, with independent score reproduction, clean-checkout validation and deployed browser acceptance. See the [acceptance record](docs/RELEASE_VALIDATION.md) for exact evidence and limits.
 
 A deliberately limited, brand-agnostic **Universal Site Score** describing the mapped context around a public address. Enter an address, confirm a geocoded match, and inspect retail variety, everyday amenities, and transit proximity within 600 meters. Missing observations stay unknown; the overall score is withheld unless all three dimensions are available.
 
 This independently designed public rubric is illustrative and uncalibrated. It is not a revenue forecast, lease recommendation, brand-fit model, or substitute for diligence. It favors mapped, mixed-use, transit-served settings. More complete mapping can raise scores without any change in the real place.
 
-[Public demo](https://site-selection-engine-lite.cherrry577.chatgpt.site) · [Releases](https://github.com/DazCherry/site-selection-engine-lite/releases) · [Delivery report](FINAL_DELIVERY_REPORT.md)
+[Public demo](https://site-selection-engine-lite.cherrry577.chatgpt.site) · [Stable release](https://github.com/DazCherry/site-selection-engine-lite/releases/tag/v0.1.0) · [Delivery report](FINAL_DELIVERY_REPORT.md)
 
 ## Run locally
 

@@ -80,3 +80,9 @@ Implemented bounded Overture Places/Base retrieval after PUBLIC APPROVED classif
 ## 2026-10-06 — Deployed live acceptance
 
 All 45 tests and publication/history scans pass in a clean local clone. Frozen dependency installation reproduces the committed decoder bundle. The public deployment now passes full Chrome user journeys at Honolulu (8.9), Anchorage (8.5) and Chicago (9.8), agreeing with independent calculations. Narrow layout has no horizontal overflow; malicious-looking address input is rejected and clears an earlier score. Synthetic fixture provenance wording was corrected to avoid implying monthly real-world observations. No app-origin error logs occurred. Final public-checkout acceptance, CI and stable tagging remain next.
+
+## 2026-10-06 — Stable release audit
+
+The exact public runtime commit e302c1bc33cea2135bf20e89a7f585e585fdd8f5 passed GitHub quality run 37497771105 on Node 22, including 45 tests, dependency reconstruction and publication/history scans. Anonymous checkout runtime matches deployment source byte for byte. The already running clean-clone browser completed Burlington at 9.6. Final deployment succeeded and synthetic provenance wording is correct.
+
+A later redundant local test request was not executed because automatic approval review reached an account usage limit; no passing result is claimed for that attempt. The earlier completed local clean-clone suite and independent GitHub clean runner are the actual evidence. No approval control was bypassed. Runtime, scoring and provider code remain unchanged by this final documentation checkpoint. The v0.1.0 release completes the deliberately limited public scope; monthly coverage uncertainty, provider availability and lack of commercial calibration remain explicit limitations.
