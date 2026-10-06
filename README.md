@@ -1,16 +1,16 @@
 # Site Selection Engine Lite
 
-**Release candidate 0.1.0-rc.1.** Synthetic scoring and regression gates pass. Live map retrieval is not yet validated end-to-end because the public context provider timed out during acceptance testing. This is not a completed production release.
+**v0.1.0 release validation.** Repeated live checks pass across seven U.S. public civic addresses; the deployed browser also reproduces Honolulu, Anchorage and Chicago results. The final public-checkout, CI and stable-tag gates are being completed. See the acceptance record for exact evidence.
 
 A deliberately limited, brand-agnostic **Universal Site Score** describing the mapped context around a public address. Enter an address, confirm a geocoded match, and inspect retail variety, everyday amenities, and transit proximity within 600 meters. Missing observations stay unknown; the overall score is withheld unless all three dimensions are available.
 
 This independently designed public rubric is illustrative and uncalibrated. It is not a revenue forecast, lease recommendation, brand-fit model, or substitute for diligence. It favors mapped, mixed-use, transit-served settings. More complete mapping can raise scores without any change in the real place.
 
-[Public demo](https://site-selection-engine-lite.cherrry577.chatgpt.site) · [Release candidate](https://github.com/DazCherry/site-selection-engine-lite/releases/tag/v0.1.0-rc.1) · [Delivery report](FINAL_DELIVERY_REPORT.md)
+[Public demo](https://site-selection-engine-lite.cherrry577.chatgpt.site) · [Releases](https://github.com/DazCherry/site-selection-engine-lite/releases) · [Delivery report](FINAL_DELIVERY_REPORT.md)
 
 ## Run locally
 
-Requires Node.js 22 or newer and a modern browser. There are **no runtime or development package dependencies** and no API keys.
+Requires Node.js 22 or newer and a modern browser. No installation or API key is needed to run the committed static application and automated tests. A small, checked-in browser decoder bundle uses pinned open-source dependencies with their licenses included.
 
 ```sh
 git clone https://github.com/DazCherry/site-selection-engine-lite.git
@@ -28,7 +28,7 @@ Open `http://127.0.0.1:4173`. Alternatively use `npm test`, `npm run check:publi
 - **Sparse mapped context:** one observed dimension, two unavailable, overall score withheld.
 - **Public address:** enter street number, street, city, and country separated by commas. Explicitly consent to the two public providers, then confirm the returned address and coordinates. No address is sent before submission and consent. No city-centroid fallback.
 
-Live requests depend on Photon and the Private.coffee Overpass service. Both may be unavailable, change, throttle, or return incomplete data. No successful live request is guaranteed. A provider failure never substitutes synthetic results. Examples continue working without providers once the app assets are loaded.
+Live requests use Photon for address candidates and Overture’s openly licensed Places and Base releases for map context. The browser reads only nearby tiles from public object storage, avoiding an on-demand map-query server. Releases are monthly; the app checks the latest catalog and refuses release dates older than 45 days. Individual features can be much older or incorrect. Bounded retries address transient transport failures, while throttling, unavailable data and malformed data remain explicit errors. A provider failure never substitutes synthetic results. Examples continue working without providers once the app assets are loaded.
 
 ## Reproduce a result
 
@@ -42,7 +42,9 @@ The snapshot contains normalized map observations, coordinates, source/retrieval
 
 ## Deploy
 
-This is a buildless static application. Serve the **contents of `dist/`**, preserving `.mjs` as JavaScript and the existing content-security policy. Never serve the repository root. Any static HTTPS host can deploy it; Cloudflare-compatible hosts can consume `dist/_headers`. Other hosts should configure equivalent headers. No server code, database, secrets, or paid service is required. The deployment test procedure is in [TEST_STRATEGY](docs/TEST_STRATEGY.md).
+The committed runtime is a static application. Serve the **contents of `dist/`**, preserving `.mjs` as JavaScript and the existing content-security policy. Never serve the repository root. Any static HTTPS host can deploy it; Cloudflare-compatible hosts can consume `dist/_headers`. Other hosts should configure equivalent headers. No server code, database, secrets, or paid service is required. The deployment test procedure is in [TEST_STRATEGY](docs/TEST_STRATEGY.md).
+
+To reproduce the decoder bundle, use `corepack pnpm install --frozen-lockfile --ignore-scripts`, then `node scripts/build-vendor.mjs`; `git diff --exit-code -- dist/vendor/tiles.mjs` must be clean. CI repeats this build on Node 22.
 
 For a smoke test of the exact hosted assets, run `node scripts/serve.mjs` and use both synthetic examples plus a public civic address. For a growing or business-critical service, obtain dedicated provider capacity and review current terms before promotion. The demo is not a production location-intelligence service.
 
@@ -50,4 +52,4 @@ For a smoke test of the exact hosted assets, run `node scripts/serve.mjs` and us
 
 [Product](docs/PRODUCT_SPEC.md) · [Architecture](docs/ARCHITECTURE.md) · [Model card](docs/MODEL_CARD.md) · [Data dictionary](docs/DATA_DICTIONARY.md) · [Data policy](docs/DATA_POLICY.md) · [IP boundary](docs/PUBLIC_PRIVATE_BOUNDARY.md) · [Security](docs/SECURITY.md) · [Tests](docs/TEST_STRATEGY.md) · [Development log](docs/DEVELOPMENT_LOG.md) · [Benchmark research](docs/research/LOCATION_INTELLIGENCE_BENCHMARK.md)
 
-Code is published for inspection; no general software reuse license has been granted. Synthetic fixture data in `dist/samples.mjs` is dedicated to the public domain under CC0. OpenStreetMap-derived data remains subject to ODbL and attribution; it is not relicensed as code. This repository contains no downloaded OSM dataset, confidential reference document, or private engine implementation.
+Code is published for inspection; no general software reuse license has been granted. Synthetic fixture data in `dist/samples.mjs` is dedicated to the public domain under CC0. Third-party software keeps its own licenses. Public data keeps its applicable CDLA-Permissive-2.0, Apache-2.0, CC0 and ODbL licenses; see [credits](dist/credits.html). Exported live snapshots carry license texts and attribution. Data is not relicensed as application code. This repository contains no downloaded OSM dataset, confidential reference document, or private engine implementation.

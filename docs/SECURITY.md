@@ -10,8 +10,8 @@ Untrusted address input, untrusted provider payloads, ambiguous geocodes, oversi
 - Input length and type validation, finite coordinate checks, exact enums and UTC timestamp validation.
 - Fixed provider origins; CSP disallows arbitrary connections, external scripts, objects and form posting.
 - All external strings rendered with `textContent`; no HTML injection sinks or dynamic code execution.
-- HTTP timeout, bounded streamed reads (1.5 MB), query radius, server query budget and record cap.
-- One request at a time, provider cooldown, small transient cache, no automatic retries or endpoint rotation.
+- Geocoding: 25-second timeout and 1.5 MB streamed-response cap. Context: 45-second overall deadline, 10-second requests, 4 MiB compressed range, 32 MiB total wire data, 32 MiB per decompressed tile, 96 MiB cumulative decompression, 100 requests, 100,000 inspected features and 10,000 retained records. Range status/length and stable ETags must match.
+- One request at a time, provider cooldown, small transient cache, at most two transient context retries in total (at most one per request), and no endpoint rotation. HTTP 429 enforces a pause rather than retry.
 - No analytics, browser storage, sensitive inputs, raw provider logging, or user-generated file imports.
 - Secret/private-path/forbidden-term scanning of publication files and Git history; manual IP review remains required.
 - Static hosting headers deny framing and browser location/camera/microphone access where the host honors them. Meta CSP remains a fallback; configure equivalent HTTP headers on other hosts.

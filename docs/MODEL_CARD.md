@@ -1,6 +1,6 @@
 # Model card
 
-**Rubric:** `lite-map-context-1.0.0` · **Application:** `0.1.0-rc.1` · **Status:** illustrative, deterministic, uncalibrated.
+**Rubric:** `lite-map-context-1.0.0` · **Application:** `0.1.0` · **Status:** illustrative, deterministic, uncalibrated.
 
 ## Intended use
 
@@ -8,7 +8,7 @@ Explore a location's mapped retail variety, everyday amenities, and transit prox
 
 ## Inputs and formulas
 
-Valid WGS84 latitude/longitude, recognized map records, and a source database timestamp no more than seven days old (up to five minutes future clock tolerance). Database recency does not establish individual-feature freshness. Node coordinates or way/relation centers are used; these are not entrances or paths.
+Current live input uses WGS84 points from Overture Places and Base monthly releases, no more than 45 days from the release date. Individual source observations can be much older. Point-only normalization avoids invented centers from clipped tile polygons. Named station points and mapped stop points are approximate locations, not entrances or paths. Synthetic and legacy OSM normalization retains the original seven-day source-database rule.
 
 | Dimension | Public formula | Missing behavior |
 | --- | --- | --- |
@@ -22,7 +22,17 @@ The 600 m query radius and 750 m transit denominator are explicit design choices
 
 ## Recognized categories
 
-Retail groups and exact `shop` values:
+### Current live adapter: overture-lite-1
+
+Retail categories match the primary taxonomy hierarchy, not names, brands, confidence values, alternates or inferred demand. Exact mapping is in `dist/overture.mjs`; groups remain the same 12 public categories. Unrecognized or uncategorized places contribute nothing. Permanently/temporarily closed records are omitted.
+
+Services match pharmacy/drugstore, bank/bank_or_credit_union/atm, post_office, library, and public_toilet/public_restroom. Infrastructure point toilets and ATMs also map to the same existing service groups. Transit uses place bus_station/train_station/subway_station/tram_station or Base transit point bus_stop/railway_station/subway_station/tram_stop/platform. No additional score dimension is introduced. Private or explicitly disused infrastructure is omitted.
+
+The provider replacement changes observed category coverage, so scores are not comparable with historical providers as market rankings. Formula version remains `lite-map-context-1.0.0`; exports record the separate normalization version, exact records and release.
+
+### Legacy and synthetic mapping
+
+The original OSM normalizer remains for fictional examples and old snapshots. Retail groups and exact `shop` values:
 
 | Group | Values |
 | --- | --- |

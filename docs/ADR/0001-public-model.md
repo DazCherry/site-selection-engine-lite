@@ -11,3 +11,5 @@ Use plain ECMAScript modules with zero runtime packages. The same pure calculati
 Default endpoints are fixed in source and restricted by CSP. No URL query parameter can replace them. Manual requests only; small area, timeouts, bounded responses, in-memory cache, cooldown and no automatic retries or endpoint rotation. A larger service must arrange its own provider capacity.
 
 Limitations: map completeness and recency of individual features are unknown; building centers are approximations; missing bus data prevents totals; more mapped categories are not evidence of more demand. Retail and services may be correlated. This intentionally narrow rubric favors urban mixed-use settings and is unsuitable for investment or cross-market rankings.
+
+Provider and dependency choices in this original ADR are superseded by ADR 0002. The three formulas and deliberate product limits remain unchanged.

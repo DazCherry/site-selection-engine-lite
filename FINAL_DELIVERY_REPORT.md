@@ -2,69 +2,57 @@
 
 ## Executive summary
 
-Site Selection Engine Lite is implemented as an independent, brand-agnostic static application with a transparent mapped-context rubric, synthetic demonstrations, public provider adapters, explicit unknowns, reproducible snapshots and publication safeguards. It is delivered as **0.1.0-rc.1**, not a stable release.
-
-**The full Definition of Done is not yet satisfied:** public address resolution succeeds, but live map-context requests timed out during acceptance testing. Synthetic end-to-end journeys and automated integration pass; those are not substitutes for a successful live-data acceptance check. The interface and README disclose this limitation.
+Site Selection Engine Lite implements an independent, deliberately limited, brand-agnostic Universal Site Score. The original release candidate's live-data failure has been repaired by replacing the stalled query service with bounded reads of openly licensed monthly map releases. Repeated live acceptance passes for seven U.S. civic addresses, and the deployed browser reproduces three geographically different cases. Final public-checkout, CI and stable-tag validation is in progress; this report does not yet claim those remaining gates passed.
 
 ## Deliverables
 
-- Public repository: https://github.com/DazCherry/site-selection-engine-lite
-- Reviewed implementation checkpoint: `cad92bed15097f0a061657835c68a392ab2a03ac` (32-test checkpoint).
-- Published prerelease: [v0.1.0-rc.1](https://github.com/DazCherry/site-selection-engine-lite/releases/tag/v0.1.0-rc.1).
-- Tagged release commit: `d1be8818fad54e7f96b269753219512c56a499fc`. Stable release remains withheld.
-- Deployable browser application: `dist/`, without build or package installation.
-- Hosted demo: https://site-selection-engine-lite.cherrry577.chatgpt.site
-- Sites deployment succeeded for the validated runtime source. The owner explicitly approved public sharing of this specific hosted demo; access is now public.
+- Public source: https://github.com/DazCherry/site-selection-engine-lite
+- Public demo: https://site-selection-engine-lite.cherrry577.chatgpt.site
+- Version under final validation: **v0.1.0**; final tag pending the remaining gates.
+- Provider implementation checkpoint: `c0fa2ec5cd0778c793b2bb3db036df7e2b1fa8e3` in the deployment source history.
+- Runtime: committed `dist/`, requiring no package installation, API key, account or database.
+- Detailed evidence: [release acceptance](docs/RELEASE_VALIDATION.md), [development log](docs/DEVELOPMENT_LOG.md), [provider decision](docs/ADR/0002-live-provider-reliability.md).
 
 ## Architecture and public methodology
 
-Plain browser ECMAScript modules; Node built-in tests and development server; no runtime dependencies, database, LLM, account or API key. Photon resolves address-level candidates; a confirmed coordinate drives a bounded Private.coffee Overpass query. The model keeps only recognized categories, geographic points and OSM identities. Public-data metadata and normalized inputs can be downloaded locally.
+Plain browser ECMAScript modules separate address validation, provider retrieval, normalization, scoring and presentation. Photon returns address-level candidates; users explicitly confirm the address and coordinates. Overture Places and Base PMTiles are read with exact bounded HTTP ranges, stable archive identities, validated schemas, geographic coverage and point filtering. A small pinned decoder bundle is committed with upstream licenses; runtime installation is unnecessary.
 
-Three equally weighted dimensions use an independently authored illustrative rubric: retail group variety (two points per group, capped at ten), five everyday service categories (two points each), and nearest mapped transit proximity (10 × (1 − distance / 750), within a 600 m window). The mean is rounded once. Any missing dimension withholds the total. Full approved disclosure appears in `docs/MODEL_CARD.md`.
+The independently authored illustrative rubric retains three equally weighted dimensions: retail variety (two points per category, capped at ten), five everyday service groups (two points each), and transit proximity (10 × (1 − distance / 750), with a qualifying stop within 600 m). The final mean is rounded once. Any missing dimension withholds the total. Category mappings and limitations are disclosed in the [model card](docs/MODEL_CARD.md). No private coefficients or business outcome calibration are used.
 
-## Data sources and licensing
+## Data sources and rights
 
-OSM-derived map data via Photon and Private.coffee, with visible OSM/ODbL attribution and license links in snapshots. Small manually triggered requests only. Synthetic fixtures are independently generated, explicitly labeled, and CC0. The repository contains no real customer cases or downloaded public map dataset. Provider reasonable-use conditions and scaling limitations are documented in `docs/DATA_POLICY.md` and benchmark research.
+Photon supplies OSM-derived geocoding. Overture supplies openly licensed monthly Places and Base data, with applicable CDLA-Permissive-2.0, Apache-2.0, CC0 and ODbL notices. [Data policy](docs/DATA_POLICY.md) and [credits](dist/credits.html) preserve attribution and license obligations. Downloaded live snapshots include full license texts, source release, provider, normalized records and declared transformations. Synthetic examples are independently generated and CC0. No customer records or downloaded live dataset is committed.
 
-## Verification evidence
+## Verification
 
-- 32 automated tests passed in the development tree and in a fresh clone with no installed packages.
-- GitHub Actions [run 37426140032](https://github.com/DazCherry/site-selection-engine-lite/actions/runs/37426140032) completed successfully for the 32-test implementation checkpoint.
-- Final review added a cache-freshness boundary regression. All **33 tests pass** from the final anonymous GitHub checkout. Its runtime files match the deployed static files byte for byte. The clean candidate browser reproduces the synthetic result and shows the preview limitation.
-- GitHub Actions [run 37426997657](https://github.com/DazCherry/site-selection-engine-lite/actions/runs/37426997657) completed successfully for the tagged 33-test release commit.
-- Browser: fictional mixed-use example 7.5; sparse example withholds total; address confirmation; malicious-looking input rejected without HTML execution; old result cleared; recovery to synthetic example; downloadable snapshot; desktop and 390 px responsive inspection without horizontal overflow.
-- Downloaded synthetic browser snapshot independently recalculated in Python: 7.5. Node snapshot replay matches.
-- Source normalization and model tests cover malformed/incomplete data, duplicate identities and conflicting duplicates, input order, coordinate bounds, dateline/poles/antipodes, radius edge, stale/future/invalid dates, unknown tags and unretained names.
-- Transport tests cover provider errors, HTTP 429, timeout, invalid JSON, response size, caching, concurrency and immediate cross-provider confirmation. HTTP tests cover static asset MIME and availability, traversal and unsupported methods.
-- Publication checks inspect approved file types, secret patterns, private paths, hashed restricted terms and all local Git history. Manual public/private review found no proprietary calculations or customer data in the release source.
+- **45 automated tests pass**, including numerical regressions, geographic invariants, provider bounds, malformed/stale data, contradictory records, throttling, cancellation, replay, HTTP and publication checks.
+- A fresh local clone passes tests and history scans. Frozen-lock installation and a decoder rebuild produce no bundle difference. The package advisory audit reports zero known vulnerabilities; unknown vulnerabilities remain possible.
+- Seven public civic addresses across the continental U.S., Hawaii and Alaska pass repeated real provider retrieval. One initial dense Chicago response exceeded the decompression cap; the failure withheld a score, was repaired within explicit aggregate bounds, and subsequent CLI/browser/repeated runs pass.
+- A separate Python spherical-vector implementation independently reproduces all seven repeated scores and the Chicago browser snapshot. Node replay also exactly matches the downloaded browser assessment.
+- Deployed Chrome journeys: Honolulu 8.9, Anchorage 8.5, Chicago 9.8, with confirmation, dimension explanations, record counts and release provenance. A 390 px viewport has no horizontal overflow. Malformed address input clears the previous result and is rejected.
+- Mixed synthetic example returns 7.5; sparse synthetic data withholds the total. Provider failures never substitute synthetic output.
+- No app-origin browser errors observed in deployed checks. An unrelated browser extension reported a message-channel error earlier in the session.
 
-## Bugs found and fixed
+## Root cause and fixes
 
-1. Shared cooldown blocked immediate confirmed-location context retrieval. Fixed with provider-specific cooldown plus regression.
-2. HTTP 429 advice did not itself enforce the full wait. Added enforced cooldown, honoring numeric Retry-After with a minimum minute.
-3. JavaScript date parsing can normalize invalid calendar dates. Added strict round-trip date validation.
-4. An in-memory cached response could cross the seven-day source-age limit. Added freshness validation on cache hits plus regression.
+The previous Overpass host completed connection/TLS but its API returned no bytes even for minimal requests. An independent public endpoint returned HTTP 504. This establishes service-path unavailability; the upstream server-internal cause is unknown. Increasing retries or concealing errors was not a reliable repair. The replacement retrieves existing release files, avoiding that on-demand query dependency.
 
-Test execution initially hit an incorrect working-directory invocation and a restricted loopback bind; both were corrected and rerun. These were environment/invocation failures and were not represented as passed tests.
+Review also found and fixed: optional missing taxonomy being treated as invalid rather than unclassified; dense-tile decompression capacity; missing archive-layer metadata validation; unbounded CLI snapshot size; property-order-sensitive replay comparison; and synthetic provenance wording that incorrectly implied monthly observations. Earlier fixes include provider-specific cooldown, enforced 429 waiting, strict calendar dates and cached-source freshness checks.
 
-## Adversarial release review
+## Adversarial and publication review
 
-Product, formulas, schema boundaries, publication safety, output handling, privacy, deployment assets and maintenance were reviewed. No private methodology was imported; map names and brands are stripped from normalized features; address text is rendered safely; ambiguous candidates require confirmation; no absent signal is fabricated. The source has zero external package dependencies and no authentication secrets.
+Reviewed product correctness, formulas, geographic coverage, provider failure paths, record redaction, stale releases, range/ETag validation, decompression and total resource budgets, dependencies, UI output, replay, documentation and IP boundaries. The app rejects incomplete or unvalidated responses, uses text-only rendering, and retains no browser-persistent assessment history. Providers receive the disclosed address/area and IP; visitors consent before requests.
 
-**Open material gate:** successful real-address → live map data → normalized assessment → browser result, followed by the same clean-checkout acceptance. Both browser and small direct context queries timed out. Status diagnostics connected and completed TLS but received no response bytes. A separate publicly documented alternative also timed out and was not added as hidden failover. The Node geocoder returned 429 in one check; browser address resolution succeeded.
+Publication scans cover allowed artifacts, secret patterns, restricted customer-term fingerprints, private paths and Git history. Manual review found no proprietary methodology, customer data or private reference documents. Generic civic test locations are public examples. Scanning cannot prove absence of every semantic disclosure. No additional score dimensions, richer paid intelligence or private engine features were added.
 
-Optional WebMCP execution validation was unavailable because the tested browser does not expose `document.modelContext`. Ordinary UI works independently; no WebMCP success is claimed.
+## Limitations and deferred capabilities
 
-## Known limitations and deferred capabilities
+This is a stable software target for a limited public demo, not a validated commercial decision model or an SLA-backed location-intelligence service. Releases are monthly; individual feature recency and completeness are unknown. Scores favor mapped mixed-use settings and are not comparable calibrated estimates of business success. Point-only geometry avoids inventing destination coordinates but omits useful polygon/line features. Public providers can fail, throttle or change schemas; the app withholds results when required data cannot be validated. Modern browser fetch, streaming decompression and abort APIs are required.
 
-Public infrastructure has no SLA. Map coverage and individual feature recency are unknown. Address points/building centers are approximate. No footfall, demand, demographic, competition, route, visibility, financial or predictive data is measured. No bulk use or cross-market calibration. Synthetic tests validate computation, not commercial outcomes. Scanners cannot detect all semantic IP leakage or every future customer identifier.
+No demand, demographic, mobility, footfall, route-frequency, competition-quality, visibility, rent, revenue, brand-fit, calibration or learning capability is included. Optional experimental WebMCP was unavailable in the tested browser; ordinary UI is the supported path and no WebMCP execution success is claimed.
 
-Private features remain outside this repository. No paid data, personal mobility data, calibration, learning, private financial logic or brand recommendations are implemented.
+## Deployment and future work
 
-## Deployment and next steps
+Run `node scripts/serve.mjs`; open its loopback URL. Run `node --test tests/*.test.mjs` and `node scripts/publication-check.mjs` before publishing. Serve only the contents of `dist/` over HTTPS with JavaScript MIME and equivalent CSP/security headers. A backend, database and API secrets are unnecessary. Rebuild the pinned decoder using the README procedure only when needed.
 
-Run `node scripts/serve.mjs` for local inspection. Deploy only the contents of `dist/` to an HTTPS static host, preserving JavaScript MIME and CSP/security headers. No build, install, database, API secret or backend process is needed. Run `node --test tests/*.test.mjs` and `node scripts/publication-check.mjs` before publication.
-
-To promote the candidate: restore or provide a reliable, CORS-enabled, appropriately permitted Overpass-compatible endpoint; update the adapter, disclosure and CSP if the provider changes; pass live browser acceptance and clean-checkout regression; then create a stable tag. A commercial service must arrange provider capacity before scaling.
-
-Next step toward a Private Engine: start a separate private repository and independently validate its business requirements and data permissions. Reuse only approved generic public utilities. No confidential methodology should be contributed back here.
+Before broad commercial traffic, arrange provider capacity and review then-current terms. Build any future Private Engine in a separate private repository with its own approved data and validation; reuse only approved generic utilities. Private methodology must never flow back into Public Lite.

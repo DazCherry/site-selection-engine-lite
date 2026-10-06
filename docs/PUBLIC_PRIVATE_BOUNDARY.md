@@ -42,3 +42,7 @@ Before every public push or release: classify changed capabilities; review all t
 Public-facing results must say that the assessment is universal and informational, based on available approved data, not a guaranteed revenue forecast, not a substitute for lease diligence, and not a brand-specific investment recommendation.
 
 Future private functionality belongs in a separate private system. Approved generic public components may be reused there; private functionality must never synchronize back automatically.
+
+## Reliability adaptation classification (2026-10-06)
+
+PUBLIC APPROVED: bounded browser range retrieval of openly licensed Overture Places and Base infrastructure releases; strict schema/geometry validation; generic category translation into the existing retail/service/transit dimensions; declared release-date freshness; bounded retry/backoff and cancellation; provider provenance and license notices. These replace the unreliable context delivery path and introduce no additional scoring dimensions. Raw place names, contacts, source confidence metrics and richer source attributes are discarded. Do not use source confidence as a scoring dimension, private decision heuristic or enrichment product. No private methods are involved.

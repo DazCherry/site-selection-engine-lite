@@ -1,19 +1,26 @@
-# Data policy
+# Public data policy
 
-Only public locations and independently created synthetic examples belong in this product. Do not enter confidential candidate addresses or upload private datasets. There is no upload feature, database or application telemetry.
+## Consent and privacy
 
-Before a live lookup the interface requires explicit consent. Photon receives the query; Private.coffee receives selected coordinates and a bounded map query. Both providers receive ordinary connection metadata including IP address and may keep their own service logs under their policies. The app sends no cookies or authorization header and suppresses referrer information. The web host may separately keep request logs. No claim of anonymous or zero-retention provider use is made.
+Before live lookup, require explicit consent. Photon receives the public address. Overture's catalog host and Amazon S3 public storage receive ordinary connection metadata; range requests reveal the approximate area of interest. Providers and the static host can keep their own access logs. Requests omit credentials and referrers. The app uses no analytics, cookies, geolocation, browser storage, automatic uploads or persisted address history.
 
-Data lives in page memory. A cache holds at most 20 normalized responses for five minutes; closing the page clears it. Downloading a snapshot is an explicit user action. Downloads are not committed as test data or sent to a server.
+Raw place names, websites, contacts, arbitrary tags and source confidence metadata are transient and discarded. Only normalized public IDs, points and broad category flags travel into scoring. The optional user-requested snapshot includes the public address, coordinates, release, attribution and license texts. Never use confidential inputs or commit downloaded datasets.
 
-## Sources and usage review
+## Sources and use
 
-Reviewed 2026-10-05 from public primary project/operator materials:
+- [Photon](https://github.com/komoot/photon): reasonable-use demo geocoder, without availability guarantees. Manual submissions only, five-second per-provider cooldown, bounded responses, no keystroke search or bulk production interface.
+- [Overture public catalog and object storage](https://docs.overturemaps.org/getting-data/cloud-sources/): openly published files accessed through standard byte-range requests. Places and Base maximum-detail tiles are retrieved for a 600-meter area. No query-server compute or paid account is needed. This is limited public context, not mobility or commercial performance intelligence.
+- [Overture licenses and attribution](https://docs.overturemaps.org/attribution/): Places contains data under CDLA-Permissive-2.0, Apache-2.0 and CC0; Base infrastructure is OSM-derived under ODbL. Full notices and relevant license texts are displayed in `dist/credits.html` and carried in live downloads. Filtering, category translation and point normalization are declared modifications. Data-provider names are required attribution, not customer examples.
+- Synthetic fixtures are independently authored, conspicuously fictional, and CC0.
 
-- [Photon project and demo policy](https://github.com/komoot/photon): permits reasonable project requests; extensive usage can be throttled or banned; no availability guarantee. Address submission only, no autocomplete or bulk search.
-- [Private.coffee instance listing](https://wiki.openstreetmap.org/wiki/Overpass_API#Public_Overpass_API_instances): lists permission to use the service in projects and requests advance contact for large-scale use. [Operator service directory](https://private.coffee/services.html) confirms the Overpass service. This small manual demo uses no bulk processing or automatic retry/failover.
-- [OpenStreetMap copyright and license](https://www.openstreetmap.org/copyright): map data is ODbL. Display attribution and the license link; retain attribution/license in downloads. Derived map databases remain subject to applicable ODbL requirements. We do not publish a provider dataset in the repository.
+## Freshness and completeness
 
-The main overpass-api.de instance was not selected because its documentation discourages reliance as a general application backend. This is a small exploratory demo, not a promise of free infrastructure at commercial scale. Recheck provider terms and arrange capacity before expanding usage. No paid API purchase, commercial quote, or individualized legal approval is represented by this review.
+The app discovers the current release, validates its date and rejects dates more than 45 days old. This bound accommodates monthly publication without pretending to offer real-time place verification. The release date is never an individual-feature inspection date: some contributing observations are older. Closed places identified by source status are omitted; unidentified closures can remain. Missing categories, unsupported geometry or absent observations remain unknown. Failed or partial retrieval never returns a score.
 
-Synthetic fixture data is independently generated and dedicated under [CC0](https://creativecommons.org/publicdomain/zero/1.0/). No real store or private reference case was anonymized to make these fixtures.
+The 45-day policy applies only to Overture release cadence. Legacy OSM normalization retains its seven-day database-age rule. Historical snapshot replay intentionally does not claim current freshness.
+
+## Capacity and limits
+
+Bounded transport, limited retry, cache and cooldown are implemented and tested. There is no service-level agreement for public providers. Growing or business-critical usage requires ongoing terms/capacity review; no infrastructure can guarantee every address or every request. The stable gate requires repeated successful live execution and explicit failure behavior, not fabricated complete coverage.
+
+No confidential reference material, privately derived rubric, proprietary outcome or customer data is part of these sources or transformations.

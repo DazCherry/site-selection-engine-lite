@@ -3,4 +3,4 @@
   Referrer-Policy: no-referrer
   X-Frame-Options: DENY
   Permissions-Policy: geolocation=(), camera=(), microphone=()
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://photon.komoot.io https://overpass.private.coffee; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://photon.komoot.io https://stac.overturemaps.org https://overturemaps-extras-us-west-2.s3.us-west-2.amazonaws.com; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'

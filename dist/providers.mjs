@@ -1,5 +1,6 @@
+import {retrieveOverture,RELEASE_MAX_AGE_MS} from './overture.mjs';
 import {coordinate,DataError,normalizeOverpass,validTime,MAX_AGE_MS} from './model.mjs';
-export const ENDPOINTS=Object.freeze({geocode:'https://photon.komoot.io/api/',context:'https://overpass.private.coffee/api/interpreter'});
+export const ENDPOINTS=Object.freeze({geocode:'https://photon.komoot.io/api/',context:'https://stac.overturemaps.org/catalog.json'});
 export class ProviderError extends Error{constructor(message,retryAfterMs=0){super(message);this.name='ProviderError';this.retryAfterMs=retryAfterMs;}}
 export function validateAddress(value){if(typeof value!=='string')throw new DataError('Enter a street number, street, city, and country.');const text=value.normalize('NFKC').trim().replace(/\s+/g,' ');if(text.length<8||text.length>200||!/[0-9]/.test(text)||!/[\p{L}]/u.test(text)||!text.includes(',')||/[<>\x00-\x1f\x7f]/.test(text)||/https?:\/\//i.test(text))throw new DataError('Enter a street number and street, followed by city and country, separated by commas.');return text;}
 function clean(value){return typeof value==='string'?value.trim().slice(0,200):'';}
@@ -31,11 +32,11 @@ export async function fetchJSON(url,{fetchImpl=fetch,timeoutMs=25000,maxBytes=15
   text+=decoder.decode();try{return JSON.parse(text);}catch{throw new ProviderError('Provider returned unreadable data. Assessment withheld.');}
  }catch(error){if(error instanceof ProviderError)throw error;throw new ProviderError(controller.signal.aborted?'The public provider timed out. Try again later.':'Network request failed. Check your connection or try a synthetic example.');}finally{clearTimeout(timer);}
 }
-export function createProviders({fetchImpl=fetch,clock=()=>Date.now(),cooldownMs=5000}={}){
+export function createProviders({fetchImpl=fetch,clock=()=>Date.now(),cooldownMs=5000,contextImpl=retrieveOverture}={}){
  const cache=new Map();let busy=false;const lastRequest=new Map(),blockedUntil=new Map();
  async function request(key,work){const now=clock();const cached=cache.get(key);if(cached&&now-cached.time<300000)return structuredClone(cached.value);if(busy)throw new ProviderError('A public request is already running.');const provider=key.split(':')[0];if(now<(blockedUntil.get(provider)||0))throw new ProviderError('The provider requested a pause. Please try again later.');if(now-(lastRequest.get(provider)??-Infinity)<cooldownMs)throw new ProviderError('Please wait a few seconds between public requests.');busy=true;lastRequest.set(provider,now);try{const value=await work();cache.set(key,{time:clock(),value:structuredClone(value)});if(cache.size>20)cache.delete(cache.keys().next().value);return value;}catch(error){if(error.retryAfterMs)blockedUntil.set(provider,clock()+error.retryAfterMs);throw error;}finally{busy=false;}}
  return {
   async geocode(address){const query=validateAddress(address);return request('address:'+query.toLowerCase(),async()=>{const u=new URL(ENDPOINTS.geocode);u.searchParams.set('q',query);u.searchParams.set('limit','5');return normalizePhoton(await fetchJSON(u.toString(),{fetchImpl}));});},
-  async context(origin){coordinate(origin);const context=await request('context:'+origin.lat+','+origin.lon,async()=>{const fetchedAt=new Date(clock()).toISOString();const raw=await fetchJSON(ENDPOINTS.context,{fetchImpl,method:'POST',body:new URLSearchParams({data:overpassQuery(origin)})});const normalized=normalizeOverpass(raw,origin,{now:clock()});return {...normalized,fetchedAt,provider:ENDPOINTS.context,license:'https://opendatacommons.org/licenses/odbl/1-0/'};});const age=clock()-validTime(context.sourceTime);if(age>MAX_AGE_MS||age < -300000)throw new DataError('Cached map source is stale or has an invalid future timestamp.');return context;}
+  async context(origin,options={}){coordinate(origin);const context=await request('context:'+origin.lat+','+origin.lon,()=>contextImpl(origin,{fetchImpl,now:clock(),...options}));const age=clock()-validTime(context.sourceTime);const maxAge=context.release?RELEASE_MAX_AGE_MS:MAX_AGE_MS;if(age>maxAge||age < -300000)throw new DataError('Cached map source is stale or has an invalid future timestamp.');return context;}
  };
 }

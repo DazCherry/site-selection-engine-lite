@@ -1,20 +1,23 @@
 # Architecture
 
-A static browser application uses plain ECMAScript modules. Node's built-in test runner exercises exactly the same calculation modules as the browser. No bundler, third-party runtime package, database, account system, LLM, or hidden server-side model is present.
+A static browser application uses ECMAScript modules and a small pinned PMTiles/vector-tile decoder bundle. Node's built-in tests exercise the same calculation and adapter modules. There is no account, database, LLM, secret, paid API, or private scoring backend.
 
 ```text
-User consent and address form
-  -> Photon adapter -> address-level candidates -> user confirmation
-  -> Overpass adapter -> bounded response -> validation and normalization
-  -> pure mapped-context model -> visible result and optional local snapshot
-Synthetic fixtures -> same normalization and model -> clearly marked result
-Snapshot -> Node replay -> same deterministic public calculation
+Consent -> Photon address candidates -> explicit location confirmation
+ -> latest Overture release catalog -> fixed Places/Base archive URLs
+ -> exact byte ranges, ETag and response bounds -> complete covering tile set
+ -> strict point/category normalization -> pure three-dimension rubric
+ -> visible score or explicit unknown -> optional licensed local snapshot
 ```
 
-`dist/model.mjs` owns validated coordinates, Haversine distance, source date checks, category mapping, deduplication, and pure scoring. `dist/providers.mjs` owns transport, public endpoints, input limits, response limits, timeout, cooldown and short memory caching. `dist/app.mjs` renders plain text DOM nodes and coordinates user state. `dist/samples.mjs` is entirely synthetic. `scripts/serve.mjs` is a development-only static server; deploy only `dist/`.
+`dist/model.mjs` owns coordinates, distance and pure scoring. Its original OSM normalizer remains for synthetic fixtures and historical compatibility. `dist/overture.mjs` owns current release discovery, bounded tile transport, taxonomy normalization and provider validation. `dist/providers.mjs` owns geocoding, single-flight orchestration, provider cooldown and cache. `dist/app.mjs` renders text safely. `dist/samples.mjs` contains fictional records only. `dist/data-licenses.mjs` carries public data notices with exports; `dist/credits.html` displays data and software licenses.
 
-Requests are serialized within the provider instance. The cache holds at most 20 normalized results for five minutes in page memory. No cross-tab/global quota service exists; provider capacity must be reviewed before a scaled deployment. Endpoints are fixed in source and CSP. Provider replacement requires editing the adapter and CSP, checking terms, and rerunning the adapter/browser gates.
+Read all maximum-detail tiles covering the spherical 600-meter bounding box, then filter points by great-circle distance. Place tiles use zoom 14; infrastructure tiles use zoom 13, matching the upstream full-tag profiles. Incomplete requests reject the entire context. An absent tile in a valid archive is empty, not a network success substitute. Point-only normalization avoids fabricating destination coordinates from clipped line/polygon geometries. Named stations in Places and point stops in Base can contribute to the same existing transit dimension.
 
-Scoring does not depend on current time after normalization. A snapshot freezes public normalized inputs and the rubric version for replay; live provider refreshes can legitimately change results. No raw POI names or tags are exported. The origin and selected public address remain in a downloaded snapshot by user action.
+A single assessment owns bounded wire/decompression/feature budgets, immutable archive ETag checks, a 45-second deadline and at most two transient retries. A 429 pauses further context requests. No provider rotation or hidden fallback dataset exists. Normalized results alone remain in page memory (20 entries, five minutes); cache hits revalidate the 45-day release-age limit. Public releases are monthly; this is not an assertion of feature recency. The catalog is rediscovered for uncached assessments, so expiring old release files are not pinned into the app.
 
-The public modules may later be reused in a separate private system. This repository defines no private engine contracts, calculations, customer schemas or synchronization path.
+The same normalized records reproduce the score independently of retrieval time. The rubric formula version remains unchanged; the category adapter is separately versioned `overture-lite-1`. Scores across provider versions are not market benchmarks. A source update can legitimately change observations.
+
+Run committed assets without installation. Rebuild the decoder with pinned pnpm dependencies and `scripts/build-vendor.mjs`; CI verifies byte-for-byte output. Only `dist/` is hosted. Local `scripts/serve.mjs` is a loopback development server. No raw place dataset is checked in.
+
+Generic public components can later be reused in a separate private system. Private features, coefficients, contracts, customer schemas and synchronization remain excluded.

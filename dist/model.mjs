@@ -32,7 +32,7 @@ export function assessRecords(records,origin){
  coordinate(origin);if(!Array.isArray(records)||records.length>10000)throw new DataError('Invalid normalized records.');
  const seen=new Map(),retail=new Set(),services=new Set();let nearest=null;
  for(const r of records){
-  if(!r||typeof r.id!=='string'||! /^(node|way|relation)\/[1-9]\d*$/.test(r.id)||!(r.retail===null||Object.hasOwn(retailGroups,r.retail))||!(r.service===null||Object.hasOwn(serviceGroups,r.service))||typeof r.transit!=='boolean')throw new DataError('Invalid normalized record.');
+  if(!r||typeof r.id!=='string'||! /^(?:(?:node|way|relation)\/[1-9]\d*|overture\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/.test(r.id)||!(r.retail===null||Object.hasOwn(retailGroups,r.retail))||!(r.service===null||Object.hasOwn(serviceGroups,r.service))||typeof r.transit!=='boolean')throw new DataError('Invalid normalized record.');
   coordinate(r);const signature=JSON.stringify([r.lat,r.lon,r.retail,r.service,r.transit]);if(seen.has(r.id)){if(seen.get(r.id)!==signature)throw new DataError('Conflicting normalized records.');continue;}seen.set(r.id,signature);
   const distance=distanceMeters(origin,r);if(distance>RADIUS_M)continue;
   if(r.retail)retail.add(r.retail);if(r.service)services.add(r.service);if(r.transit)nearest=nearest===null?distance:Math.min(nearest,distance);
