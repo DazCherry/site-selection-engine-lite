@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Explore a location through a transparent, limited Universal Site Score. Public map context, explicit unknowns, no revenue predictions.">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://photon.komoot.io https://overpass.private.coffee; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Site Selection Engine Lite</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css">
+<script type="module" src="app.mjs"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to assessment</a>
+<header><a class="wordmark" href="./"><span class="mark" aria-hidden="true">◈</span> SITE SELECTION <span class="lite">LITE</span></a><a href="https://github.com/DazCherry/site-selection-engine-lite" target="_blank" rel="noopener noreferrer">View source ↗</a></header>
+<main id="main">
+<section class="intro"><p class="eyebrow">A FIRST LOOK AT A LOCATION</p><h1>Understand the place.<br><span>Start with the context.</span></h1><p>A transparent snapshot of the mapped environment around an address. Built for exploration, before deeper diligence.</p></section>
+<div class="workspace">
+<aside class="intake panel"><div class="section-label"><span>01 / LOCATION</span><span class="dot"></span></div><h2>Where are you exploring?</h2>
+<form id="search-form"><label for="address">Public address</label><input id="address" name="address" type="text" minlength="8" maxlength="200" placeholder="Street number, street, city, country" autocomplete="off" required><p class="hint">Use a public location. Please don’t enter confidential candidate addresses.</p><label class="consent"><input id="consent" type="checkbox" required><span>Send this address to Photon and the chosen coordinates to Private.coffee for public map context. Providers also receive my IP address.</span></label><button id="search-button" type="submit">Find location <span aria-hidden="true">→</span></button></form>
+<div id="status" role="status" aria-live="polite"></div><div id="candidates"></div>
+<div class="divider"></div><p class="eyebrow">OR EXPLORE AN EXAMPLE</p><div class="sample-buttons"><button type="button" class="secondary" id="sample-mixed">Mixed-use neighborhood ↗</button><button type="button" class="secondary" id="sample-sparse">Sparse mapped context ↗</button></div><p class="hint">Fictional locations and synthetic map records. No live requests.</p>
+</aside>
+<section class="assessment" aria-labelledby="assessment-title">
+<div class="result-top"><div><p class="eyebrow">02 / ASSESSMENT</p><h2 id="assessment-title">Your location, in context</h2></div><span id="mode" class="badge">Ready to explore</span></div>
+<div class="score-panel panel"><div><p class="eyebrow">UNIVERSAL SITE SCORE</p><div class="score"><strong id="score">—</strong><span>/ 10</span></div><p id="rating" class="rating">Choose a location to begin</p></div><div class="score-note"><span class="mini-mark" aria-hidden="true">◎</span><p id="score-summary">Three simple dimensions. Equal weights. No hidden predictions.</p></div></div>
+<p id="location-detail" class="location-detail"></p>
+<div id="dimensions" class="dimensions"><article class="panel dimension"><span class="number">01</span><h3>Retail variety</h3><p>Distinct categories of mapped shops nearby.</p></article><article class="panel dimension"><span class="number">02</span><h3>Everyday amenities</h3><p>Useful day-to-day services in the surrounding area.</p></article><article class="panel dimension"><span class="number">03</span><h3>Transit proximity</h3><p>Straight-line distance to a mapped transit stop.</p></article></div>
+<div class="panel context-note"><h3>What this leaves open</h3><p>Demand, demographics, competition, visibility, walkability, opening hours, and operating performance are not measured. Map coverage varies; an unmapped feature is not proof of absence.</p></div>
+<div id="provenance" class="provenance"></div><button id="download" type="button" class="secondary" hidden>Download assessment snapshot ↓</button>
+</section></div>
+<details class="method"><summary>How the score works</summary><div><p>Within a 600 m straight-line radius, Lite describes retail variety, everyday amenities, and proximity to a mapped bus, tram, or rail stop. Each dimension is scored on a simple published rubric and contributes equally. The score is withheld unless all three dimensions have usable observations.</p><p>The rubric is illustrative and uncalibrated. It favors mixed-use, transit-served places and may not suit car-oriented, rural, or destination locations. It measures mapped context, not commercial success.</p><a href="https://github.com/DazCherry/site-selection-engine-lite/blob/main/docs/MODEL_CARD.md" target="_blank" rel="noopener noreferrer">Read the model card ↗</a></div></details>
+<footer><p>Universal and informational. Not a guaranteed revenue forecast, a substitute for lease diligence, or a brand-specific investment recommendation.</p><p>Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors · ODbL</a>. Geocoding by Photon. Context via Private.coffee. No analytics or account required.</p><span>PUBLIC LITE · v0.1.0</span></footer>
+</main></body></html>

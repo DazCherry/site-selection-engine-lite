@@ -1,0 +1,2 @@
+import {readFileSync} from 'node:fs';import {assessRecords,MODEL_VERSION} from '../dist/model.mjs';
+try{const s=JSON.parse(readFileSync(process.argv[2],'utf8'));if(s.modelVersion!==MODEL_VERSION||s.schemaVersion!==1)throw new Error('Unsupported snapshot version');const result=assessRecords(s.records,s.origin);console.log(JSON.stringify(result,null,2));if(s.assessment&&JSON.stringify(result)!==JSON.stringify(s.assessment))throw new Error('Stored assessment differs from reproduced assessment');}catch(error){console.error(error.message);process.exitCode=1;}

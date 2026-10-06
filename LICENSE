@@ -1,0 +1,10 @@
+Copyright 2026 Site Selection Engine Lite contributors. All rights reserved.
+
+The repository is publicly viewable for inspection and demonstration. No general software reuse license is granted by this notice.
+
+Synthetic fixture data defined in dist/samples.mjs is dedicated under CC0 1.0:
+https://creativecommons.org/publicdomain/zero/1.0/
+
+OpenStreetMap-derived data is separately licensed under ODbL 1.0 and is not covered by a code license:
+https://opendatacommons.org/licenses/odbl/1-0/
+Attribution: https://www.openstreetmap.org/copyright
