@@ -1,0 +1,11 @@
+[build]
+  command = "node --test tests/*.test.mjs && node scripts/publication-check.mjs && node scripts/build-site.mjs"
+  publish = "build"
+[build.environment]
+  NODE_VERSION = "22"
+  PNPM_VERSION = "11.19.0"
+  PNPM_FLAGS = "--frozen-lockfile --ignore-scripts"
+[context.deploy-preview.environment]
+  SITEBUDDY_PUBLIC_RELEASE = "0"
+[context.branch-deploy.environment]
+  SITEBUDDY_PUBLIC_RELEASE = "0"

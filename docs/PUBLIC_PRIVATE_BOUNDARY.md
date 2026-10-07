@@ -46,3 +46,30 @@ Future private functionality belongs in a separate private system. Approved gene
 ## Reliability adaptation classification (2026-10-06)
 
 PUBLIC APPROVED: bounded browser range retrieval of openly licensed Overture Places and Base infrastructure releases; strict schema/geometry validation; generic category translation into the existing retail/service/transit dimensions; declared release-date freshness; bounded retry/backoff and cancellation; provider provenance and license notices. These replace the unreliable context delivery path and introduce no additional scoring dimensions. Raw place names, contacts, source confidence metrics and richer source attributes are discarded. Do not use source confidence as a scoring dimension, private decision heuristic or enrichment product. No private methods are involved.
+
+## SiteBuddy distribution phase — Free / Paid / Private
+
+Public name: SiteBuddy. The canonical repository and v0.1.0 history remain unchanged. The v0.1.0 three-dimension model is frozen; a verified correctness, security, reproducibility or provider-compatibility defect requires a separately documented, reviewed and tested exception.
+
+| Layer | Purpose | Current decision |
+| --- | --- | --- |
+| Free | Existing universal mapped-context score and public acquisition experiment | Implement only approved distribution capabilities below |
+| Paid | Possible future professional intelligence or reports | Demand labels only; no capability, pricing commitment, billing or paywall |
+| Private Engine | Separate customer-specific enterprise decision system | No implementation, private data or methodology in this repository |
+
+Movement between layers requires an explicit future product decision. A paid feature is not automatically public; private methodology does not automatically become available to either other layer.
+
+### Distribution capability classification, before implementation
+
+| Capability | Classification and boundary |
+| --- | --- |
+| SiteBuddy identity, positioning and metadata | PUBLIC APPROVED; truthful Free capability descriptions only |
+| Result sharing | PUBLIC APPROVED; explicit user action, no address or coordinates in default shared content, no persisted result directory, identify synthetic/unverified data |
+| Funnel analytics | PUBLIC APPROVED; explicit disclosure and choice, strict event/property allowlist, no address, coordinates, email, arbitrary URLs, query strings or cross-site identifiers |
+| Demand and feedback | PUBLIC APPROVED; fixed broad categories, optional participation after result; free text excluded initially to reduce accidental disclosure |
+| Early access | PUBLIC APPROVED; voluntarily supplied email and broad role/interests, separate contact consent, private destination, no searched address; never present future analysis as available |
+| Netlify integration | PUBLIC APPROVED; existing owner account, preview before promotion, no domain purchase, no new paid commitment without owner approval |
+| SEO/social card/launch kit | PUBLIC APPROVED; static brand preview and synthetic examples; drafts only, no external community posting |
+| Launch experiment analysis | PUBLIC APPROVED; aggregate product-learning metrics, not score calibration or private methodology |
+
+No confidence scoring, new model dimensions, private coefficients, customer-derived fixtures, financial predictions or customer operating data may be introduced. Deployment and integration approval gates remain mandatory; local drafts are not production approval.

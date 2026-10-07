@@ -86,3 +86,55 @@ All 45 tests and publication/history scans pass in a clean local clone. Frozen d
 The exact public runtime commit e302c1bc33cea2135bf20e89a7f585e585fdd8f5 passed GitHub quality run 37497771105 on Node 22, including 45 tests, dependency reconstruction and publication/history scans. Anonymous checkout runtime matches deployment source byte for byte. The already running clean-clone browser completed Burlington at 9.6. Final deployment succeeded and synthetic provenance wording is correct.
 
 A later redundant local test request was not executed because automatic approval review reached an account usage limit; no passing result is claimed for that attempt. The earlier completed local clean-clone suite and independent GitHub clean runner are the actual evidence. No approval control was bypassed. Runtime, scoring and provider code remain unchanged by this final documentation checkpoint. The v0.1.0 release completes the deliberately limited public scope; monthly coverage uncertainty, provider availability and lack of commercial calibration remain explicit limitations.
+
+## 2026-10-07 UTC — SiteBuddy distribution phase opened
+
+Received the new master goal and its missing continuation, including 43 distribution acceptance conditions. Preserved v0.1.0 and based the development branch on canonical public GitHub history. Added pre-implementation Free/Paid/Private distribution classifications, acceptance matrix and project state. An exact v0.1.0 model-integrity test passes. Netlify account sign-in is now available; included plan capacity was inspected without purchasing or changing billing. No new functionality is live and no distribution gate is marked passed. Next: provider/privacy architecture, staged implementation and destination-verified acceptance.
+
+
+## 2026-10-07 UTC — First distribution slice staging validation
+
+Implemented SiteBuddy identity and strictly allowlisted address-free shared summaries. The link uses a fragment, contains only rubric version, source kind, date and scores, and explicitly states it is sender-provided and editable. No result directory, address history or added scoring dimension exists. Clipboard denial, absence and timeout have a manual fallback; native sharing was deliberately omitted after unreliable browser behavior. No operating-system clipboard-content verification or native-share support is claimed.
+
+All 51 tests passed locally and in a fresh clone (the original 45 plus frozen-model integrity and five sharing tests). GitHub Actions runs 37582794064 and 37583476328 passed. Netlify staging deploy 6ac5eaa9b8f668750623077c initially failed because pnpm refused an esbuild installation script. Added frozen-lockfile/ignore-scripts flags, matching the already validated CI installation; deploy 6ac5eb0133c1c500089b1826 succeeded at b6bdf6b. Netlify's label “production” here refers to the default branch of the dedicated staging project, not promotion of the final product.
+
+Actual https://sitebuddy-staging.netlify.app checks: HTTP 200; noindex/nofollow response header; CSP, no-referrer, frame and content-type protections; live Burlington civic address confirmation, retrieval and 9.6 result; copied-summary UI and visible link; recipient showing 9.6 with no location and empty new-address field; another-address reset; sparse sample withholding total; desktop visual inspection; 390×844 recipient screenshot with document width 390. No physical mobile-device coverage is claimed.
+
+Adversarial review found a pending copy could re-show an old share panel after choosing another result. Added snapshot-identity guard after the asynchronous copy and reran all 51 tests successfully. This final fix still needs hosted revalidation before the slice checkpoint. Analytics, forms, full SEO, launch assets and final production acceptance remain unimplemented/unvalidated. Not Distribution Ready.
+
+Reference for deployment flags: https://docs.netlify.com/build/configure-builds/manage-dependencies/ (accessed 2026-10-07 UTC).
+
+## 2026-10-07 UTC - Optional measurement, staging pending
+
+Added an independent optional browser module, strict schema, same-origin collector and private daily aggregates with pinned @netlify/blobs 11.1.3. No address, coordinates, email, raw URL, fingerprint or cross-page ID enters the schema. Fixed-channel attribution discards arbitrary input. Conditional writes, deduplication, daily limits and scheduled retention bound storage. Preview stores and the separate staging project isolate QA.
+
+Eight new tests cover payload rejection, attribution redaction, concurrency/duplicates, bounded contention/capacity, HTTP validation/service failure, retention and consent. All 59 tests and publication checks passed; production dependency audit found no known vulnerabilities. A local browser without a collector showed measurement unavailable while still rendering synthetic 7.5. Hosted receipt and feature PASS remain pending.
+
+
+## 2026-10-07 UTC - Core measurement staging gate passed
+
+Candidate ea4d011e7cb1d845946081920beb3229278f727f, Netlify deploy 6ac5edb1a6c59b000873f3cc. Clean frozen install and all 59 tests pass. Actual authenticated Blobs view showed 3 initial events exactly once, then the full expected 18 events: one opted-in view; synthetic starts/success/withheld; share click/copied; repeat; real-address start/submitted/confirmed/success; rejected input start/failure; and four distinct synthetic QA probe events. Turning consent off, using a sample, then enabling again added neither the off-period actions nor another view. Concurrent duplicate probe requests produced only four unique QA counts, not six. Stored data contained only fixed counts and random event IDs, no address or coordinates.
+
+Actual staging endpoint rejected extra fields with 400, a foreign origin with 403, and read attempts with 405. Burlington again returned 9.6; invalid markup cleared the prior score. An isolated local copy with the analytics module missing still scored 7.5 and shared successfully, with measurement disabled. A separate missing-collector test showed graceful unavailability. This is tested missing-module behavior, not claimed coverage of every browser blocker extension.
+
+The Blobs Download action opens a short-lived JSON view in tested Chrome; use the authenticated UI, and never copy those private temporary URLs into public evidence. Scheduled retention logic passed boundary unit tests; no claim of observing a 30-day real-time retention cycle. Core funnel staging gate passes. Demand-specific events await their feature; final production acceptance remains open.
+
+## 2026-10-07 UTC - Feedback and demand implementation
+
+Added optional post-result fixed-choice feedback and future-interest forms, explicit contact consent, private idempotent submission storage and scheduled retention. No future capability is implemented. Six new tests cover schema/privacy, email consent, duplicate/conflicting submissions, endpoint failures, timeout retry identity and expiry. All 65 tests passed. Local missing-backend browser test retained selections and showed a truthful retry state. Desktop inspection found and fixed a narrow email field; the 390-pixel layout was then visually checked with no overflow. Hosted destination acceptance remains pending.
+
+
+## 2026-10-07 UTC - Feedback and interest staging gate passed
+
+Candidate 593e64360722c86ca17cfca52d9c43efba6b260e, Netlify deploy 6ac5f10602bd870008cf137b. All 65 tests passed locally and from a clean checkout. The deployed UI accepted synthetic fixed-choice feedback; refused a supplied example-domain email without contact consent; then accepted the same interest form with explicit consent. Authenticated private storage showed the exact feedback choices and a separate synthetic contact record with two categories, broad role and consent, without a searched address. No automatic email was sent.
+
+The private analytics object increased from the prior 18 to exactly 24 events: page view, deeper CTA, feedback, interest and two preference categories. It contained no email or form-record ID. Actual endpoint replay returned duplicate without creating a second record; conflicting content returned 409; extra fields 400; oversized body 413; public read 405. Unit tests cover timeout retry and retention; local missing-service UI retained choices. Mobile-width form layout was visually checked at 390 pixels; final production mobile journey remains pending.
+
+The feature staging gate passes. The public v0.1.0 model remains frozen. Final metadata, privacy page, launch package, production pipeline and full final acceptance remain open. Not Distribution Ready.
+
+
+## 2026-10-07 UTC - Discoverability and launch candidate
+
+Added static brand social card, canonical/OG/Twitter metadata, free WebApplication structured data, production sitemap, staging noindex, public privacy explanation and draft launch assets/research. No external launch posts were sent. The social card contains no real location or results. Preview crawling remains allowed so crawlers can observe noindex.
+
+Adversarial review identified a native HTML form fallback risk if core JavaScript failed. Intake now starts disabled and only enables after the core module initializes; native form method is POST and CSP disallows native submission. In a local browser with app.mjs deliberately missing, the address/consent/search/example controls stayed disabled and a clear reload message appeared. Optional measurement remained independent. All 69 tests passed before the final origin-port restriction; rerun follows. Hosted metadata and final acceptance remain pending.

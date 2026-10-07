@@ -1,12 +1,22 @@
-# Site Selection Engine Lite
+# SiteBuddy Free
 
-**v0.1.0.** Repeated live checks pass across seven U.S. public civic addresses, with independent score reproduction, clean-checkout validation and deployed browser acceptance. See the [acceptance record](docs/RELEASE_VALIDATION.md) for exact evidence and limits.
+**A first look at your next location.** Explore a public U.S. address through nearby retail variety, everyday amenities and transit. A transparent score out of 10, with explicit unknowns and no account required.
 
-A deliberately limited, brand-agnostic **Universal Site Score** describing the mapped context around a public address. Enter an address, confirm a geocoded match, and inspect retail variety, everyday amenities, and transit proximity within 600 meters. Missing observations stay unknown; the overall score is withheld unless all three dimensions are available.
+**Distribution candidate - not yet Distribution Ready.** [Staging preview](https://sitebuddy-staging.netlify.app) | [Frozen v0.1.0 release](https://github.com/DazCherry/site-selection-engine-lite/releases/tag/v0.1.0) | [Project state](docs/PROJECT_STATE.md)
 
-This independently designed public rubric is illustrative and uncalibrated. It is not a revenue forecast, lease recommendation, brand-fit model, or substitute for diligence. It favors mapped, mixed-use, transit-served settings. More complete mapping can raise scores without any change in the real place.
+![SiteBuddy Free: three simple dimensions of public map context](dist/social-card.png)
 
-[Public demo](https://site-selection-engine-lite.cherrry577.chatgpt.site) · [Stable release](https://github.com/DazCherry/site-selection-engine-lite/releases/tag/v0.1.0) · [Delivery report](FINAL_DELIVERY_REPORT.md)
+Enter an address, confirm the match, and explore mapped context within 600 meters. Share an address-free summary or try another location. Optional feedback and Early Access interest help identify the next useful question; the listed professional capabilities are not available.
+
+| Available Free | Deliberately not measured |
+| --- | --- |
+| Retail variety, everyday amenities, transit proximity | Demand, demographics, competition or real footfall |
+| Equal-weight three-dimension score; unknowns stay unknown | Revenue, financial feasibility, brand fit or lease suitability |
+| Source provenance, local replay, address-free summaries | Paid reports, subscriptions or a Private Engine |
+
+The original v0.1.0 rubric remains byte-for-byte frozen. It is illustrative and uncalibrated, favors mapped mixed-use transit-served settings, and is not a prediction of commercial success. More complete mapping can change a score without a real-world change. A required missing dimension withholds the total.
+
+[Privacy and data choices](dist/privacy.html) | [How measurement works](docs/ANALYTICS.md) | [Owner launch kit](docs/launch/LAUNCH_KIT.md) | [Distribution strategy](docs/research/DISTRIBUTION_STRATEGY.md)
 
 ## Run locally
 
@@ -40,13 +50,15 @@ node scripts/replay.mjs /path/to/site-assessment.json
 
 The snapshot contains normalized map observations, coordinates, source/retrieval timestamps, source license, model version, and result. Replay is historical: it does not claim the inputs are still current. It fails for unsupported versions, invalid records, or a stored result that differs from the recomputation. Do not commit downloaded snapshots or confidential inputs.
 
-## Deploy
+## Deploy with Netlify
 
-The committed runtime is a static application. Serve the **contents of `dist/`**, preserving `.mjs` as JavaScript and the existing content-security policy. Never serve the repository root. Any static HTTPS host can deploy it; Cloudflare-compatible hosts can consume `dist/_headers`. Other hosts should configure equivalent headers. No server code, database, secrets, or paid service is required. The deployment test procedure is in [TEST_STRATEGY](docs/TEST_STRATEGY.md).
+The distribution product uses GitHub-connected Netlify hosting. The build runs tests and publication checks, copies static files to `build/`, generates canonical/social metadata, and bundles the optional server functions. Pinned dependencies install with frozen lockfile and lifecycle scripts disabled. The final approved production branch is configured after staging acceptance. See [project state](docs/PROJECT_STATE.md) for actual environments and [readiness report](DISTRIBUTION_READINESS_REPORT.md) for production status.
 
-To reproduce the decoder bundle, use `corepack pnpm install --frozen-lockfile --ignore-scripts`, then `node scripts/build-vendor.mjs`; `git diff --exit-code -- dist/vendor/tiles.mjs` must be clean. CI repeats this build on Node 22.
+A production context additionally requires `SITEBUDDY_PUBLIC_RELEASE=1` and the actual Netlify `URL` (or validated `SITEBUDDY_PUBLIC_ORIGIN`). All other builds send noindex headers. Do not set the public-release flag merely because a build succeeds. Only `build/` and the explicit server functions deploy; never serve the repository root.
 
-For a smoke test of the exact hosted assets, run `node scripts/serve.mjs` and use both synthetic examples plus a public civic address. For a growing or business-critical service, obtain dedicated provider capacity and review current terms before promotion. The demo is not a production location-intelligence service.
+The local static server intentionally has no collector or submission backend. Optional features report unavailable while scoring/examples remain usable. Netlify staging is required for private-destination acceptance. No browser credentials are needed. The official Blobs SDK gets server-side context from Netlify; no token should be copied into client code.
+
+Reproduce the decoder with `corepack pnpm install --frozen-lockfile --ignore-scripts`, then `node scripts/build-vendor.mjs`; `git diff --exit-code -- dist/vendor/tiles.mjs` must be clean. CI repeats this on Node 22. Netlify builds and tests the same source. No Paid feature, billing or private engine is deployed.
 
 ## Engineering record
 

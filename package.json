@@ -19,5 +19,8 @@
     "pbf": "5.1.2",
     "pmtiles": "4.5.0"
   },
-  "packageManager": "pnpm@11.19.0"
+  "packageManager": "pnpm@11.19.0",
+  "dependencies": {
+    "@netlify/blobs": "11.1.3"
+  }
 }

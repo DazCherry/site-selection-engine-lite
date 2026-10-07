@@ -1,6 +1,6 @@
 # Architecture
 
-A static browser application uses ECMAScript modules and a small pinned PMTiles/vector-tile decoder bundle. Node's built-in tests exercise the same calculation and adapter modules. There is no account, database, LLM, secret, paid API, or private scoring backend.
+A static browser application uses ECMAScript modules and a small pinned PMTiles/vector-tile decoder bundle. Node's built-in tests exercise the same calculation and adapter modules. The Free scoring flow needs no account, LLM, browser secret, paid API or private scoring backend. Optional distribution features use Netlify Functions and private Blobs stores, separate from scoring.
 
 ```text
 Consent -> Photon address candidates -> explicit location confirmation
@@ -18,6 +18,9 @@ A single assessment owns bounded wire/decompression/feature budgets, immutable a
 
 The same normalized records reproduce the score independently of retrieval time. The rubric formula version remains unchanged; the category adapter is separately versioned `overture-lite-1`. Scores across provider versions are not market benchmarks. A source update can legitimately change observations.
 
-Run committed assets without installation. Rebuild the decoder with pinned pnpm dependencies and `scripts/build-vendor.mjs`; CI verifies byte-for-byte output. Only `dist/` is hosted. Local `scripts/serve.mjs` is a loopback development server. No raw place dataset is checked in.
+Run committed assets without installation. Rebuild the decoder with pinned pnpm dependencies and `scripts/build-vendor.mjs`; CI verifies byte-for-byte output. Netlify copies `dist/` into generated `build/`, adds environment-specific metadata and indexability, and separately bundles `netlify/functions`. Only generated public assets are served, never the repository root. Local `scripts/serve.mjs` is a loopback development server. No raw place dataset is checked in.
 
 Generic public components can later be reused in a separate private system. Private features, coefficients, contracts, customer schemas and synchronization remain excluded.
+
+
+Distribution modules: bootstrap keeps intake disabled until core initialization completes; share contains strictly allowlisted fragment summaries; analytics is an independent opt-in module; interest handles optional fixed-choice forms. Server schemas validate all inputs. Private aggregate and submission stores have separate retention and no public read API. No browser secret or address history is introduced. See ADRs 0003-0005.
