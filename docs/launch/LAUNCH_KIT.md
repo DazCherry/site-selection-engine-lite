@@ -1,6 +1,6 @@
 # SiteBuddy owner launch kit
 
-DRAFTS ONLY. No external publication or outreach has occurred. Production candidate: https://sitebuddy-free.netlify.app/. Canonical source: https://github.com/DazCherry/site-selection-engine-lite. Release and final validation are in DISTRIBUTION_READINESS_REPORT.md.
+DRAFTS ONLY. No external publication or outreach has occurred. Production: https://sitebuddy-free.netlify.app/. Canonical source: https://github.com/DazCherry/site-selection-engine-lite. Release and final validation are in DISTRIBUTION_READINESS_REPORT.md.
 
 ## One line
 

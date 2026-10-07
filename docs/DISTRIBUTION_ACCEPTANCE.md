@@ -1,6 +1,6 @@
 # SiteBuddy distribution acceptance
 
-Status: initial identity/share slice passed its staging gate at 9689200; overall distribution and final production acceptance remain open. Preserve v0.1.0 as the released baseline.
+Status: DISTRIBUTION READY for a controlled external test. Final runtime checkpoint 1551dbc; final release v0.2.0. Full 43-condition evidence is in the root DISTRIBUTION_READINESS_REPORT.md.
 
 ## Requirements completeness
 
@@ -13,15 +13,15 @@ Implementation → local debug → unit/integration tests → independent check 
 | Capability | Required acceptance | Current state |
 | --- | --- | --- |
 | Frozen Free baseline | Exact scoring-module integrity; existing 45 tests; no new dimensions; live retrieval and explicit unknowns retained | PASS in 51-test suite and live staging Burlington |
-| Branding/positioning | Title/header/copy agree; U.S. location context clear; no prediction/footfall claims; mobile/keyboard usable | Staging identity/share gate passed; final acceptance pending |
-| Sharing | Real and synthetic states distinguishable; explicit action; correct content; no address/coordinates by default; recipient can open; native/copy fallback; failure recovery | Staging identity/share gate passed; final acceptance pending |
-| Analytics | Every funnel action maps once; schema blocks private payloads; destination receipt and counts observed; duplicate/retry/consent/offline/ad-block tests; no scoring dependency | All implemented funnel events received in staging; production pending |
-| Feedback/demand | Voluntary, after result; category and usefulness validation; real-decision question; actual private receipt; truthful error state | Staging PASS at 593e643 |
-| Early access | Optional email/role/interests; contact consent; validation and bounded payload; destination receipt; duplicate/error handling; no unavailable-service promises | Staging PASS at 593e643 |
-| SEO/social | Correct canonical production origin; static PNG preview; meaningful metadata; semantic headings; robots/sitemap; preview noindex; no private result URLs | Planned |
-| Netlify pipeline | Canonical GitHub → passing CI → preview → reviewed production branch; frozen lock; exact assets/headers; no client secrets; rollback proof | GitHub-connected dedicated staging active; final production promotion pending |
-| Launch kit | Synthetic screenshots; descriptions, FAQ, limits, social/GitHub/community/PH/HN/outreach/feedback drafts; no automatic external posting | Sourced strategy and drafts implemented; production screenshots/final URLs pending |
-| Final acceptance | Requirements reconciled; all gates with evidence; clean checkout; production live score, sharing, analytics, forms and mobile smoke; owner instructions | Not passed |
+| Branding/positioning | Title/header/copy agree; U.S. location context clear; no prediction/footfall claims; mobile/keyboard usable | PASS: staging and production, see final report |
+| Sharing | Real and synthetic states distinguishable; explicit action; correct content; no address/coordinates by default; recipient can open; native/copy fallback; failure recovery | PASS: staging and production, see final report |
+| Analytics | Every funnel action maps once; schema blocks private payloads; destination receipt and counts observed; duplicate/retry/consent/offline/ad-block tests; no scoring dependency | PASS: exact production 22-event receipt |
+| Feedback/demand | Voluntary, after result; category and usefulness validation; real-decision question; actual private receipt; truthful error state | PASS: staging and actual production private receipts |
+| Early access | Optional email/role/interests; contact consent; validation and bounded payload; destination receipt; duplicate/error handling; no unavailable-service promises | PASS: staging and actual production private receipts |
+| SEO/social | Correct canonical production origin; static PNG preview; meaningful metadata; semantic headings; robots/sitemap; preview noindex; no private result URLs | PASS: deployed canonical/social/sitemap/privacy checks |
+| Netlify pipeline | Canonical GitHub → passing CI → preview → reviewed production branch; frozen lock; exact assets/headers; no client secrets; rollback proof | PASS: canonical main → production; dedicated staging and PR previews |
+| Launch kit | Synthetic screenshots; descriptions, FAQ, limits, social/GitHub/community/PH/HN/outreach/feedback drafts; no automatic external posting | PASS: sourced strategy, drafts, actual URLs and synthetic screenshots |
+| Final acceptance | Requirements reconciled; all gates with evidence; clean checkout; production live score, sharing, analytics, forms and mobile smoke; owner instructions | PASS: final report and release v0.2.0 |
 
 ## Evidence record template
 

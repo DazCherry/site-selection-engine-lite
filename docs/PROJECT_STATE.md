@@ -1,6 +1,6 @@
 # SiteBuddy project state
 
-Version: v0.2.0 candidate. Frozen baseline: released v0.1.0, scoring lite-map-context-1.0.0. Final checkpoint validation is in progress; do not infer readiness from deployment alone.
+Version: v0.2.0. Status: DISTRIBUTION READY for a controlled external test. Frozen baseline: released v0.1.0, scoring lite-map-context-1.0.0. Final clean 69-test gate, CI, staging/Deploy Preview and actual production acceptance passed. Release tag v0.2.0 identifies the final documentation checkpoint.
 
 ## Source and deployment
 
@@ -20,4 +20,6 @@ Map coverage, geocoder availability, monthly releases and individual feature age
 
 ## Resume and owner operations
 
-Read AGENTS, PUBLIC_PRIVATE_BOUNDARY, DISTRIBUTION_ACCEPTANCE, DEVELOPMENT_LOG and DISTRIBUTION_READINESS_REPORT.md. Final checkpoint must have clean tests, publication/privacy review, staging and production smoke before release. Private receiving records are accessible in Netlify Data & storage → Blobs; never publish signed download URLs or real contacts. Launch kit contains drafts only; no community post or outreach is authorized.
+Read AGENTS, PUBLIC_PRIVATE_BOUNDARY, DISTRIBUTION_ACCEPTANCE, DEVELOPMENT_LOG and DISTRIBUTION_READINESS_REPORT.md. Every subsequent material change must repeat the applicable clean tests, publication/privacy review, staging and production gates. Private receiving records are accessible in Netlify Data & storage → Blobs; never publish signed download URLs or real contacts. Launch kit contains drafts only; no community post or outreach is authorized.
+
+Final runtime checkpoint: 1551dbcb256ab19b10d1be626f8ad771a8b02e02, production deploy 6ac65353c57314000835f649. Final version-label smoke shows v0.2.0, synthetic 7.5 and measurement off after refresh. Runtime modules are unchanged from the fully exercised production journey.

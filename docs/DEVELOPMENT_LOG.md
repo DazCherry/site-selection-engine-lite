@@ -161,3 +161,10 @@ Final version-label/documentation checkpoint and its final clean regression/rede
 
 
 Final asset publication scan caught browser screenshots returned as JPEG bytes despite a .png filename. Converted the two synthetic screenshots to actual PNG without content changes; reran the gate before any public push. No failed scan was classified as passing.
+
+
+## 2026-10-07 UTC - Final checkpoint acceptance
+
+Local clean checkpoint cb93eda passed all 69 tests and publication/history checks with no working-tree changes. Public equivalent ed475ec86751e6339200bdbc72f231ad27be28e7 passed push/PR CI. Production-project Deploy Preview 6ac652ec81d3e10008e631f0 served v0.2.0 and retained noindex; dedicated staging rendered 7.5. PR #2 showed six successful and four neutral checks, no conflicts, then merged with expected-head protection as 1551dbcb256ab19b10d1be626f8ad771a8b02e02.
+
+Actual production deploy 6ac65353c57314000835f649 published that commit. A fresh page rendered the final v0.2.0 label, synthetic 7.5, and optional measurement off. Only version labeling, documentation and screenshots changed since the full production journey; scoring/provider/share/measurement/forms modules remained identical. All material findings are resolved. Final documentation records Distribution Ready for a controlled test, with scope/coverage limits stated explicitly. Release v0.2.0 identifies the final documentation checkpoint. No external launch post, outreach, domain purchase, paid-service upgrade or Paid/Private implementation occurred.

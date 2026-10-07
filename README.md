@@ -2,7 +2,7 @@
 
 **A first look at your next location.** Explore a public U.S. address through nearby retail variety, everyday amenities and transit. A transparent score out of 10, with explicit unknowns and no account required.
 
-**v0.2.0 final acceptance in progress.** [Try SiteBuddy](https://sitebuddy-free.netlify.app/) | [Staging preview](https://sitebuddy-staging.netlify.app) | [Frozen v0.1.0 release](https://github.com/DazCherry/site-selection-engine-lite/releases/tag/v0.1.0) | [Project state](docs/PROJECT_STATE.md)
+**v0.2.0 — ready for a controlled distribution test.** [Try SiteBuddy](https://sitebuddy-free.netlify.app/) | [Staging preview](https://sitebuddy-staging.netlify.app) | [Frozen v0.1.0 release](https://github.com/DazCherry/site-selection-engine-lite/releases/tag/v0.1.0) | [Project state](docs/PROJECT_STATE.md)
 
 ![SiteBuddy Free: three simple dimensions of public map context](dist/social-card.png)
 
@@ -16,7 +16,7 @@ Enter an address, confirm the match, and explore mapped context within 600 meter
 
 The original v0.1.0 rubric remains byte-for-byte frozen. It is illustrative and uncalibrated, favors mapped mixed-use transit-served settings, and is not a prediction of commercial success. More complete mapping can change a score without a real-world change. A required missing dimension withholds the total.
 
-[Privacy and data choices](dist/privacy.html) | [How measurement works](docs/ANALYTICS.md) | [Owner launch kit](docs/launch/LAUNCH_KIT.md) | [Distribution strategy](docs/research/DISTRIBUTION_STRATEGY.md)
+[Privacy and data choices](https://sitebuddy-free.netlify.app/privacy) | [How measurement works](docs/ANALYTICS.md) | [Owner launch kit](docs/launch/LAUNCH_KIT.md) | [Distribution strategy](docs/research/DISTRIBUTION_STRATEGY.md)
 
 ## Run locally
 
@@ -65,3 +65,7 @@ Reproduce the decoder with `corepack pnpm install --frozen-lockfile --ignore-scr
 [Product](docs/PRODUCT_SPEC.md) · [Architecture](docs/ARCHITECTURE.md) · [Model card](docs/MODEL_CARD.md) · [Data dictionary](docs/DATA_DICTIONARY.md) · [Data policy](docs/DATA_POLICY.md) · [IP boundary](docs/PUBLIC_PRIVATE_BOUNDARY.md) · [Security](docs/SECURITY.md) · [Tests](docs/TEST_STRATEGY.md) · [Development log](docs/DEVELOPMENT_LOG.md) · [Benchmark research](docs/research/LOCATION_INTELLIGENCE_BENCHMARK.md)
 
 Code is published for inspection; no general software reuse license has been granted. Synthetic fixture data in `dist/samples.mjs` is dedicated to the public domain under CC0. Third-party software keeps its own licenses. Public data keeps its applicable CDLA-Permissive-2.0, Apache-2.0, CC0 and ODbL licenses; see [credits](dist/credits.html). Exported live snapshots carry license texts and attribution. Data is not relicensed as application code. This repository contains no downloaded OSM dataset, confidential reference document, or private engine implementation.
+
+## Launch assets
+
+[Desktop screenshot](docs/launch/sitebuddy-desktop.png) · [Mobile-width screenshot](docs/launch/sitebuddy-mobile.png) · [Launch kit](docs/launch/LAUNCH_KIT.md). Screenshots use fictional data; they were captured on the validated candidate before the final version-label update. The committed static social card is deployed directly; re-rendering its optional Python source requires Pillow and the listed macOS fonts.

@@ -1,6 +1,6 @@
 # Optional product-learning measurement
 
-Status: core funnel passed staging receipt validation at ea4d011; demand events also passed staging; final production acceptance is in progress.
+Status: staging and production destination acceptance passed. The production QA journey produced exactly 22 expected events; see DEVELOPMENT_LOG for the executed sequence.
 
 Consent defaults off on each page load. Opting in measures subsequent actions and one page_view. Turning it off aborts pending requests; enabling it again does not duplicate that page view. No history is replayed, cookies/local storage used, or visitor ID shared across pages. A blocked module never gates scoring. Requests have a three-second client deadline and no automatic retry. Counts can be incomplete due to consent, blocking, disconnection, rate limits or service failure. They are neither unique people nor total traffic.
 
