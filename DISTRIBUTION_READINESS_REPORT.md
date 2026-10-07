@@ -45,3 +45,35 @@ Final clean checkout, full latest CI/staging gate, GitHub-approved production de
 ## Deliberately deferred and commercial decisions
 
 No demographics, competitive intelligence, footfall, trade-area model, financial feasibility, restaurant/retail/beauty-specific report, billing or private enterprise feature was built. Those categories are unvalidated demand hypotheses. Owner chooses future investment using real engagement and voluntary responses; this phase makes no commercial commitment.
+
+## Production evidence update
+
+Actual production: https://sitebuddy-free.netlify.app. GitHub main 2948c429a0ff521280874c9d73cd705f231b4bbe, deploy 6ac5f811f46cce13e426e0ed. The complete runtime journey passed: public 149 Church Street Burlington → confirmation → live 9.6 → address-free recipient; repeat with 28 Church Street → live 9.7; malformed-input rejection; mobile 390-pixel feedback/consent/interest; sparse withholding. Private destination showed exactly 22 expected QA events and both exact synthetic submission records. Production canonical, indexability, sitemap, privacy/credits, static PNG and structured-data CSP hash passed HTTPS checks. Integration probes passed duplicate/conflict/schema/origin/read rejection checks.
+
+Social preview is validated as crawler-readable metadata plus a static image. No external platform post, scraper cache refresh or platform-rendered card is claimed. Scheduled retention logic passes boundary tests; scheduled functions are deployed, but a real 30/90-day elapsed cycle is not claimed. Provider failure logic is exercised in automated transport/pipeline tests and local missing-module/service browser fixtures; a third-party production outage was not deliberately induced. Actual production malformed-input and sparse-data failure paths were exercised.
+
+### Final adversarial review method
+
+A separate source/invariant review checked fields accepted at every persistence boundary, URL/referrer paths, rendering sinks, consent/defaults, stale asynchronous actions, duplicate event/submission identities, blocked optional modules, failure messages, frozen model hash, Free/Paid/Private copy and deployment reproducibility. No new material finding remained after the documented fixes. This is not a claim of external human review or penetration testing.
+
+### Definition of Done traceability
+
+| Conditions | Evidence / status |
+| --- | --- |
+| 1 identity | SiteBuddy title, header, copy and public URL; PASS |
+| 2–4 frozen model and tests | Exact original module; original 45 plus 24 new tests pass; final checkpoint rerun pending |
+| 5–7 Free/Paid/Private and IP | Classified capabilities; exact model; synthetic fixtures; source and publication review PASS |
+| 8–12 GitHub/Netlify/no purchase/reproducibility | Canonical main, reviewed PR, GitHub CI, staging/preview, pinned build, *.netlify.app; PASS |
+| 13–14 sharing/privacy | Actual copy/manual-visible link and fresh recipient, no address/coordinates; PASS |
+| 15–17 analytics/funnel/privacy | Actual private production 22-event receipt; strict schema and consent; PASS |
+| 18–21 feedback/Early Access/preferences/availability | Actual private production records, consent rejection, two categories, future-only language; PASS |
+| 22–23 SEO/social | Production canonical, sitemap, indexability, OG/Twitter/static image, JSON-LD; PASS within supported scope above |
+| 24–27 GitHub showcase/assets/research/sequence | README, static card, synthetic desktop/mobile screenshots, launch kit and sourced strategy; final checkpoint pending |
+| 28–30 privacy/security/publication | Actual data-policy match, source review, strict handlers/CSP, tests/scanner; final checkpoint rerun pending |
+| 31–32 clean environment/staging | Frozen install, vendor reproduction, 69 tests, staged runtime and PR Deploy Preview; PASS |
+| 33–36 production/journey/mobile/desktop | Actual production desktop live/share/repeat plus 390-pixel forms/sparse flow; PASS on candidate |
+| 37 failure behavior | Provider transport/pipeline, blocked optional integration, timeout/retry and deployed malformed/sparse paths; PASS at stated levels |
+| 38–39 no material regression/privacy defect | No known open material finding after review; final checkpoint still required |
+| 40–43 durable docs/report/release/owner-ready | Final version-label and documentation checkpoint, release identity and final smoke pending |
+
+No owner-only blocker exists. No external distribution has begun.

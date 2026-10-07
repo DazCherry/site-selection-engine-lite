@@ -138,3 +138,26 @@ The feature staging gate passes. The public v0.1.0 model remains frozen. Final m
 Added static brand social card, canonical/OG/Twitter metadata, free WebApplication structured data, production sitemap, staging noindex, public privacy explanation and draft launch assets/research. No external launch posts were sent. The social card contains no real location or results. Preview crawling remains allowed so crawlers can observe noindex.
 
 Adversarial review identified a native HTML form fallback risk if core JavaScript failed. Intake now starts disabled and only enables after the core module initializes; native form method is POST and CSP disallows native submission. In a local browser with app.mjs deliberately missing, the address/consent/search/example controls stayed disabled and a clear reload message appeared. Optional measurement remained independent. All 69 tests passed before the final origin-port restriction; rerun follows. Hosted metadata and final acceptance remain pending.
+
+
+## 2026-10-07 UTC - Discoverability staging gate and production candidate
+
+Candidate 4ceff52d9d7fb25cf181d0f837fddb88515dbaab (local equivalent bc35fbd), staging deploy 6ac5f6c2c2e2d10009803870. Clean frozen install, all 69 tests, vendor reproduction with no diff and publication/history checks passed. GitHub Actions run 37588491178 passed. Deployed canonical origin, OG static image (PNG, 54,664 bytes), structured-data CSP hash, noindex headers and privacy page were checked over HTTPS. Live Burlington again returned 9.6 from 256 records. Desktop and 390-pixel synthetic screenshots were captured; document width remained 390.
+
+PR #1 Deploy Preview 6ac5f7176b71e4000861e6bb rendered sparse unknowns and withheld total correctly. Netlify's optional preview drawer is blocked by the app's strict CSP; app behavior works and no security policy was weakened to enable the drawer. Source review of the exact schemas, consent, same-origin handlers, private storage, bounded bodies, no raw logging, CSP and retention found no new material issue. This is an independent invariant/source review by the implementing agent, not a claim of external human review.
+
+PR #1 showed all checks passed (four successful, two neutral) and no conflicts, then merged with expected-head protection as 2948c429a0ff521280874c9d73cd705f231b4bbe. Production deployment and complete production acceptance remain pending. No launch posts were published.
+
+
+## 2026-10-07 UTC - Actual production journey passed on candidate
+
+Production https://sitebuddy-free.netlify.app is connected to canonical GitHub main. Candidate 2948c429a0ff521280874c9d73cd705f231b4bbe deployed as 6ac5f811f46cce13e426e0ed with SITEBUDDY_PUBLIC_RELEASE=1, no custom domain or purchase. The actual production response is indexable, canonical/OG URLs point to this origin, JSON-LD matches its CSP hash, static card serves image/png, sitemap and privacy/credits routes return 200, and no-referrer/security headers remain present.
+
+First-time desktop journey with fixed QA channel: consent, 149 Church Street Burlington resolution/confirmation/live score 9.6 (256 normalized records), summary copy/manual link, address-free recipient showing 9.6 with blank intake, another-address reset, 28 Church Street resolution/confirmation/live score 9.7 (226 records). Malformed input was rejected without execution or stale score. A production 390-pixel browser rendered synthetic 7.5, opened the demand CTA, submitted feedback, rejected email without contact consent, then accepted explicit-consent interest with two categories; sparse data withheld the total. Actual document width was 390 with no overflow. This is browser viewport coverage, not physical mobile hardware coverage.
+
+Authenticated production Blobs contained exactly the expected 22 QA events, including two page views, two live successes, repeat/share, input failure, sparse withholding, feedback, interest and two preference counts. No address, coordinates, email or response IDs were in analytics. Separate private records contained the exact synthetic feedback and example-domain contact/consent/preferences. Production HTTP probes returned duplicate 200, conflict 409, extra-field 400, public-read 405 and foreign-origin 403. No automatic email was sent.
+
+Final version-label/documentation checkpoint and its final clean regression/redeployment checks remain pending. No material runtime finding remains from this candidate journey.
+
+
+Final asset publication scan caught browser screenshots returned as JPEG bytes despite a .png filename. Converted the two synthetic screenshots to actual PNG without content changes; reran the gate before any public push. No failed scan was classified as passing.
