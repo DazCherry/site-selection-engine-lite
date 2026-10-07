@@ -1,10 +1,16 @@
+import {addressParts,candidateAgrees} from './address.mjs';
 import {retrieveOverture,RELEASE_MAX_AGE_MS} from './overture.mjs';
 import {coordinate,DataError,normalizeOverpass,validTime,MAX_AGE_MS} from './model.mjs';
 export const ENDPOINTS=Object.freeze({geocode:'https://photon.komoot.io/api/',context:'https://stac.overturemaps.org/catalog.json'});
 export class ProviderError extends Error{constructor(message,retryAfterMs=0){super(message);this.name='ProviderError';this.retryAfterMs=retryAfterMs;}}
-export function validateAddress(value){if(typeof value!=='string')throw new DataError('Enter a street number, street, city, and country.');const text=value.normalize('NFKC').trim().replace(/\s+/g,' ');if(text.length<8||text.length>200||!/[0-9]/.test(text)||!/[\p{L}]/u.test(text)||!text.includes(',')||/[<>\x00-\x1f\x7f]/.test(text)||/https?:\/\//i.test(text))throw new DataError('Enter a street number and street, followed by city and country, separated by commas.');return text;}
+export function validateAddress(value){
+ if(typeof value!=='string'||/[<>\x00-\x1f\x7f]/.test(value))throw new DataError('Enter a street number, street, and city with state or ZIP.');
+ const text=value.normalize('NFKC').trim().replace(/\s+/g,' '),parts=addressParts(text);
+ if(text.length<8||text.length>200||!parts.house||!parts.street||(!parts.city&&!parts.zip)||!/[\p{L}]/u.test(text)||(!text.includes(',')&&!parts.state&&!parts.zip)||/https?:\/\//i.test(text))throw new DataError('Enter a street number and street, then city and state or ZIP. Commas are optional.');
+ return text;
+}
 function clean(value){return typeof value==='string'?value.trim().slice(0,200):'';}
-export function normalizePhoton(raw){
+export function normalizePhoton(raw,input){
  if(!raw||raw.type!=='FeatureCollection'||!Array.isArray(raw.features)||raw.features.length>20)throw new ProviderError('The geocoder returned an invalid response.');
  const result=[],seen=new Set();
  for(const f of raw.features){
@@ -12,8 +18,8 @@ export function normalizePhoton(raw){
   if(f?.geometry?.type!=='Point'||!Array.isArray(c)||c.length<2||!p)continue;
   let origin;try{origin=coordinate({lat:c[1],lon:c[0]});}catch{continue;}
   const house=clean(p.housenumber),street=clean(p.street),city=clean(p.city)||clean(p.district),country=clean(p.country);
-  if(!house||!street||!city||!country)continue;
-  const label=[house+' '+street,city,country].join(', ');
+  if(!house||!street||!city||!country||(input&&!candidateAgrees(p,input)))continue;
+  const label=[house+' '+street,city,clean(p.state),clean(p.postcode),country].filter(Boolean).join(', ');
   const key=[label.toLowerCase().replace(/[^\p{L}\p{N}]/gu,''),origin.lat.toFixed(4),origin.lon.toFixed(4)].join('|');
   if(seen.has(key))continue;seen.add(key);result.push({label,origin,source:'Photon / OpenStreetMap',precision:'Address point or building center; confirm before assessment.'});
  }
@@ -36,7 +42,7 @@ export function createProviders({fetchImpl=fetch,clock=()=>Date.now(),cooldownMs
  const cache=new Map();let busy=false;const lastRequest=new Map(),blockedUntil=new Map();
  async function request(key,work){const now=clock();const cached=cache.get(key);if(cached&&now-cached.time<300000)return structuredClone(cached.value);if(busy)throw new ProviderError('A public request is already running.');const provider=key.split(':')[0];if(now<(blockedUntil.get(provider)||0))throw new ProviderError('The provider requested a pause. Please try again later.');if(now-(lastRequest.get(provider)??-Infinity)<cooldownMs)throw new ProviderError('Please wait a few seconds between public requests.');busy=true;lastRequest.set(provider,now);try{const value=await work();cache.set(key,{time:clock(),value:structuredClone(value)});if(cache.size>20)cache.delete(cache.keys().next().value);return value;}catch(error){if(error.retryAfterMs)blockedUntil.set(provider,clock()+error.retryAfterMs);throw error;}finally{busy=false;}}
  return {
-  async geocode(address){const query=validateAddress(address);return request('address:'+query.toLowerCase(),async()=>{const u=new URL(ENDPOINTS.geocode);u.searchParams.set('q',query);u.searchParams.set('limit','5');return normalizePhoton(await fetchJSON(u.toString(),{fetchImpl}));});},
+  async geocode(address){const query=validateAddress(address);return request('address:'+query.toLowerCase(),async()=>{const u=new URL(ENDPOINTS.geocode);u.searchParams.set('q',addressParts(query).query);u.searchParams.set('limit','10');return normalizePhoton(await fetchJSON(u.toString(),{fetchImpl}),query);});},
   async context(origin,options={}){coordinate(origin);const context=await request('context:'+origin.lat+','+origin.lon,()=>contextImpl(origin,{fetchImpl,now:clock(),...options}));const age=clock()-validTime(context.sourceTime);const maxAge=context.release?RELEASE_MAX_AGE_MS:MAX_AGE_MS;if(age>maxAge||age < -300000)throw new DataError('Cached map source is stale or has an invalid future timestamp.');return context;}
  };
 }

@@ -1,5 +1,7 @@
 # Development rules
 
+For every material production incident, follow [the incident protocol](docs/PRODUCTION_INCIDENT_PROTOCOL.md). A single successful example never closes an incident. The reliability/owner-operations phase must preserve the frozen scoring model. Do not activate any new Google API, email account, billing, sender DNS or credentials without explicit owner authorization, including free tiers. Complete independent implementation and mocked validation before escalating. Provider acceptance is not verified inbox receipt.
+
 Read docs/PUBLIC_PRIVATE_BOUNDARY.md before changes. Classify every material capability before implementation. Default uncertain content to PRIVATE RESERVED. Never copy confidential reference files, private methods, customer examples, secrets or personal paths into this project.
 
 Build a deliberately generic independent model. Unknown remains unknown. Use provider adapters, explicit provenance, versioned public calculations and synthetic fixtures. Verify public provider terms before integration.

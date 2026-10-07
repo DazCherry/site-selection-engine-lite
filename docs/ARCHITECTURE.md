@@ -24,3 +24,7 @@ Generic public components can later be reused in a separate private system. Priv
 
 
 Distribution modules: bootstrap keeps intake disabled until core initialization completes; share contains strictly allowlisted fragment summaries; analytics is an independent opt-in module; interest handles optional fixed-choice forms. Server schemas validate all inputs. Private aggregate and submission stores have separate retention and no public read API. No browser secret or address history is introduced. See ADRs 0003-0005.
+
+## Reliability/owner operations candidate (not activated)
+
+`dist/address.mjs` normalizes and conservatively compares supplied components before a Photon candidate can reach confirmation. The frozen model and Overture layer are unchanged. `server/owner-mail.mjs` provides a private reference outbox, CAS leases, bounded Resend adapter, attempt reservations, digest aggregation and retention. After-persistence dynamic import isolates optional mail dependency faults from successful form acknowledgement. Scheduled recovery repairs missed queue writes. `server/owner-export.mjs` supplies strict CSV/diagnostics to a local authenticated CLI; no public read route. See ADR 0006 and OWNER_OPERATIONS. Google and email activation remain blocked, and live acceptance is not implied by this architecture.

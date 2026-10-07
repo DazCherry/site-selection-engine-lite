@@ -1,5 +1,9 @@
 # Public and private boundary
 
+## Reliability and owner operations classification (2026-10-07)
+
+PUBLIC APPROVED implementation: generic query-aware address validation, provider adapters, explicit candidate confirmation, recovery UX, privacy-preserving operational counts, durable notification outbox, bounded retries, fixed-recipient owner notifications, daily aggregate digests, authenticated owner CSV export and incident procedures. These are Free infrastructure, not additional intelligence dimensions. PRIVATE operational data: submitted contact addresses, notification bodies, provider credentials, exports, diagnostic incident addresses and owner account settings; these must never enter Git or browser bundles. Provider integration requires documented license and financial authorization gates. The fixed owner recipient is server environment configuration, never a client-supplied destination. Sender ownership is separately verified. No visitor emails or marketing automation are authorized.
+
 Status: established before scoring implementation. Applies to every file, fixture, dependency integration, output, log, and Git commit in this fresh public project.
 
 ## Authority and scope

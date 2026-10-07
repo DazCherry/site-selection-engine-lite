@@ -1,5 +1,11 @@
 # SiteBuddy project state
 
+## Current work — reliability and owner operations (2026-10-07)
+
+The production baseline is still v0.2.0. Branch `sitebuddy-reliability-operations` is an unaccepted candidate, not a new release. Address integrity/US input handling and disabled owner-mail/export infrastructure are implemented locally. Exact private-address reproduction is awaiting transmission authorization. Resend activation, sender DNS/credentials, Google licensing/financial approval and real inbox acceptance are not complete. Read ADDRESS_RESOLUTION_INCIDENT_REPORT.md, OWNER_EMAIL_OPERATIONS_REPORT.md, ADR 0006 and OWNER_OPERATIONS before continuing. Do not interpret the historical v0.2.0 acceptance below as acceptance of this candidate.
+
+## Historical v0.2.0 checkpoint
+
 Version: v0.2.0. Status: DISTRIBUTION READY for a controlled external test. Frozen baseline: released v0.1.0, scoring lite-map-context-1.0.0. Final clean 69-test gate, CI, staging/Deploy Preview and actual production acceptance passed. Release tag v0.2.0 identifies the final documentation checkpoint.
 
 ## Source and deployment
