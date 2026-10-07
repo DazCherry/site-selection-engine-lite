@@ -1,3 +1,4 @@
+import {createSummary,shareURL,readShared,summaryText,deliverShare} from './share.mjs';
 import {DATA_LICENSES} from './data-licenses.mjs';
 import {assess,assessRecords,MODEL_VERSION} from './model.mjs';
 import {createProviders,validateAddress} from './providers.mjs';
@@ -6,9 +7,9 @@ const $=id=>document.getElementById(id);const providers=createProviders();let cu
 const element=(tag,text,className)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(className)n.className=className;return n;};
 function status(text,error=false){$('status').textContent=text;$('status').className=error?'error':'';}
 function busy(value){$('search-button').disabled=value;$('sample-mixed').disabled=value;$('sample-sparse').disabled=value;for(const b of $('candidates').querySelectorAll('button'))b.disabled=value;$('search-button').textContent=value?'Working…':'Find location →';}
-function reset(){current=null;$('download').hidden=true;$('score').textContent='—';$('rating').textContent='No assessment yet';$('mode').textContent='Awaiting location';$('assessment-title').textContent='Your location, in context';$('score-summary').textContent='Three simple dimensions. Equal weights. No hidden predictions.';$('location-detail').textContent='';$('dimensions').replaceChildren();$('provenance').replaceChildren();}
+function reset(){current=null;for(const id of ['share-result','another','share-disclosure','manual-share','manual-share-label','share-preview'])$(id).hidden=true;$('share-status').textContent='';$('manual-share').value='';$('download').hidden=true;$('score').textContent='—';$('rating').textContent='No assessment yet';$('mode').textContent='Awaiting location';$('assessment-title').textContent='Your location, in context';$('score-summary').textContent='Three simple dimensions. Equal weights. No hidden predictions.';$('location-detail').textContent='';$('dimensions').replaceChildren();$('provenance').replaceChildren();}
 function render(snapshot){
- current=snapshot;const a=snapshot.assessment;const synthetic=snapshot.kind==='synthetic';
+ current=snapshot;for(const id of ['share-result','another','share-disclosure'])$(id).hidden=false;$('share-status').textContent='';$('manual-share').hidden=true;$('manual-share-label').hidden=true;$('share-preview').hidden=true;const a=snapshot.assessment;const synthetic=snapshot.kind==='synthetic';
  $('assessment-title').textContent=snapshot.label;$('mode').textContent=synthetic?'Synthetic example':'Live public data';$('score').textContent=a.score===null?'—':a.score.toFixed(1);$('rating').textContent=a.score===null?a.rating:`${a.rating} · mapped context`;
  $('score-summary').textContent=a.score===null?`${a.availableDimensions} of 3 dimensions available. No overall score until all three have usable observations.`:'An illustrative score of mapped context. Not a prediction of commercial success.';
  $('location-detail').textContent=synthetic?'Fictional location · synthetic records · no real-world interpretation':`${snapshot.origin.lat.toFixed(5)}, ${snapshot.origin.lon.toFixed(5)} · 600 m straight-line radius · confirm the location is correct`;
@@ -22,3 +23,13 @@ $('sample-mixed').addEventListener('click',()=>showSample('mixed'));$('sample-sp
 $('download').addEventListener('click',()=>{if(!current)return;const blob=new Blob([JSON.stringify(current,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=element('a');a.href=url;a.download='site-assessment.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 // Optional proposed browser API; the ordinary interface works without it.
 const context=document.modelContext;if(context?.registerTool){const lifecycle=new AbortController();window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});try{void Promise.resolve(context.registerTool({name:'show_synthetic_site_assessment',title:'Explore a fictional site',description:'Show a fictional site assessment in the visible interface. No network requests or real location data.',inputSchema:{type:'object',properties:{example:{type:'string',enum:['mixed','sparse']}},required:['example'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute(input){if(!input||typeof input!=='object'||Object.keys(input).length!==1||!['mixed','sparse'].includes(input.example))throw new Error('Choose mixed or sparse.');return showSample(input.example);}},{signal:lifecycle.signal})).catch(()=>{});}catch{/* Unsupported optional API; ordinary controls remain available. */}}
+
+$('another').addEventListener('click',()=>{generation++;reset();$('candidates').replaceChildren();$('address').value='';status('Try another public U.S. address.');$('address').focus();});
+$('share-result').addEventListener('click',async()=>{
+ if(!current)return;const button=$('share-result');button.disabled=true;
+ try{const text=summaryText(createSummary(current)),url=shareURL(current,location.href);const outcome=await deliverShare({text,url,writeText:navigator.clipboard?.writeText.bind(navigator.clipboard)});
+ $('share-status').textContent=outcome==='copied'?'Summary and link copied. Your address was not included.':'Automatic copying is unavailable. Copy the text below.';
+ $('manual-share').value=text+'\n'+url;$('manual-share').hidden=false;$('manual-share-label').hidden=false;$('share-preview').href=url;$('share-preview').hidden=false;if(outcome==='manual'){$('manual-share').focus();$('manual-share').select();}
+ }catch{$('share-status').textContent='This result could not be shared. You can still save a replay snapshot.';}finally{button.disabled=false;}
+});
+try{const shared=readShared(location.hash);if(shared){$('shared-summary').hidden=false;$('shared-detail').textContent=summaryText(shared);$('shared-values').textContent=`${shared.day} · Retail: ${shared.scores[0]??'unknown'} · Amenities: ${shared.scores[1]??'unknown'} · Transit: ${shared.scores[2]===null?'unknown':shared.scores[2].toFixed(1)}`;}}catch{$('shared-summary').hidden=false;$('shared-detail').textContent='This shared summary is invalid. Start your own assessment below.';}

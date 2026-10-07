@@ -13,11 +13,11 @@ export function findings(text){
  return [...new Set(hits)];
 }
 export function scan(root=ROOT){
- const errors=[];const ignore=new Set(['.git','.openai','.sites-runtime','node_modules','coverage','test-results','playwright-report']);
+ const errors=[];const ignore=new Set(['.git','.openai','.sites-runtime','node_modules','coverage','test-results','playwright-report','build']);
  const allowed=new Set(['.md','.mjs','.html','.css','.svg','.json','.yml','.yaml']);
  function walk(dir){for(const name of readdirSync(dir)){if(ignore.has(name))continue;const path=resolve(dir,name),rel=relative(root,path),stat=lstatSync(path);if(stat.isSymbolicLink()){errors.push(`${rel}: symbolic link prohibited`);continue;}if(stat.isDirectory()){walk(path);continue;}
  if(stat.size>250000){errors.push(`${rel}: oversized artifact`);continue;}
- if(!allowed.has(extname(name))&&!['.gitignore','LICENSE','Dockerfile','.dockerignore','_headers'].includes(name)){errors.push(`${rel}: unapproved file type`);continue;}
+ if(!allowed.has(extname(name))&&!['.gitignore','LICENSE','Dockerfile','.dockerignore','_headers','netlify.toml'].includes(name)){errors.push(`${rel}: unapproved file type`);continue;}
  const content=readFileSync(path,'utf8');for(const f of findings(rel+'\n'+content))errors.push(`${rel}: ${f}`);
  }}walk(root);return errors;
 }
