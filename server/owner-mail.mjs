@@ -90,7 +90,7 @@ export async function runMail(store,config,{now=Date.now(),send=resendSend}={}){
  const interests=await listRecords(store,'interest/'),feedback=await listRecords(store,'feedback/');
  for(const {data} of interests)if(Date.parse(data.receivedAt)>=Math.max(config.since,now-7*DAY)&&eligibleLead(data))await queueLead(store,data,Date.parse(data.receivedAt));
  const jobs=await listRecords(store,'mail/');const warnings={backlog:jobs.filter(x=>['queued','retry','sending'].includes(x.data.state)).length,terminal:jobs.filter(x=>x.data.state==='terminal').length};
- for(let age=1;age<=7;age++){const day=new Date(now-age*DAY).toISOString().slice(0,10);if(Date.parse(day)+DAY<=config.since)continue;const health=await store.get(`ops/${day}.json`,{type:'json',consistency:'strong'});await queueDigest(store,summarize([...interests,...feedback].map(x=>x.data).filter(r=>Date.parse(r.receivedAt)>=config.since),day,{...(age===1?warnings:{}),persistenceFailures:health?.persistence_failed??0}),now);}
+ for(let age=1;age<=7;age++){if(age===1&&now%DAY<300000)continue;const day=new Date(now-age*DAY).toISOString().slice(0,10);if(Date.parse(day)+DAY<=config.since)continue;const health=await store.get(`ops/${day}.json`,{type:'json',consistency:'strong'});await queueDigest(store,summarize([...interests,...feedback].map(x=>x.data).filter(r=>Date.parse(r.receivedAt)>=config.since),day,{...(age===1?warnings:{}),persistenceFailures:health?.persistence_failed??0}),now);}
  let attempted=0;for(const {key,data} of await listRecords(store,'mail/')){if(attempted>=10)break;if(['queued','retry','sending'].includes(data.state)&&data.nextAt<=now){await processJob(store,key,config,{now,send});attempted++;}}
 
  return {examined:jobs.length,attempted,...warnings};

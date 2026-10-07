@@ -29,3 +29,7 @@ Address tests cover common formatting, unit handling, direction, Alaska/Hawaii, 
 ## Prevention
 
 AGENTS now requires PRODUCTION_INCIDENT_PROTOCOL. Keep sensitive reproductions out of Git, collect raw-response shape and filtering evidence before blaming a provider, use independent public/synthetic fixtures, preserve unknowns, and repeat the complete affected gate after every material finding. Address-free opted-in funnel diagnostics remain available; opt-out traffic is unknown.
+
+### Executed preview evidence
+
+Preview #3 at d54721b, deployment 6ac6c74cd7767700081b1ce1: actual comma-free public civic lookup resolved the correct 149 Church Street, Burlington, Vermont 05401, then retrieved Overture and displayed 9.6. The independent Census public example returned no candidates and left the score unavailable with the new recovery message. Desktop Chrome and 390px layout were inspected. This validates the bounded candidate change, not missing Photon coverage or the exact reported incident. CI/clean tests passed at the recorded checkpoint. Production is not promoted.

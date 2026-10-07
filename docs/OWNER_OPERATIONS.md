@@ -11,7 +11,7 @@ Do not enable this integration until the owner explicitly approves the provider,
 
 ## Daily behavior
 
-Opted-in public interest is durably stored, queued and attempted after response using waitUntil. Failures preserve the submission and user success acknowledgement. Five-minute scheduled recovery discovers missed eligible queue records from the preceding seven days after activation. Reports for the previous UTC day are prepared at the first scheduled run after 00:00 UTC, with up to seven days' backfill. Digests exclude QA, aggregate roles/capabilities/usefulness, and identify submission counts rather than people. No empty message unless an operational warning exists. At least 1.1 seconds between globally reserved attempts; bursts wait for recovery. There is no guaranteed notification latency.
+Opted-in public interest is durably stored, queued and attempted after response using waitUntil. Failures preserve the submission and user success acknowledgement. Five-minute scheduled recovery discovers missed eligible queue records from the preceding seven days after activation. Reports for the previous UTC day are prepared at the first scheduled run at or after 00:05 UTC, with up to seven days' backfill. Digests exclude QA, aggregate roles/capabilities/usefulness, and identify submission counts rather than people. No empty message unless an operational warning exists. At least 1.1 seconds between globally reserved attempts; bursts wait for recovery. There is no guaranteed notification latency.
 
 ## Delivery states and repair
 

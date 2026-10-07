@@ -6,5 +6,5 @@ export default async(req,context)=>{
  return new Response(null,{status:204});
  }catch{console.warn('sitebuddy_mail_worker_failed');return new Response(null,{status:503});}
 };
-// Five-minute bounded recovery; first run after midnight prepares the previous UTC day.
+// Five-minute bounded recovery; daily summaries wait until 00:05 UTC to allow in-flight writes to settle.
 export const config={schedule:'*/5 * * * *'};
