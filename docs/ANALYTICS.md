@@ -1,6 +1,6 @@
 # Optional product-learning measurement
 
-Status: core funnel passed staging receipt validation at ea4d011; demand events and production acceptance remain pending.
+Status: core funnel passed staging receipt validation at ea4d011; demand events also passed staging; final production acceptance is in progress.
 
 Consent defaults off on each page load. Opting in measures subsequent actions and one page_view. Turning it off aborts pending requests; enabling it again does not duplicate that page view. No history is replayed, cookies/local storage used, or visitor ID shared across pages. A blocked module never gates scoring. Requests have a three-second client deadline and no automatic retry. Counts can be incomplete due to consent, blocking, disconnection, rate limits or service failure. They are neither unique people nor total traffic.
 
@@ -8,7 +8,7 @@ Consent defaults off on each page load. Opting in measures subsequent actions an
 
 Every event has exactly v (1), a random per-event UUID, event, kind, channel, category and failure. Extra fields are rejected. No addresses, coordinates, email, input values, referrer URLs, query strings, fragments or scores enter analytics. Kind is none/public/synthetic. Channel is direct/github/producthunt/hackernews/community/outreach/search/shared/other/qa. Only fixed utm_source labels are accepted. Other values become other. A share fragment maps to shared without retaining its contents.
 
-Events: page_view, analysis_started, address_submitted, address_confirmed, analysis_succeeded, analysis_withheld, analysis_failed, repeat_analysis, share_clicked, share_copied, share_manual, deeper_analysis_clicked, feedback_submitted, early_access_submitted, capability_interest. The last four await the separate demand/feedback implementation. Category is none or an approved future-capability label. Failure is none/input/geocoding/context/integration.
+Events: page_view, analysis_started, address_submitted, address_confirmed, analysis_succeeded, analysis_withheld, analysis_failed, repeat_analysis, share_clicked, share_copied, share_manual, deeper_analysis_clicked, feedback_submitted, early_access_submitted, capability_interest. Category is none or an approved future-capability label. Failure is none/input/geocoding/context/integration.
 
 ## Private destination
 

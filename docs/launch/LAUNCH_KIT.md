@@ -1,6 +1,6 @@
 # SiteBuddy owner launch kit
 
-DRAFTS ONLY. No external publication or outreach has occurred. Production link is filled after final deployment acceptance: {{SITEBUDDY_URL}}. Canonical source: https://github.com/DazCherry/site-selection-engine-lite. Release and final validation are in DISTRIBUTION_READINESS_REPORT.md.
+DRAFTS ONLY. No external publication or outreach has occurred. Production candidate: https://sitebuddy-free.netlify.app/. Canonical source: https://github.com/DazCherry/site-selection-engine-lite. Release and final validation are in DISTRIBUTION_READINESS_REPORT.md.
 
 ## One line
 
@@ -48,7 +48,7 @@ U.S. public addresses only. Data coverage and feature freshness vary. Straight-l
 
 ## GitHub launch copy
 
-SiteBuddy Free is a public, inspectable location-context experiment. Try a public U.S. address or a fictional example: {{SITEBUDDY_URL}}
+SiteBuddy Free is a public, inspectable location-context experiment. Try a public U.S. address or a fictional example: https://sitebuddy-free.netlify.app/
 
 The score keeps the v0.1.0 rubric intact: retail variety, everyday amenities and transit proximity, with equal weights and explicit unknowns. This release adds address-free summaries, optional aggregate measurement and voluntary future-capability discovery. Source, tests, data attribution and reproducibility notes are in the repository. Please report non-sensitive defects; never upload confidential locations or snapshots.
 
@@ -60,7 +60,7 @@ Tagline: A free first look at a location's mapped surroundings
 
 Description: Explore retail variety, everyday amenities and nearby transit around a public U.S. address. See a transparent score, understand what's missing, and share a summary without the address. No account required. It describes map context, not commercial success.
 
-Maker comment: I built SiteBuddy to make a small first step in location exploration easy to understand and try. The Free rubric is intentionally limited and public. I'm most interested in where it helps, where it misleads, and which missing question matters to an actual decision. Future professional categories are interest discovery only. Try it here: {{SITEBUDDY_URL}}. Please don't submit confidential addresses.
+Maker comment: I built SiteBuddy to make a small first step in location exploration easy to understand and try. The Free rubric is intentionally limited and public. I'm most interested in where it helps, where it misleads, and which missing question matters to an actual decision. Future professional categories are interest discovery only. Try it here: https://sitebuddy-free.netlify.app/. Please don't submit confidential addresses.
 
 Assets: static social card and synthetic desktop/mobile screenshots in this launch folder. Owner should review current platform rules and account eligibility before posting. No vote request.
 
@@ -68,7 +68,7 @@ Assets: static social card and synthetic desktop/mobile screenshots in this laun
 
 Title: Show HN: SiteBuddy - a transparent first look at public map context
 
-URL: {{SITEBUDDY_URL}}
+URL: https://sitebuddy-free.netlify.app/
 
 Comment: SiteBuddy is a small browser-based experiment around a deliberately limited location score. It confirms a public U.S. address, retrieves nearby openly licensed map tiles and explains three equally weighted dimensions. Missing inputs withhold the total. I kept the source and rubric inspectable and added sharing that omits the address. Optional analytics is separated from the core flow and off by default. It is not footfall intelligence, a revenue model or a lease recommendation. I'd welcome criticism of the data assumptions, clarity and reliability. Source: https://github.com/DazCherry/site-selection-engine-lite
 
@@ -76,17 +76,17 @@ Owner check: confirm no prior duplicate submission and that the current work mee
 
 ## Operator / broker community draft
 
-I am testing a free tool for a very limited first look at a location: nearby mapped shops, everyday services and transit. It does not replace market research or diligence. If your community allows product-feedback requests, I would value a quick trial using a public, non-confidential U.S. address: {{SITEBUDDY_URL}}. Did the result make sense, and what important question did it leave unanswered? The optional form lists future capabilities so we can learn; those capabilities are not available yet.
+I am testing a free tool for a very limited first look at a location: nearby mapped shops, everyday services and transit. It does not replace market research or diligence. If your community allows product-feedback requests, I would value a quick trial using a public, non-confidential U.S. address: https://sitebuddy-free.netlify.app/. Did the result make sense, and what important question did it leave unanswered? The optional form lists future capabilities so we can learn; those capabilities are not available yet.
 
 ## Short social draft
 
-A first look, with the limits visible. SiteBuddy Free explores retail variety, everyday amenities and transit near a public U.S. address. No account. No promise of business success. Try it and tell me what's missing: {{SITEBUDDY_URL}}
+A first look, with the limits visible. SiteBuddy Free explores retail variety, everyday amenities and transit near a public U.S. address. No account. No promise of business success. Try it and tell me what's missing: https://sitebuddy-free.netlify.app/
 
 ## Founder / operator outreach draft
 
 Subject: A small location-context tool - feedback welcome
 
-Hi [name], I am testing SiteBuddy, a free first look at public mapped surroundings. If this is relevant to your work, would you try a public U.S. address and tell me whether the result is useful and which question it leaves open? It does not measure commercial demand or recommend a lease. The trial is here: {{SITEBUDDY_URL}}. Please don't enter confidential candidate locations. No need to leave contact details to use it.
+Hi [name], I am testing SiteBuddy, a free first look at public mapped surroundings. If this is relevant to your work, would you try a public U.S. address and tell me whether the result is useful and which question it leaves open? It does not measure commercial demand or recommend a lease. The trial is here: https://sitebuddy-free.netlify.app/. Please don't enter confidential candidate locations. No need to leave contact details to use it.
 
 Send individually only after owner review and appropriate recipient selection. No bulk outreach or automatic follow-up is authorized.
 
@@ -105,3 +105,7 @@ After trying SiteBuddy, did the score help, did it make intuitive sense, and wha
 7. The owner decides the next investment; do not infer demand from stars, votes or email count alone.
 
 See ../research/DISTRIBUTION_STRATEGY.md for sequence and interpretation, ../ANALYTICS.md for event definitions, and ../FEEDBACK_AND_INTEREST.md for private response handling.
+
+## Technical summary
+
+A static ES-module browser app retrieves openly licensed map context directly after consent. The frozen rubric runs locally. Netlify Functions validate optional measurement and form payloads into separate private Blobs stores; scheduled functions enforce application retention. GitHub is canonical, CI reproduces pinned browser assets, and Netlify builds run the full regression/publication gate. See the README for clean setup and the readiness report for the exact validated release.

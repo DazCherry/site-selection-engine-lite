@@ -1,23 +1,23 @@
 # SiteBuddy project state
 
-Phase: public distribution readiness, in progress. Last stable product release: v0.1.0. Not Distribution Ready.
+Version: v0.2.0 candidate. Frozen baseline: released v0.1.0, scoring lite-map-context-1.0.0. Final checkpoint validation is in progress; do not infer readiness from deployment alone.
 
-## Source and environments
+## Source and deployment
 
-Canonical public repository: https://github.com/DazCherry/site-selection-engine-lite. Stable release source: 72654445edbc2dde7f949aa0fecdb816f967ef85. Distribution changes are isolated on a development branch; preserve stable history. Existing ChatGPT-hosted deployment remains the unchanged prototype. Netlify is the selected distribution host; owner sign-in is available. A separate non-indexed staging project is deployed at https://sitebuddy-staging.netlify.app from sitebuddy-staging. No final production product has been promoted in this phase. Existing account capacity and disabled auto-recharge were checked; no purchase or upgrade is authorized.
+Canonical repository: https://github.com/DazCherry/site-selection-engine-lite. Production: https://sitebuddy-free.netlify.app, GitHub main. Staging: https://sitebuddy-staging.netlify.app, sitebuddy-staging. PR #1 merged the staged candidate as 2948c429a0ff521280874c9d73cd705f231b4bbe. Production deploy 6ac5f811f46cce13e426e0ed passed its actual user journey and private destination checks. Netlify production flag is SITEBUDDY_PUBLIC_RELEASE=1; deploy-preview/branch contexts force zero. No domain purchase or upgrade. Original Sites prototype remains unchanged.
 
-## Frozen product
+## Architecture and boundary
 
-Public name will be SiteBuddy Free. The v0.1.0 model is frozen, with exact-file integrity enforced by tests/frozen-baseline.test.mjs. It remains retail variety, everyday amenities and transit proximity with the original equal weights. Existing providers and unknown handling remain mandatory regressions. Future professional capabilities are demand labels only. Private Engine remains separate and unimplemented.
+Static browser ES modules provide consented public-address lookup, Overture normalization and frozen three-dimension scoring. Unknowns withhold the total. Address-free sharing encodes only a strict summary in a URL fragment. Optional isolated modules post allowlisted events and fixed-choice feedback/interest to same-origin Netlify Functions. Private Blobs stores separate aggregates from contacts and production from previews. Daily scheduled cleanup targets 30-day aggregates and 90-day submissions. No address history, browser persistence, automatic email, Paid capability or Private Engine exists. See ARCHITECTURE, DATA_POLICY, ANALYTICS and FEEDBACK_AND_INTEREST.
 
-## Current work
+## Validated capabilities
 
-Full instruction received, including 43 acceptance conditions. Pre-implementation distribution classification is recorded in PUBLIC_PRIVATE_BOUNDARY. Feature acceptance matrix is in DISTRIBUTION_ACCEPTANCE. The first identity/share slice passes 51 local and clean-checkout tests; GitHub Actions runs 37582794064 and 37583476328 pass. Netlify staging commit b6bdf6b passes live Burlington (9.6), shared recipient, repeat reset, sparse unknown handling, and 390-pixel layout checks. The share race fix passed clean and hosted revalidation. Core opt-in analytics at ea4d011 passes 59 local/clean tests and actual private destination counts, concurrency/dedupe and failure isolation. Feedback and future-interest capture pass their staging gate at 593e643 with exact private destination receipts and 65 tests. Metadata, privacy page, launch drafts and safe core-module initialization are implemented locally with 69 tests; their hosted gate and final production remain pending. Provider and launch-channel research is in progress. No distribution capability is production eligible.
+Branding/share, analytics, feedback/interest, SEO/social/privacy and launch drafts each passed staged gates. Original 45 tests remain; 69 total tests pass in clean Node/pnpm environments, including exact scoring-file integrity. Actual production retrieved two public addresses (9.6 and 9.7), shared an address-free summary to a fresh recipient, repeated analysis, rejected malformed input, withheld sparse total, and received mobile synthetic feedback/interest. Private receiving destinations showed exact records and 22 expected QA events with no location/email analytics. Desktop Chrome and 390-pixel viewport were inspected; no other-browser/physical-device claim.
 
-## Next steps
+## Limitations and future work
 
-Complete provider/privacy choices, Netlify GitHub wiring and preview configuration; implement and validate each distribution capability under its gate; prepare launch assets and experiment plan; run the full production journey with destination evidence; publish an identifiable release only after the complete acceptance matrix passes. Never automatically post launch copy externally.
+Map coverage, geocoder availability, monthly releases and individual feature age remain uncertain. Public score is illustrative, not commercial prediction. Consent-based counts are not unique users or total traffic. Abuse controls reduce but cannot eliminate fabricated submissions. Retention service outages can delay deletion; monitor scheduled function failures. No real 30/90-day elapsed retention cycle has been observed. Future capability categories are unvalidated demand hypotheses; owner decides future Free/Paid/Private investments.
 
-## Resume rules
+## Resume and owner operations
 
-Read AGENTS, the boundary, DISTRIBUTION_ACCEPTANCE and DEVELOPMENT_LOG first. Use real observed Netlify project identifiers and URLs, never guessed values. Keep credentials out of code, logs and docs. Do not count script execution as analytics acceptance or an HTTP success as proof a lead reached the private destination. The owner makes future commercial investment decisions.
+Read AGENTS, PUBLIC_PRIVATE_BOUNDARY, DISTRIBUTION_ACCEPTANCE, DEVELOPMENT_LOG and DISTRIBUTION_READINESS_REPORT.md. Final checkpoint must have clean tests, publication/privacy review, staging and production smoke before release. Private receiving records are accessible in Netlify Data & storage → Blobs; never publish signed download URLs or real contacts. Launch kit contains drafts only; no community post or outreach is authorized.
