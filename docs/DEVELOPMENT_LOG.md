@@ -90,3 +90,16 @@ A later redundant local test request was not executed because automatic approval
 ## 2026-10-07 UTC — SiteBuddy distribution phase opened
 
 Received the new master goal and its missing continuation, including 43 distribution acceptance conditions. Preserved v0.1.0 and based the development branch on canonical public GitHub history. Added pre-implementation Free/Paid/Private distribution classifications, acceptance matrix and project state. An exact v0.1.0 model-integrity test passes. Netlify account sign-in is now available; included plan capacity was inspected without purchasing or changing billing. No new functionality is live and no distribution gate is marked passed. Next: provider/privacy architecture, staged implementation and destination-verified acceptance.
+
+
+## 2026-10-07 UTC — First distribution slice staging validation
+
+Implemented SiteBuddy identity and strictly allowlisted address-free shared summaries. The link uses a fragment, contains only rubric version, source kind, date and scores, and explicitly states it is sender-provided and editable. No result directory, address history or added scoring dimension exists. Clipboard denial, absence and timeout have a manual fallback; native sharing was deliberately omitted after unreliable browser behavior. No operating-system clipboard-content verification or native-share support is claimed.
+
+All 51 tests passed locally and in a fresh clone (the original 45 plus frozen-model integrity and five sharing tests). GitHub Actions runs 37582794064 and 37583476328 passed. Netlify staging deploy 6ac5eaa9b8f668750623077c initially failed because pnpm refused an esbuild installation script. Added frozen-lockfile/ignore-scripts flags, matching the already validated CI installation; deploy 6ac5eb0133c1c500089b1826 succeeded at b6bdf6b. Netlify's label “production” here refers to the default branch of the dedicated staging project, not promotion of the final product.
+
+Actual https://sitebuddy-staging.netlify.app checks: HTTP 200; noindex/nofollow response header; CSP, no-referrer, frame and content-type protections; live Burlington civic address confirmation, retrieval and 9.6 result; copied-summary UI and visible link; recipient showing 9.6 with no location and empty new-address field; another-address reset; sparse sample withholding total; desktop visual inspection; 390×844 recipient screenshot with document width 390. No physical mobile-device coverage is claimed.
+
+Adversarial review found a pending copy could re-show an old share panel after choosing another result. Added snapshot-identity guard after the asynchronous copy and reran all 51 tests successfully. This final fix still needs hosted revalidation before the slice checkpoint. Analytics, forms, full SEO, launch assets and final production acceptance remain unimplemented/unvalidated. Not Distribution Ready.
+
+Reference for deployment flags: https://docs.netlify.com/build/configure-builds/manage-dependencies/ (accessed 2026-10-07 UTC).

@@ -4,7 +4,7 @@ Phase: public distribution readiness, in progress. Last stable product release: 
 
 ## Source and environments
 
-Canonical public repository: https://github.com/DazCherry/site-selection-engine-lite. Stable release source: 72654445edbc2dde7f949aa0fecdb816f967ef85. Distribution changes are isolated on a development branch; preserve stable history. Existing ChatGPT-hosted deployment remains the unchanged prototype. Netlify is the selected distribution host; owner sign-in is available. No project has yet been created or production promoted in this phase. Existing account capacity and disabled auto-recharge were checked; no purchase or upgrade is authorized.
+Canonical public repository: https://github.com/DazCherry/site-selection-engine-lite. Stable release source: 72654445edbc2dde7f949aa0fecdb816f967ef85. Distribution changes are isolated on a development branch; preserve stable history. Existing ChatGPT-hosted deployment remains the unchanged prototype. Netlify is the selected distribution host; owner sign-in is available. A separate non-indexed staging project is deployed at https://sitebuddy-staging.netlify.app from sitebuddy-staging. No final production product has been promoted in this phase. Existing account capacity and disabled auto-recharge were checked; no purchase or upgrade is authorized.
 
 ## Frozen product
 
@@ -12,7 +12,7 @@ Public name will be SiteBuddy Free. The v0.1.0 model is frozen, with exact-file 
 
 ## Current work
 
-Full instruction received, including 43 acceptance conditions. Pre-implementation distribution classification is recorded in PUBLIC_PRIVATE_BOUNDARY. Feature acceptance matrix is in DISTRIBUTION_ACCEPTANCE. Initial source-integrity test passes; broader phase verification has not yet been run. Provider and launch-channel research is in progress. No distribution capability is production eligible.
+Full instruction received, including 43 acceptance conditions. Pre-implementation distribution classification is recorded in PUBLIC_PRIVATE_BOUNDARY. Feature acceptance matrix is in DISTRIBUTION_ACCEPTANCE. The first identity/share slice passes 51 local and clean-checkout tests; GitHub Actions runs 37582794064 and 37583476328 pass. Netlify staging commit b6bdf6b passes live Burlington (9.6), shared recipient, repeat reset, sparse unknown handling, and 390-pixel layout checks. A subsequent share race fix passes 51 local tests and awaits staging revalidation. Provider and launch-channel research is in progress. No distribution capability is production eligible.
 
 ## Next steps
 

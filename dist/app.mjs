@@ -26,8 +26,9 @@ const context=document.modelContext;if(context?.registerTool){const lifecycle=ne
 
 $('another').addEventListener('click',()=>{generation++;reset();$('candidates').replaceChildren();$('address').value='';status('Try another public U.S. address.');$('address').focus();});
 $('share-result').addEventListener('click',async()=>{
- if(!current)return;const button=$('share-result');button.disabled=true;
- try{const text=summaryText(createSummary(current)),url=shareURL(current,location.href);const outcome=await deliverShare({text,url,writeText:navigator.clipboard?.writeText.bind(navigator.clipboard)});
+ if(!current)return;const snapshot=current,button=$('share-result');button.disabled=true;
+ try{const text=summaryText(createSummary(snapshot)),url=shareURL(snapshot,location.href);const outcome=await deliverShare({text,url,writeText:navigator.clipboard?.writeText.bind(navigator.clipboard)});
+ if(current!==snapshot)return;
  $('share-status').textContent=outcome==='copied'?'Summary and link copied. Your address was not included.':'Automatic copying is unavailable. Copy the text below.';
  $('manual-share').value=text+'\n'+url;$('manual-share').hidden=false;$('manual-share-label').hidden=false;$('share-preview').href=url;$('share-preview').hidden=false;if(outcome==='manual'){$('manual-share').focus();$('manual-share').select();}
  }catch{$('share-status').textContent='This result could not be shared. You can still save a replay snapshot.';}finally{button.disabled=false;}
