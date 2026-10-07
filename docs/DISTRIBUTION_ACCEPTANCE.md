@@ -1,6 +1,6 @@
 # SiteBuddy distribution acceptance
 
-Status: preparation only; no distribution feature is eligible for production yet. Preserve v0.1.0 as the released baseline.
+Status: initial identity/share slice passed its staging gate at 9689200; overall distribution and final production acceptance remain open. Preserve v0.1.0 as the released baseline.
 
 ## Requirements completeness
 
@@ -12,7 +12,7 @@ Implementation → local debug → unit/integration tests → independent check 
 
 | Capability | Required acceptance | Current state |
 | --- | --- | --- |
-| Frozen Free baseline | Exact scoring-module integrity; existing 45 tests; no new dimensions; live retrieval and explicit unknowns retained | Integrity check prepared |
+| Frozen Free baseline | Exact scoring-module integrity; existing 45 tests; no new dimensions; live retrieval and explicit unknowns retained | PASS in 51-test suite and live staging Burlington |
 | Branding/positioning | Title/header/copy agree; U.S. location context clear; no prediction/footfall claims; mobile/keyboard usable | Planned |
 | Sharing | Real and synthetic states distinguishable; explicit action; correct content; no address/coordinates by default; recipient can open; native/copy fallback; failure recovery | Planned |
 | Analytics | Every funnel action maps once; schema blocks private payloads; destination receipt and counts observed; duplicate/retry/consent/offline/ad-block tests; no scoring dependency | Provider evaluation |
@@ -26,3 +26,7 @@ Implementation → local debug → unit/integration tests → independent check 
 ## Evidence record template
 
 For each capability record commit, environment/URL, action, expected outcome, observed result, destination evidence, privacy inspection, failure cases, independent check, reviewer findings, fixes and regression result. Preview and production must be separate records. Synthetic QA telemetry must be identifiable and excluded from market-learning metrics.
+
+## Initial identity and sharing staging gate — 2026-10-07 UTC
+
+Runtime 9689200420f58986a94e0eda0944b21cbcf1f666, staging deploy 6ac5ebc7af2e750008f7c8af. All 51 tests passed after the asynchronous-share fix, then passed again in a fresh checkout. Hosted copy → another-address reset was rerun and showed no stale summary. Earlier same-slice live/recipient/mobile and header evidence is in DEVELOPMENT_LOG. Source review confirms exact allowlisting and snapshot guard. This limited slice passes the staging gate; final production acceptance, full positioning/SEO, analytics and lead capture remain open. Native sharing is intentionally absent; manual copying is always available.

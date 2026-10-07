@@ -103,3 +103,9 @@ Actual https://sitebuddy-staging.netlify.app checks: HTTP 200; noindex/nofollow 
 Adversarial review found a pending copy could re-show an old share panel after choosing another result. Added snapshot-identity guard after the asynchronous copy and reran all 51 tests successfully. This final fix still needs hosted revalidation before the slice checkpoint. Analytics, forms, full SEO, launch assets and final production acceptance remain unimplemented/unvalidated. Not Distribution Ready.
 
 Reference for deployment flags: https://docs.netlify.com/build/configure-builds/manage-dependencies/ (accessed 2026-10-07 UTC).
+
+## 2026-10-07 UTC - Optional measurement, staging pending
+
+Added an independent optional browser module, strict schema, same-origin collector and private daily aggregates with pinned @netlify/blobs 11.1.3. No address, coordinates, email, raw URL, fingerprint or cross-page ID enters the schema. Fixed-channel attribution discards arbitrary input. Conditional writes, deduplication, daily limits and scheduled retention bound storage. Preview stores and the separate staging project isolate QA.
+
+Eight new tests cover payload rejection, attribution redaction, concurrency/duplicates, bounded contention/capacity, HTTP validation/service failure, retention and consent. All 59 tests and publication checks passed; production dependency audit found no known vulnerabilities. A local browser without a collector showed measurement unavailable while still rendering synthetic 7.5. Hosted receipt and feature PASS remain pending.
