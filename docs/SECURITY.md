@@ -2,7 +2,7 @@
 
 ## Threat model
 
-Untrusted address input, untrusted provider payloads, ambiguous geocodes, oversized or stale responses, injected markup, private-data publication, and misleading scores are the principal risks in this static demo. There is no private data store, login, tenant boundary, secret, or privileged backend.
+Untrusted address input, untrusted provider payloads, ambiguous geocodes, oversized or stale responses, injected markup, private-data publication, and misleading scores are the principal risks in this static demo. The scoring flow has no account or private engine. Distribution adds private host-managed aggregate and voluntary contact stores, with no public read endpoint or browser credentials.
 
 ## Controls
 
@@ -12,7 +12,9 @@ Untrusted address input, untrusted provider payloads, ambiguous geocodes, oversi
 - All external strings rendered with `textContent`; no HTML injection sinks or dynamic code execution.
 - Geocoding: 25-second timeout and 1.5 MB streamed-response cap. Context: 45-second overall deadline, 10-second requests, 4 MiB compressed range, 32 MiB total wire data, 32 MiB per decompressed tile, 96 MiB cumulative decompression, 100 requests, 100,000 inspected features and 10,000 retained records. Range status/length and stable ETags must match.
 - One request at a time, provider cooldown, small transient cache, at most two transient context retries in total (at most one per request), and no endpoint rotation. HTTP 429 enforces a pause rather than retry.
-- No analytics, browser storage, sensitive inputs, raw provider logging, or user-generated file imports.
+- Analytics off by default, exact fixed-field schema, no addresses/emails/raw URLs, same-origin checks, bounded requests, idempotent counts and rate limits.
+- Voluntary contact requires explicit consent, private destination, idempotent submission and scheduled retention. No user-supplied file imports or browser storage.
+- Intake is disabled until core initialization; POST-only forms and form-action CSP prevent fallback GET address/email leakage. Optional module failure does not block core scoring.
 - Secret/private-path/forbidden-term scanning of publication files and Git history; manual IP review remains required.
 - Static hosting headers deny framing and browser location/camera/microphone access where the host honors them. Meta CSP remains a fallback; configure equivalent HTTP headers on other hosts.
 

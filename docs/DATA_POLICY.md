@@ -2,7 +2,7 @@
 
 ## Consent and privacy
 
-Before live lookup, require explicit consent. Photon receives the public address. Overture's catalog host and Amazon S3 public storage receive ordinary connection metadata; range requests reveal the approximate area of interest. Providers and the static host can keep their own access logs. Requests omit credentials and referrers. The app uses no analytics, cookies, geolocation, browser storage, automatic uploads or persisted address history.
+Before live lookup, require explicit consent. Photon receives the public address. Overture's catalog host and Amazon S3 public storage receive ordinary connection metadata; range requests reveal the approximate area of interest. Providers and the static host can keep their own access logs. Requests omit credentials and referrers. The app uses no cookies, geolocation, browser storage, automatic uploads or persisted address history. Optional aggregate measurement defaults off. Voluntary feedback and optional email use separate private Netlify storage; see ANALYTICS and FEEDBACK_AND_INTEREST. Shared summaries omit location; replay files include it.
 
 Raw place names, websites, contacts, arbitrary tags and source confidence metadata are transient and discarded. Only normalized public IDs, points and broad category flags travel into scoring. The optional user-requested snapshot includes the public address, coordinates, release, attribution and license texts. Never use confidential inputs or commit downloaded datasets.
 

@@ -1,6 +1,6 @@
 # Feedback and future interest
 
-Status: implemented, staging destination verification pending.
+Status: staging receipt gate passed at 593e643; final production acceptance pending.
 
 The optional result CTA opens two short forms. Feedback uses fixed usefulness, intuitive agreement, decision-context and missing-capability choices. Interest accepts one to three future categories, broad role, optional email and separate contact consent. These capabilities are unavailable ideas, not delivered Paid products. No automatic email or external outreach occurs.
 

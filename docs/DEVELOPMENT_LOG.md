@@ -122,3 +122,19 @@ The Blobs Download action opens a short-lived JSON view in tested Chrome; use th
 ## 2026-10-07 UTC - Feedback and demand implementation
 
 Added optional post-result fixed-choice feedback and future-interest forms, explicit contact consent, private idempotent submission storage and scheduled retention. No future capability is implemented. Six new tests cover schema/privacy, email consent, duplicate/conflicting submissions, endpoint failures, timeout retry identity and expiry. All 65 tests passed. Local missing-backend browser test retained selections and showed a truthful retry state. Desktop inspection found and fixed a narrow email field; the 390-pixel layout was then visually checked with no overflow. Hosted destination acceptance remains pending.
+
+
+## 2026-10-07 UTC - Feedback and interest staging gate passed
+
+Candidate 593e64360722c86ca17cfca52d9c43efba6b260e, Netlify deploy 6ac5f10602bd870008cf137b. All 65 tests passed locally and from a clean checkout. The deployed UI accepted synthetic fixed-choice feedback; refused a supplied example-domain email without contact consent; then accepted the same interest form with explicit consent. Authenticated private storage showed the exact feedback choices and a separate synthetic contact record with two categories, broad role and consent, without a searched address. No automatic email was sent.
+
+The private analytics object increased from the prior 18 to exactly 24 events: page view, deeper CTA, feedback, interest and two preference categories. It contained no email or form-record ID. Actual endpoint replay returned duplicate without creating a second record; conflicting content returned 409; extra fields 400; oversized body 413; public read 405. Unit tests cover timeout retry and retention; local missing-service UI retained choices. Mobile-width form layout was visually checked at 390 pixels; final production mobile journey remains pending.
+
+The feature staging gate passes. The public v0.1.0 model remains frozen. Final metadata, privacy page, launch package, production pipeline and full final acceptance remain open. Not Distribution Ready.
+
+
+## 2026-10-07 UTC - Discoverability and launch candidate
+
+Added static brand social card, canonical/OG/Twitter metadata, free WebApplication structured data, production sitemap, staging noindex, public privacy explanation and draft launch assets/research. No external launch posts were sent. The social card contains no real location or results. Preview crawling remains allowed so crawlers can observe noindex.
+
+Adversarial review identified a native HTML form fallback risk if core JavaScript failed. Intake now starts disabled and only enables after the core module initializes; native form method is POST and CSP disallows native submission. In a local browser with app.mjs deliberately missing, the address/consent/search/example controls stayed disabled and a clear reload message appeared. Optional measurement remained independent. All 69 tests passed before the final origin-port restriction; rerun follows. Hosted metadata and final acceptance remain pending.

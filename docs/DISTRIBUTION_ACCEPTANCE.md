@@ -13,14 +13,14 @@ Implementation → local debug → unit/integration tests → independent check 
 | Capability | Required acceptance | Current state |
 | --- | --- | --- |
 | Frozen Free baseline | Exact scoring-module integrity; existing 45 tests; no new dimensions; live retrieval and explicit unknowns retained | PASS in 51-test suite and live staging Burlington |
-| Branding/positioning | Title/header/copy agree; U.S. location context clear; no prediction/footfall claims; mobile/keyboard usable | Planned |
-| Sharing | Real and synthetic states distinguishable; explicit action; correct content; no address/coordinates by default; recipient can open; native/copy fallback; failure recovery | Planned |
-| Analytics | Every funnel action maps once; schema blocks private payloads; destination receipt and counts observed; duplicate/retry/consent/offline/ad-block tests; no scoring dependency | Core funnel staging receipt PASS; demand events/production pending |
-| Feedback/demand | Voluntary, after result; category and usefulness validation; real-decision question; actual private receipt; truthful error state | Planned |
-| Early access | Optional email/role/interests; contact consent; validation and bounded payload; destination receipt; duplicate/error handling; no unavailable-service promises | Planned |
+| Branding/positioning | Title/header/copy agree; U.S. location context clear; no prediction/footfall claims; mobile/keyboard usable | Staging identity/share gate passed; final acceptance pending |
+| Sharing | Real and synthetic states distinguishable; explicit action; correct content; no address/coordinates by default; recipient can open; native/copy fallback; failure recovery | Staging identity/share gate passed; final acceptance pending |
+| Analytics | Every funnel action maps once; schema blocks private payloads; destination receipt and counts observed; duplicate/retry/consent/offline/ad-block tests; no scoring dependency | All implemented funnel events received in staging; production pending |
+| Feedback/demand | Voluntary, after result; category and usefulness validation; real-decision question; actual private receipt; truthful error state | Staging PASS at 593e643 |
+| Early access | Optional email/role/interests; contact consent; validation and bounded payload; destination receipt; duplicate/error handling; no unavailable-service promises | Staging PASS at 593e643 |
 | SEO/social | Correct canonical production origin; static PNG preview; meaningful metadata; semantic headings; robots/sitemap; preview noindex; no private result URLs | Planned |
-| Netlify pipeline | Canonical GitHub → passing CI → preview → reviewed production branch; frozen lock; exact assets/headers; no client secrets; rollback proof | Owner signed in; configuration pending |
-| Launch kit | Synthetic screenshots; descriptions, FAQ, limits, social/GitHub/community/PH/HN/outreach/feedback drafts; no automatic external posting | Research |
+| Netlify pipeline | Canonical GitHub → passing CI → preview → reviewed production branch; frozen lock; exact assets/headers; no client secrets; rollback proof | GitHub-connected dedicated staging active; final production promotion pending |
+| Launch kit | Synthetic screenshots; descriptions, FAQ, limits, social/GitHub/community/PH/HN/outreach/feedback drafts; no automatic external posting | Sourced strategy and drafts implemented; production screenshots/final URLs pending |
 | Final acceptance | Requirements reconciled; all gates with evidence; clean checkout; production live score, sharing, analytics, forms and mobile smoke; owner instructions | Not passed |
 
 ## Evidence record template

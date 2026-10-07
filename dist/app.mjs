@@ -35,3 +35,6 @@ $('share-result').addEventListener('click',async()=>{
  }catch{$('share-status').textContent='This result could not be shared. You can still save a replay snapshot.';}finally{button.disabled=false;}
 });
 try{const shared=readShared(location.hash);if(shared){$('shared-summary').hidden=false;$('shared-detail').textContent=summaryText(shared);$('shared-values').textContent=`${shared.day} · Retail: ${shared.scores[0]??'unknown'} · Amenities: ${shared.scores[1]??'unknown'} · Transit: ${shared.scores[2]===null?'unknown':shared.scores[2].toFixed(1)}`;}}catch{$('shared-summary').hidden=false;$('shared-detail').textContent='This shared summary is invalid. Start your own assessment below.';}
+
+// Enable intake only after the complete core module has initialized.
+for(const id of ['address','consent','search-button','sample-mixed','sample-sparse'])$(id).disabled=false;
