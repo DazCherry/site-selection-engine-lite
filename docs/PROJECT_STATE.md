@@ -12,7 +12,7 @@ Public name will be SiteBuddy Free. The v0.1.0 model is frozen, with exact-file 
 
 ## Current work
 
-Full instruction received, including 43 acceptance conditions. Pre-implementation distribution classification is recorded in PUBLIC_PRIVATE_BOUNDARY. Feature acceptance matrix is in DISTRIBUTION_ACCEPTANCE. The first identity/share slice passes 51 local and clean-checkout tests; GitHub Actions runs 37582794064 and 37583476328 pass. Netlify staging commit b6bdf6b passes live Burlington (9.6), shared recipient, repeat reset, sparse unknown handling, and 390-pixel layout checks. A subsequent share race fix passes 51 local tests and awaits staging revalidation. Provider and launch-channel research is in progress. No distribution capability is production eligible.
+Full instruction received, including 43 acceptance conditions. Pre-implementation distribution classification is recorded in PUBLIC_PRIVATE_BOUNDARY. Feature acceptance matrix is in DISTRIBUTION_ACCEPTANCE. The first identity/share slice passes 51 local and clean-checkout tests; GitHub Actions runs 37582794064 and 37583476328 pass. Netlify staging commit b6bdf6b passes live Burlington (9.6), shared recipient, repeat reset, sparse unknown handling, and 390-pixel layout checks. The share race fix passed clean and hosted revalidation. Core opt-in analytics at ea4d011 passes 59 local/clean tests and actual private destination counts, concurrency/dedupe and failure isolation. Demand capture, final metadata/launch kit and production are still pending. Provider and launch-channel research is in progress. No distribution capability is production eligible.
 
 ## Next steps
 

@@ -15,7 +15,7 @@ Implementation → local debug → unit/integration tests → independent check 
 | Frozen Free baseline | Exact scoring-module integrity; existing 45 tests; no new dimensions; live retrieval and explicit unknowns retained | PASS in 51-test suite and live staging Burlington |
 | Branding/positioning | Title/header/copy agree; U.S. location context clear; no prediction/footfall claims; mobile/keyboard usable | Planned |
 | Sharing | Real and synthetic states distinguishable; explicit action; correct content; no address/coordinates by default; recipient can open; native/copy fallback; failure recovery | Planned |
-| Analytics | Every funnel action maps once; schema blocks private payloads; destination receipt and counts observed; duplicate/retry/consent/offline/ad-block tests; no scoring dependency | Provider evaluation |
+| Analytics | Every funnel action maps once; schema blocks private payloads; destination receipt and counts observed; duplicate/retry/consent/offline/ad-block tests; no scoring dependency | Core funnel staging receipt PASS; demand events/production pending |
 | Feedback/demand | Voluntary, after result; category and usefulness validation; real-decision question; actual private receipt; truthful error state | Planned |
 | Early access | Optional email/role/interests; contact consent; validation and bounded payload; destination receipt; duplicate/error handling; no unavailable-service promises | Planned |
 | SEO/social | Correct canonical production origin; static PNG preview; meaningful metadata; semantic headings; robots/sitemap; preview noindex; no private result URLs | Planned |

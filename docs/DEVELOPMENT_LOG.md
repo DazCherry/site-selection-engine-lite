@@ -109,3 +109,16 @@ Reference for deployment flags: https://docs.netlify.com/build/configure-builds/
 Added an independent optional browser module, strict schema, same-origin collector and private daily aggregates with pinned @netlify/blobs 11.1.3. No address, coordinates, email, raw URL, fingerprint or cross-page ID enters the schema. Fixed-channel attribution discards arbitrary input. Conditional writes, deduplication, daily limits and scheduled retention bound storage. Preview stores and the separate staging project isolate QA.
 
 Eight new tests cover payload rejection, attribution redaction, concurrency/duplicates, bounded contention/capacity, HTTP validation/service failure, retention and consent. All 59 tests and publication checks passed; production dependency audit found no known vulnerabilities. A local browser without a collector showed measurement unavailable while still rendering synthetic 7.5. Hosted receipt and feature PASS remain pending.
+
+
+## 2026-10-07 UTC - Core measurement staging gate passed
+
+Candidate ea4d011e7cb1d845946081920beb3229278f727f, Netlify deploy 6ac5edb1a6c59b000873f3cc. Clean frozen install and all 59 tests pass. Actual authenticated Blobs view showed 3 initial events exactly once, then the full expected 18 events: one opted-in view; synthetic starts/success/withheld; share click/copied; repeat; real-address start/submitted/confirmed/success; rejected input start/failure; and four distinct synthetic QA probe events. Turning consent off, using a sample, then enabling again added neither the off-period actions nor another view. Concurrent duplicate probe requests produced only four unique QA counts, not six. Stored data contained only fixed counts and random event IDs, no address or coordinates.
+
+Actual staging endpoint rejected extra fields with 400, a foreign origin with 403, and read attempts with 405. Burlington again returned 9.6; invalid markup cleared the prior score. An isolated local copy with the analytics module missing still scored 7.5 and shared successfully, with measurement disabled. A separate missing-collector test showed graceful unavailability. This is tested missing-module behavior, not claimed coverage of every browser blocker extension.
+
+The Blobs Download action opens a short-lived JSON view in tested Chrome; use the authenticated UI, and never copy those private temporary URLs into public evidence. Scheduled retention logic passed boundary unit tests; no claim of observing a 30-day real-time retention cycle. Core funnel staging gate passes. Demand-specific events await their feature; final production acceptance remains open.
+
+## 2026-10-07 UTC - Feedback and demand implementation
+
+Added optional post-result fixed-choice feedback and future-interest forms, explicit contact consent, private idempotent submission storage and scheduled retention. No future capability is implemented. Six new tests cover schema/privacy, email consent, duplicate/conflicting submissions, endpoint failures, timeout retry identity and expiry. All 65 tests passed. Local missing-backend browser test retained selections and showed a truthful retry state. Desktop inspection found and fixed a narrow email field; the 390-pixel layout was then visually checked with no overflow. Hosted destination acceptance remains pending.

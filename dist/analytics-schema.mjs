@@ -1,6 +1,6 @@
 export const EVENTS=['page_view','analysis_started','address_submitted','address_confirmed','analysis_succeeded','analysis_withheld','analysis_failed','repeat_analysis','share_clicked','share_copied','share_manual','deeper_analysis_clicked','feedback_submitted','early_access_submitted','capability_interest'];
 export const CHANNELS=['direct','github','producthunt','hackernews','community','outreach','search','shared','other','qa'];
-export const CATEGORIES=['none','demographics','competition','footfall','trade_area','feasibility','restaurant','retail','beauty'];
+export const CATEGORIES=['none','demographics','competition','footfall','trade_area','feasibility','restaurant','retail','beauty','other'];
 export const FAILURES=['none','input','geocoding','context','integration'];
 const keys=['v','id','event','kind','channel','category','failure'];
 export function validEvent(x){return !!x&&typeof x==='object'&&!Array.isArray(x)&&Object.keys(x).length===keys.length&&keys.every(k=>Object.hasOwn(x,k))&&x.v===1&&typeof x.id==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/.test(x.id)&&EVENTS.includes(x.event)&&['none','public','synthetic'].includes(x.kind)&&CHANNELS.includes(x.channel)&&CATEGORIES.includes(x.category)&&FAILURES.includes(x.failure);}

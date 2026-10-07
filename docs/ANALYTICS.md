@@ -1,6 +1,6 @@
 # Optional product-learning measurement
 
-Status: implemented for staging validation; destination acceptance pending.
+Status: core funnel passed staging receipt validation at ea4d011; demand events and production acceptance remain pending.
 
 Consent defaults off on each page load. Opting in measures subsequent actions and one page_view. Turning it off aborts pending requests; enabling it again does not duplicate that page view. No history is replayed, cookies/local storage used, or visitor ID shared across pages. A blocked module never gates scoring. Requests have a three-second client deadline and no automatic retry. Counts can be incomplete due to consent, blocking, disconnection, rate limits or service failure. They are neither unique people nor total traffic.
 
@@ -12,7 +12,7 @@ Events: page_view, analysis_started, address_submitted, address_confirmed, analy
 
 ## Private destination
 
-Netlify Functions writes sitebuddy-measurement-v1 (sitebuddy-measurement-preview-v1 outside the production deploy context). Separate staging and production projects isolate QA. No public read endpoint exists. In the authenticated Netlify project, open Data & storage, Blobs, the store, then a daily date JSON. Count keys are event|kind|channel|category|failure. events is the accepted event count; ids supports idempotence and is not a visitor list.
+Netlify Functions writes sitebuddy-measurement-v1 (sitebuddy-measurement-preview-v1 outside the production deploy context). Separate staging and production projects isolate QA. No public read endpoint exists. In the authenticated Netlify project, open Data & storage, Blobs, the store, then use Download on a daily date JSON. In tested Chrome this opens a short-lived authenticated JSON view; treat that temporary link as private and do not publish it. Count keys are event|kind|channel|category|failure. events is the accepted event count; ids supports idempotence and is not a visitor list.
 
 Daily records are capped at 10,000 events, with five conditional-write attempts. Platform rate limiting permits 60 requests/minute per IP/domain. IP is not copied into application storage. A scheduled function runs at 03:17 UTC and removes daily records aged at least 30 days. Netlify still processes network metadata for hosting and protection. Application code does not log request bodies. Account access and platform retention follow Netlify controls; this is not zero third-party processing.
 
