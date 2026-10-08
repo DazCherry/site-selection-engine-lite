@@ -16,4 +16,14 @@ A local synthetic upstream fault harness exercised empty candidates, HTTP 503 an
 
 Owner-only production export authenticated successfully with the replacement credential; four output files outside Git have mode 0600. Mail, export, sharing, voluntary forms and the scoring model are unchanged from the validated v0.2.1 baseline, with applicable regression tests passing. Owner previously confirmed actual immediate, daily and production recovery emails in the inbox; this Beta does not claim a new inbox observation.
 
-Production promotion and new workflow acceptance remain pending. No production PASS inferred from preview.
+## Production acceptance — PASS for bounded Free Beta
+
+PR #4 merged as 0c1e7f78c49711481c2e9106ca8fcb0537495e84. Netlify production deploy 6ac8174273c0a40008b33888 is ready at https://sitebuddy-free.netlify.app/. Production Geocodio secret/enable values are restricted to production plus the explicitly isolated Beta branch; no all-context secret. No billing change.
+
+Actual production browser journey: original incident address returned the independently checked candidate, required user confirmation, retrieved live Overture release 2026-09-23.1 and displayed 6.8 (15 normalized records). Address-free share opened in a separate recipient tab showing 6.8 with explicit sender-provided disclaimer. The two independently confirmed wrong-building cases both returned uncertain and emitted no candidate coordinates, score, share or replay. Repeated input cleared the previous result. Invalid input displayed an input error without a score.
+
+Production mobile-width browser (390px) withheld the second bad building with scrollWidth=390, then rendered the frozen synthetic 7.5 example and completed feedback and capability-interest submission. Acknowledgements were checked and matching synthetic records were read from production Private Blobs; no email/address was attached. Production analytics receiving aggregates include the QA-channel journey and withheld/submission events; QA/synthetic records are excluded from owner learning exports and digests. Original exact address was cleared and omitted from permanent repository artifacts.
+
+HTTP 200, Beta label, production canonical URL, social metadata, CSP and absence of preview noindex were confirmed. Model, share, interest, owner-mail and owner-export runtime files are unchanged from the previously accepted release. Authenticated private export passed again; Resend remains the previously inbox-verified fixed-owner system, not newly re-certified by a provider acceptance response.
+
+Final outcome: READY for a controlled Free Beta distribution experiment with the disclosed limitations in ADR 0008. No known wrong-building output remains enabled in tested cases. This is not a guarantee for every U.S. property. Current record/release checkpoint is identified by tag v0.3.0-beta.1; the runtime implementation is the accepted merge above.

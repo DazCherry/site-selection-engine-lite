@@ -1,8 +1,12 @@
 # SiteBuddy project state
 
-## Current Beta candidate — 2026-10-08
+## Current production — v0.3.0-beta.1 (2026-10-08)
 
-v0.3.0-beta.1 implements ADR 0008. Geocodio is active only in the local candidate and isolated `beta-address-safety` preview configuration; validated production remains v0.2.1 until promotion. Original incident locally resolved to independently checked property and live score 6.8. Original benchmark: 21 correct candidates / 9 withheld; holdout: 7 correct / 3 withheld. Two known raw wrong-building results are contained by dataset-level holds. Clean, CI, staging and new production gates remain pending. Historical entries below describe prior checkpoints, not current authorization needs.
+**READY for controlled Free Beta distribution.** Production: https://sitebuddy-free.netlify.app/. Canonical repository: https://github.com/DazCherry/site-selection-engine-lite. PR #4 runtime merge 0c1e7f78c49711481c2e9106ca8fcb0537495e84, accepted Netlify deploy 6ac8174273c0a40008b33888. Release tag v0.3.0-beta.1 identifies the final record checkpoint. Read BETA_ACCEPTANCE and ADR 0008 before continuing; older pending-authorization/release entries below are historical.
+
+Original incident is recovered in actual production: independently checked property, explicit confirmation, live 6.8. Thirty-address corpus: 21 correct candidates / 9 withheld. Separate ten-address holdout: 7 correct / 3 withheld. Two raw wrong-building findings are safely contained using dataset-level holds; some correct points are consequently withheld too. No address exceptions or scoring changes.
+
+117-test regression suite, clean checkout, frozen dependencies/vendor build, publication/privacy/history checks, CI, actual Deploy Preview, production desktop and 390px workflows, private receiving records, share recipient and owner export passed. Existing Resend fixed-owner operations remain intact with prior owner-confirmed inbox evidence. Known limitations: geocoder coverage/quality, source-wide withholding, small purposive samples, no physical-device coverage, no observed elapsed 30/90-day retention cycle. No further owner setup or new paid integration is required for this Beta.
 
 ## Active recovery goal — 2026-10-07 PDT
 

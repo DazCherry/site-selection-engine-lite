@@ -1,3 +1,5 @@
+> Current release: SiteBuddy Free v0.3.0-beta.1 at https://sitebuddy-free.netlify.app/. Ready for a controlled Beta test. Address coverage is bounded: uncertain locations are withheld, including temporary source-quality holds. Do not claim nationwide building-level accuracy or professional analysis availability. Original 30-address sample: 21 correct/9 withheld; separate holdout: 7 correct/3 withheld after containment. See ../BETA_ACCEPTANCE.md. Draft messaging below remains subject to these limitations; nothing has been automatically posted externally.
+
 # SiteBuddy owner launch kit
 
 DRAFTS ONLY. No external publication or outreach has occurred. Production: https://sitebuddy-free.netlify.app/. Canonical source: https://github.com/DazCherry/site-selection-engine-lite. Release and final validation are in DISTRIBUTION_READINESS_REPORT.md.

@@ -1,8 +1,16 @@
-# Beta acceptance status — 2026-10-08
+# SiteBuddy Free Beta — readiness update (2026-10-08)
 
-v0.3.0-beta.1 is a candidate, not yet production accepted. See docs/BETA_ACCEPTANCE.md and ADR 0008. Historical release evidence below does not certify the changed address workflow.
+**READY for a controlled Beta experiment**, version v0.3.0-beta.1. Live product: https://sitebuddy-free.netlify.app/. PR #4 runtime merge 0c1e7f78c49711481c2e9106ca8fcb0537495e84, accepted production deploy 6ac8174273c0a40008b33888. Final record checkpoint is the v0.3.0-beta.1 release tag.
 
-> Historical v0.2.0 distribution acceptance. A subsequent address-reliability incident and owner-operations phase are open; see ADDRESS_RESOLUTION_INCIDENT_REPORT.md and OWNER_EMAIL_OPERATIONS_REPORT.md. This report does not certify the new candidate.
+Original incident now succeeds in production at 6.8. Thirty commercial addresses: 21 correct properties, 9 uncertain withheld, 0 no-match, 0 provider errors; one known raw wrong-building result withheld. Independent holdout: 7 correct, 3 uncertain withheld, 0 no-match, 0 provider errors; one further known raw wrong-building result withheld. The holdout caused a source-containment correction and was rerun. These are small purposive samples, not national accuracy claims.
+
+Two unreliable source datasets are temporarily held. Coverage is intentionally reduced to prevent known misleading scores. No individual-address rules, extra Paid intelligence, Google billing, new paid provider or Private Engine features. The existing future-analysis interest CTA is available after withholding, without implying a purchasable service. See docs/ADR/0008-beta-address-safety.md for the Free/Paid/Private roadmap and privacy decisions.
+
+Executed gates: 117-test suite, clean checkout, pinned installation/vendor rebuild, publication/history/security/privacy checks, CI, Netlify preview, original-address production journey, both wrong-building production withholding cases, share/recipient, 390px and desktop, production feedback/interest/analytics receiving records, authenticated private export. Empty/503/429 behavior was exercised through local UI fault injection; no real provider-outage claim. Resend runtime is unchanged and remains supported by prior actual owner-inbox confirmations. See docs/BETA_ACCEPTANCE.md for exact scope and evidence. No additional owner authorization remains necessary for the released Beta.
+
+Existing SEO/social assets, launch drafts, distribution research and measurement schema remain in effect. No external community launch posts have been published. Remaining limits include source quality/coverage, nonrepresentative sample sizes, monthly context freshness, no physical-device coverage and unobserved elapsed retention cycles.
+
+## Historical release records
 
 # SiteBuddy distribution readiness report
 

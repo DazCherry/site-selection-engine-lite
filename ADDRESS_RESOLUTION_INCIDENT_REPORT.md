@@ -1,3 +1,9 @@
+# Production recovery — 2026-10-08
+
+Original reported case: recovered in actual production v0.3.0-beta.1 after independent property verification, explicit candidate confirmation and live Overture score 6.8. Photon lacked a usable exact address point; its unrelated successful examples did not close this incident. The server-side Geocodio replacement resolves this case. Benchmarking separately revealed two high-confidence wrong-building source datasets; those are temporarily withheld across each dataset. Both known wrong-building examples were tested in actual production and cannot enter scoring. Upstream correction remains outstanding, but no longer blocks bounded Beta release under the owner's updated product decision. No confidential input is committed here. Detailed release evidence: docs/BETA_ACCEPTANCE.md and ADR 0008.
+
+## Historical incident record
+
 # Address resolution incident — open
 
 2026-10-07. Baseline v0.2.0; candidate branch `sitebuddy-reliability-operations`. Production now runs v0.2.1 with the validated matching/diagnostic mitigation; the coverage incident remains open. The exact privately reported address is deliberately omitted from this public repository.

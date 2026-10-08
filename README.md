@@ -2,7 +2,7 @@
 
 **A first look at your next location.** Explore a public U.S. address through nearby retail variety, everyday amenities and transit. A transparent score out of 10, with explicit unknowns and no account required.
 
-**v0.3.0-beta.1 candidate — bounded address coverage, safety gates in progress.** [Try SiteBuddy](https://sitebuddy-free.netlify.app/) | [Staging preview](https://sitebuddy-staging.netlify.app) | [Frozen v0.1.0 release](https://github.com/DazCherry/site-selection-engine-lite/releases/tag/v0.1.0) | [Project state](docs/PROJECT_STATE.md)
+**v0.3.0-beta.1 — ready for a controlled Free Beta test.** [Try SiteBuddy](https://sitebuddy-free.netlify.app/) | [Staging preview](https://sitebuddy-staging.netlify.app) | [Frozen v0.1.0 release](https://github.com/DazCherry/site-selection-engine-lite/releases/tag/v0.1.0) | [Project state](docs/PROJECT_STATE.md)
 
 ![SiteBuddy Free: three simple dimensions of public map context](dist/social-card.png)
 

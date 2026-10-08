@@ -269,3 +269,8 @@ Implemented three-state address handling, source-wide containment of two indepen
 
 
 Beta pre-promotion gates: 117 tests and clean checkout/vendor/build/publication gates passed; runtime 7fa9efc CI and Netlify preview passed. Actual preview original incident 6.8, both known wrong buildings withheld, private feedback/interest/measurement receiving records, 390px layout and synthetic reset passed. Local fault injection distinguished empty/503/429. Fresh owner export authenticated with 0600 files. Detailed evidence in BETA_ACCEPTANCE. Production not yet promoted.
+
+
+## 2026-10-08 — Production Free Beta acceptance
+
+PR #4 merged as 0c1e7f7; deployment 6ac8174273c0a40008b33888 accepted. Production exact incident returned the independently checked candidate and live 6.8; both known wrong-building cases withheld; share recipient, invalid input, desktop/390px synthetic regression and private production feedback/interest/analytics destination checks passed. No scoring or owner-mail/export runtime changes. Model frozen; source limitations disclosed; support response not awaited. Final version v0.3.0-beta.1 is ready for a controlled external Beta test. Release tag identifies the final records commit; no external promotional posts were sent.
