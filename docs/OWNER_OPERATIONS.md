@@ -50,3 +50,10 @@ After explicit owner authorization to edit DNS directly, the three dedicated sen
 Production-only sender and fixed-recipient configuration values were saved in Netlify; no key, activation timestamp or enabled flag was saved. The current Netlify plan disables Functions-only variable scope behind an upgrade. No upgrade is permitted or attempted. The compatible plan is production-context-only secret values with existing untrusted-deploy approval, pinned dependencies without install scripts, and a build that explicitly copies static assets and never serializes server mail environment values. A synthetic-sentinel build regression checks every public output and build stdout for accidental secret/recipient serialization. This does not prevent malicious future build code; retain review gates before production changes. Previews and local contexts receive no mail configuration.
 
 Actual private export still requires an explicitly approved temporary account-level Netlify credential; no credential has been created. Actual email, inbox receipt and production release acceptance remain unvalidated.
+
+
+## Resend provider acceptance — 2026-10-08 UTC
+
+The owner created and securely supplied the approved single-domain sending key. Local file mode is 0600. Actual private QA lead processing returned accepted; the owner explicitly confirmed inbox receipt, recorded in private QA state. Reprocessing retained one attempt without another send. A separate QA daily aggregate was accepted and explicitly confirmed in the owner inbox. QA data is isolated from product-learning stores. No visitor received email.
+
+The key is saved as a Netlify Secret in production context only, with builds/functions/runtime scopes. HTTP 422 was traced to unsupported post_processing scope for secrets; excluding that scope succeeded with HTTP 201. No upgrade or secret disclosure occurred. The 97-test suite passed again, including frozen scoring, retries, quotas, privacy and public-asset secret isolation. Preview synthetic result remains 7.5. Candidate version is v0.2.1; production triggers and scheduler acceptance remain pending. The address coverage incident remains open.

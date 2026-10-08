@@ -31,3 +31,10 @@ The repeated 401 was investigated across Python, curl, identity, owned-site and 
 Actual owner export then succeeded against Private Blobs. Three CSVs and aggregate operations JSON use 0600 files in a 0700 directory outside Git. Current production records are QA-only: one feedback, one interest and sixteen analytics rows are available when explicitly including QA; default exports exclude them and contain zero eligible public rows. This validates authenticated read/export and real QA exclusion, not the presence of customer demand. Failed attempts produced no partial files.
 
 Resend domain is now verified and ready for sending. A sending-only, single-domain API credential is prepared but not yet created; actual send/inbox and remaining production gates remain unvalidated. Production and the scoring baseline are unchanged.
+
+
+## Resend provider acceptance — 2026-10-08 UTC
+
+The owner created and securely supplied the approved single-domain sending key. Local file mode is 0600. Actual private QA lead processing returned accepted; the owner explicitly confirmed inbox receipt, recorded in private QA state. Reprocessing retained one attempt without another send. A separate QA daily aggregate was accepted and explicitly confirmed in the owner inbox. QA data is isolated from product-learning stores. No visitor received email.
+
+The key is saved as a Netlify Secret in production context only, with builds/functions/runtime scopes. HTTP 422 was traced to unsupported post_processing scope for secrets; excluding that scope succeeded with HTTP 201. No upgrade or secret disclosure occurred. The 97-test suite passed again, including frozen scoring, retries, quotas, privacy and public-asset secret isolation. Preview synthetic result remains 7.5. Candidate version is v0.2.1; production triggers and scheduler acceptance remain pending. The address coverage incident remains open.

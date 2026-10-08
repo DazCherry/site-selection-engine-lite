@@ -2,7 +2,7 @@
 
 ## Current work — reliability and owner operations (2026-10-07)
 
-The production baseline is still v0.2.0. Branch `sitebuddy-reliability-operations` is an unaccepted candidate, not a new release. Address integrity/US input handling and disabled owner-mail/export infrastructure are implemented locally. Exact private-address reproduction is awaiting transmission authorization. Resend activation, sender DNS/credentials, Google licensing/financial approval and real inbox acceptance are not complete. Read ADDRESS_RESOLUTION_INCIDENT_REPORT.md, OWNER_EMAIL_OPERATIONS_REPORT.md, ADR 0006 and OWNER_OPERATIONS before continuing. Do not interpret the historical v0.2.0 acceptance below as acceptance of this candidate.
+Production baseline is v0.2.0; v0.2.1 is the candidate on PR #3. Resend Free and its restricted sending domain/key are authorized. Both immediate QA notice and daily QA digest reached the owner inbox, explicitly confirmed by the owner. Authenticated private export passed. Production-only secret configuration is saved, with activation still gated by release acceptance. The reported address remains unresolved in Photon; matching and diagnostic improvements are mitigation, not a coverage repair. No Google billing or chargeable API is authorized.
 
 ## Historical v0.2.0 checkpoint
 
