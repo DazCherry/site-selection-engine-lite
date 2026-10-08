@@ -1,6 +1,6 @@
 # Owner operations — v0.2.1 production
 
-Resend Free, verified domain, restricted key and production activation are configured. QA immediate and daily digest messages were owner-confirmed in the inbox. Production form and scheduled recovery notices were accepted; final inbox confirmation is pending. Private Blobs remains the system of record. No new setup approval is needed. Historical setup entries below are superseded by this status and the latest development log.
+Resend Free, verified domain, restricted key and production activation are configured. QA immediate and daily digest messages were owner-confirmed in the inbox. Production form and scheduled recovery notices were accepted; the owner explicitly confirmed both production notices in the inbox. Private Blobs remains the system of record. No new setup approval is needed. Historical setup entries below are superseded by this status and the latest development log.
 
 
 ## One-time approved setup
