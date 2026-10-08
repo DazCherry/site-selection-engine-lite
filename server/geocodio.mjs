@@ -50,7 +50,8 @@ export function normalizeGeocodio(raw,input){
 // association. No address, coordinate or business-specific exception is used.
 export function geocodioDecision(raw,input){
  if(!raw||!Array.isArray(raw.results)||raw.results.length>50)throw new GeocodeFailure('provider_schema');
- const usable=raw.results.filter(r=>r&&typeof r==='object');
+ if(raw.results.some(r=>!r||typeof r!=='object'||Array.isArray(r)))throw new GeocodeFailure('provider_schema');
+ const usable=raw.results;
  const sourceIssue=usable.some(r=>typeof r.source!=='string'||!r.source.trim()||/connecticut geospatial information systems council|^city of portland \(public domain dedication and license/i.test(r.source));
  if(sourceIssue)return {state:'uncertain',reason:'source_review',candidates:[]};
  const candidates=normalizeGeocodio(raw,input);

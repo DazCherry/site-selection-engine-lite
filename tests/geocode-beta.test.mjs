@@ -13,7 +13,7 @@ test('candidate, uncertain and no-match are distinct; failures remain errors',as
  assert.equal(geocodioDecision({results:[row()]},input).state,'candidate');
  const r=row();r.accuracy_type='range_interpolation';assert.equal(geocodioDecision({results:[r]},input).state,'uncertain');
  assert.equal(geocodioDecision({results:[]},input).state,'no_match');
- assert.throws(()=>geocodioDecision({results:null},input),/provider_schema/);
+ for(const results of [null,[null],[[]],['invalid']])assert.throws(()=>geocodioDecision({results},input),/provider_schema/);
  for(const state of ['uncertain','no_match'])assert.deepEqual(await serverGeocode(input,{fetchImpl:async()=>new Response(JSON.stringify({state,candidates:[]}))}),{state,candidates:[]});
  await assert.rejects(serverGeocode(input,{fetchImpl:async()=>new Response(JSON.stringify({state:'uncertain',candidates:[row()]}))}));
 });
