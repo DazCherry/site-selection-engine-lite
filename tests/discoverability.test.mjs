@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readFileSync,readdirSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {siteMetadata} from '../scripts/site-metadata.mjs';
@@ -8,3 +8,11 @@ test('static social metadata and structured data use only a validated canonical 
 test('build distinguishes indexable production from non-indexed staging and generates no result pages',()=>{const run=extra=>execFileSync(process.execPath,['scripts/build-site.mjs'],{cwd:new URL('../',import.meta.url),env:{...process.env,URL:'https://sitebuddy-validation.netlify.app',SITEBUDDY_PUBLIC_ORIGIN:'',...extra}});run({CONTEXT:'production',SITEBUDDY_PUBLIC_RELEASE:'1'});let html=readFileSync(new URL('../build/index.html',import.meta.url),'utf8');assert.doesNotMatch(html,/noindex/);assert.match(html,/rel="canonical"/);assert.match(readFileSync(new URL('../build/sitemap.xml',import.meta.url),'utf8'),/\/privacy<\/loc>/);run({CONTEXT:'deploy-preview',SITEBUDDY_PUBLIC_RELEASE:'1'});html=readFileSync(new URL('../build/index.html',import.meta.url),'utf8');assert.match(html,/noindex,nofollow/);assert.match(readFileSync(new URL('../build/_headers',import.meta.url),'utf8'),/X-Robots-Tag: noindex/);assert.match(readFileSync(new URL('../build/robots.txt',import.meta.url),'utf8'),/Allow: \//);});
 test('core script failure cannot silently submit an address in a URL',()=>{const html=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.match(html,/<form id="search-form" method="post"/);assert.match(html,/id="address" disabled/);assert.match(html,/id="search-button" disabled/);assert.match(html,/src="bootstrap.mjs"/);assert.match(readFileSync(new URL('../dist/bootstrap.mjs',import.meta.url),'utf8'),/catch/);});
 test('approved social card is a static 1200 by 630 PNG without textual metadata',()=>{const png=readFileSync(new URL('../dist/social-card.png',import.meta.url));assert.equal(png.readUInt32BE(16),1200);assert.equal(png.readUInt32BE(20),630);let offset=8;while(offset<png.length){const length=png.readUInt32BE(offset),type=png.subarray(offset+4,offset+8).toString();assert.ok(['IHDR','IDAT','IEND'].includes(type));offset+=length+12;}});
+
+test('production build does not serialize server mail configuration into any public asset or build output',()=>{
+ const values=['synthetic-secret-sentinel-938271','owner-sentinel@example.invalid','sender-sentinel@example.invalid'];
+ const output=execFileSync(process.execPath,['scripts/build-site.mjs'],{cwd:new URL('../',import.meta.url),env:{...process.env,CONTEXT:'production',SITEBUDDY_PUBLIC_RELEASE:'1',SITEBUDDY_PUBLIC_ORIGIN:'https://sitebuddy-validation.netlify.app',RESEND_API_KEY:values[0],SITEBUDDY_OWNER_EMAIL:values[1],SITEBUDDY_MAIL_FROM:values[2]},encoding:'utf8'});
+ for(const value of values)assert.equal(output.includes(value),false);
+ const inspect=dir=>{for(const entry of readdirSync(dir,{withFileTypes:true})){const path=new URL(entry.name+(entry.isDirectory()?'/':''),dir);if(entry.isDirectory())inspect(path);else{const content=readFileSync(path);for(const value of values)assert.equal(content.includes(Buffer.from(value)),false,entry.name);}}};
+ inspect(new URL('../build/',import.meta.url));
+});
