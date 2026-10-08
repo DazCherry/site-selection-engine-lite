@@ -37,3 +37,7 @@ AGENTS now requires PRODUCTION_INCIDENT_PROTOCOL. Keep sensitive reproductions o
 ### Executed preview evidence
 
 Preview #3 at d54721b, deployment 6ac6c74cd7767700081b1ce1: actual comma-free public civic lookup resolved the correct 149 Church Street, Burlington, Vermont 05401, then retrieved Overture and displayed 9.6. The independent Census public example returned no candidates and left the score unavailable with the new recovery message. Desktop Chrome and 390px layout were inspected. This validates the bounded candidate change, not missing Photon coverage or the exact reported incident. CI/clean tests passed at the recorded checkpoint. Production is not promoted.
+
+### Exact-case candidate validation
+
+At public checkpoint 42d2686 / preview deployment 6ac6e5e4f8db3d00084c9122, the authorized reported case rendered the distinct no-complete-matching-address explanation and kept the score unknown on desktop Chrome and 390px in-app-browser width. The same candidate preserved the independently public civic 9.6 result. CI, local and clean checkout each passed the 96-test gate. This is a validated diagnostic mitigation; the reported address still has no usable Photon match. No incident closure or production promotion is claimed.

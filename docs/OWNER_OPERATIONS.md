@@ -1,6 +1,6 @@
-# Owner operations — candidate, activation blocked
+# Owner operations — candidate, DNS and credential setup pending
 
-Do not enable this integration until the owner explicitly approves the provider, plan, verified sender/domain DNS and credential access. Keep `SITEBUDDY_MAIL_ENABLED` absent or `0` until staging and authorization gates pass. Existing feedback remains stored even when notifications are off.
+The owner approved Resend Free and preparation of a dedicated sending subdomain. Identity login is complete. Domain DNS verification, a domain-restricted sending credential and actual acceptance remain pending; do not request the already granted plan approval again. Keep `SITEBUDDY_MAIL_ENABLED` absent or `0` until staging and authorization gates pass. Existing feedback remains stored even when notifications are off.
 
 ## One-time approved setup
 
@@ -36,3 +36,9 @@ Inspect the owner inbox, subject and content. Only after actual receipt has been
 ## Retention and limits
 
 Submissions: 90 days; notification tombstones: 91 days; operational counters: 30 days, via scheduled retention even when mail is disabled. Mail-control budget stores only current date/month/counts. No addresses/coordinates/analytics IDs enter mail. Resend service logs and owner inbox copies have independent retention; configure/delete those separately. A scan exceeding 10,000 records fails closed and logs a worker failure; review capacity before increasing limits. Keep existing account spending safeguards; application mail caps do not cap hosting charges.
+
+### Current account setup evidence
+
+Authenticated Resend Billing shows the $0/month 3,000-message subscription and no payment methods. The dedicated sending subdomain exists, verification has not started, receiving is off and TLS is Enforced. Exact DKIM TXT and two sending CNAME records were delivered privately to the owner; unrelated root MX/SPF/DMARC must remain untouched. Tracking has not been configured; confirm its final disabled state before activation. Domain-restricted API key selection currently offers only All domains because verification is pending, so no key was created.
+
+The Netlify personal-token UI offers a seven-day expiry but no project-level read-only scope. A prepared owner handoff explains that account-level access explicitly; it must not be represented as a project-restricted credential. No token was generated or discovered. Live export acceptance remains pending.

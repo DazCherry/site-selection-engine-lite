@@ -1,6 +1,6 @@
 # Provider costs and authorization
 
-Reviewed official sources 2026-10-07. No new account, service, billing, key, payment method, DNS change or paid commitment has been activated. This document is an approval proposal, not authorization.
+Reviewed official sources 2026-10-07. The owner subsequently authorized Resend Free and dedicated sender-subdomain preparation, signed in personally, and the authenticated dashboard shows Transactional 3,000 emails at $0/month with no payment methods. The sending domain is created but DNS verification is pending; TLS is Enforced. No API key, actual sending, DNS change, billing upgrade or paid commitment has been activated. Google remains unapproved.
 
 ## Google: not recommended for activation until license compatibility is established
 
@@ -14,9 +14,9 @@ If later approved, propose a dedicated project, minimum API-specific key scope, 
 
 A budget alert is not a spending cap. Charges can continue beyond allowances. Shared account usage, other enabled SKUs, key compromise and quota configuration mean no zero-spend guarantee is established. Current exposure from this integration is zero because it is not enabled; no contractual future zero-spend guarantee is asserted. Recheck region-specific terms before any approval request.
 
-## Resend: proposed Free plan, explicit owner approval still required
+## Resend: Free approved; domain verification and credentials pending
 
-[Resend pricing](https://resend.com/pricing): Free currently provides 3,000 transactional emails/month and 100/day at $0. Pro starts at $20/month for 50,000 and permits paid extra volume when enabled. Proposed configuration: Free only, no paid plan, no payment method, no transactional overages, no automatic upgrade, no click/open tracking. Provider-side account limits must be verified in the actual authorized account. No extra usage is authorized.
+[Resend pricing](https://resend.com/pricing): Free currently provides 3,000 transactional emails/month and 100/day at $0. Pro starts at $20/month for 50,000 and permits paid extra volume when enabled. Proposed configuration: Free only, no paid plan, no payment method, no transactional overages, no automatic upgrade, no click/open tracking. The actual Billing page confirms the monthly Free subscription; the Usage page rendered zero-valued counters, so its daily remaining counter is not treated as verified. Paid transactional overage controls are disabled and unchecked. No extra usage is authorized.
 
 Expected pilot volume: ten consented contacts/day plus one daily digest, about 341 messages in a 31-day month. Code reserves at most 90 attempts/day and 2,500/month (failed/ambiguous attempts count), with no reservation refunds. A stable global CAS document also spaces attempts by at least 1.1 seconds. Proposed real QA sends use a separate store and one stable test identity; limit owner test to one message before any additional authorization. Provider Free account limit is the outer guard across stores and other apps. If this account is upgraded or shared, these assumptions must be re-reviewed. The app cannot promise a contractual zero-spend ceiling for Netlify usage or changed third-party plans.
 
@@ -28,4 +28,10 @@ At the proposed account plan, email subscription cost is $0 and sends must stop 
 
 ## Alternatives evaluated
 
-[Postmark](https://postmarkapp.com/pricing): free developer tier 100/month; Basic starts $15/month with listed paid overages. Too small for the illustrative pilot on Free. [Amazon SES](https://aws.amazon.com/ses/pricing/): outbound baseline $0.10/1,000 plus applicable data/add-ons; IAM, sender verification and account/sandbox operations add setup. Resend offers simpler bounded pilot operations, but no provider is authorized yet.
+[Postmark](https://postmarkapp.com/pricing): free developer tier 100/month; Basic starts $15/month with listed paid overages. Too small for the illustrative pilot on Free. [Amazon SES](https://aws.amazon.com/ses/pricing/): outbound baseline $0.10/1,000 plus applicable data/add-ons; IAM, sender verification and account/sandbox operations add setup. Resend Free is now the owner-approved option; the alternatives were not activated.
+
+## Exact-incident query and alternative-data investigation
+
+The official [Photon API reference](https://raw.githubusercontent.com/komoot/photon/master/docs/api-v1.md) documents structured lookup. Authorized testing of both structured and free-text paths did not recover the private incident address; a second query is not added to every production search without an evidenced benefit.
+
+The [USDOT National Address Database](https://www.transportation.gov/gis/national-address-database) offers address-point data, but its [disclaimer](https://www.transportation.gov/mission/open/gis/national-address-database/national-address-database-nad-disclaimer) includes incomplete coverage, accuracy limitations and an indemnification clause. It is not silently adopted as a zero-obligation fallback. No private input was sent to this or any new provider. The exact incident remains unresolved by the authorized Photon path; Google billing and downstream-use compatibility remain separate open gates.
