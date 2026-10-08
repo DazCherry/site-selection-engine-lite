@@ -22,3 +22,16 @@ test('control characters are rejected before whitespace normalization and unit q
  assert.equal((await provider.geocode('42 N Example Ave Unit 3, Fictional City CA 99999')).length,1);assert.equal(url.searchParams.get('limit'),'10');assert.equal(url.searchParams.get('q').includes('Unit'),false);
 });
 test('an explicit foreign country cannot be silently replaced, and Suite Road is not a unit',()=>{assert.equal(candidateAgrees(p,'42 N Example Ave, Fictional City, Canada'),false);assert.equal(candidateAgrees(p,'42 N Example Ave, Fictional City, CA 99999, USA'),true);assert.equal(addressParts('42 Suite Road, Fictional City, CA').query,'42 Suite Road, Fictional City, CA');});
+
+test('street and bridge responses are an address-precision failure, even when tagged house',async()=>{
+ const raw={type:'FeatureCollection',features:[f({type:'house',osm_key:'bridge',name:'Example Bridge',street:p.street,city:p.city,country:p.country}),f({type:'street',name:p.street,city:p.city,country:p.country})]};
+ let calls=0;const provider=createProviders({fetchImpl:async()=>{calls++;return new Response(JSON.stringify(raw));},contextImpl:async()=>{throw new Error('Context must not be requested');}});
+ await assert.rejects(provider.geocode('42 N Example Ave, Fictional City, CA 99999'),/no complete street address matched/);assert.equal(calls,1);
+ assert.equal(normalizePhoton(raw).length,0);
+});
+test('empty coverage, mismatched address and invalid provider payload remain distinct',async()=>{
+ const lookup=features=>createProviders({fetchImpl:async()=>new Response(JSON.stringify({type:'FeatureCollection',features}))}).geocode('42 N Example Ave, Fictional City, CA 99999');
+ assert.deepEqual(await lookup([]),[]);
+ await assert.rejects(lookup([f({...p,housenumber:'43'})]),/no complete street address matched/);
+ await assert.rejects(lookup(null),/invalid response/);
+});

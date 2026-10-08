@@ -31,3 +31,11 @@ Read AGENTS, PUBLIC_PRIVATE_BOUNDARY, DISTRIBUTION_ACCEPTANCE, DEVELOPMENT_LOG a
 Final runtime checkpoint: 1551dbcb256ab19b10d1be626f8ad771a8b02e02, production deploy 6ac65353c57314000835f649. Final version-label smoke shows v0.2.0, synthetic 7.5 and measurement off after refresh. Runtime modules are unchanged from the fully exercised production journey.
 
 Reliability candidate validation checkpoint: draft PR #3, public runtime d54721b / local c49437c, successful clean 93-test gate and CI 37696283954, Netlify preview 6ac6c74cd7767700081b1ce1. Actual preview address/Overture score, no-result recovery, 390px forms, idempotency/conflict/origin/schema denials and private store existence were checked. See latest DEVELOPMENT_LOG for later refinements. Real notification receipt/export and the exact private incident remain blocked; do not merge or create a release. Production main remains 1ef172b / v0.2.0.
+
+## 2026-10-07 — owner approvals and exact-incident reproduction
+
+Owner authorized the private incident input to Photon, Resend Free for the sole fixed owner recipient, and dedicated sender-subdomain preparation. Financial restrictions and no visitor mail remain mandatory; Google billing is not authorized. Prior missing approval was not a refusal. Resend login/terms handoff is pending; no key, DNS change or real message has been made.
+
+Actual production v0.2.0 reproduced the misleading country/input error. Photon HTTP 200 free-text results contained only a bridge/street set without house numbers; expanded spelling and documented structured searches likewise produced no exact address point. No private address or raw response is retained in Git. The requested address is still unresolved and the incident remains open. Candidate code distinguishes nonempty but unusable results from empty coverage, with synthetic bridge and mismatch tests. No new provider, extra retry, approximate fallback or scoring change was introduced. Production remains unchanged; this new candidate delta still requires its full validation checkpoint.
+
+Candidate validation: all 96 local tests passed, including the unchanged v0.1.0 model integrity gate; publication/history scanning and git diff whitespace checks passed. New response-diagnostic tests use only fictional fixtures. Actual production baseline failure was reproduced, not repaired or promoted.

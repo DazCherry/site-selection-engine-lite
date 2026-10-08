@@ -12,3 +12,7 @@
 10. Monitor recurrence through address-free aggregate diagnostics. Distinguish observed events from unknown activity when analytics is declined. Never close an incident solely because one example now succeeds.
 
 An unresolved material finding reopens development. Missing external authorization is BLOCKED / UNVALIDATED, never PASS. Email API acceptance and a delivery webhook do not prove owner inbox receipt.
+
+### Authorization and insufficient geocoding responses
+
+Preserve approvals across turns. An unavailable or rejected tool approval is not an owner refusal. State the exact approval mechanism and blocked data destination. Check actual deployed call boundaries before attributing a compound consent label to network behavior. For successful HTTP responses with no usable candidate, distinguish zero upstream features from rejected coarse/mismatched features; a provider type label such as house is insufficient without complete, matching address fields. Test the actual reported case with permission, keep it out of public fixtures, and do not silently substitute approximate points or transmit it to an unapproved fallback provider. Query-shape mitigations that do not improve the incident must not be presented as a coverage repair.

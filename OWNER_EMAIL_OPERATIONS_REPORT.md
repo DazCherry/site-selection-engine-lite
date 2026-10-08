@@ -1,6 +1,6 @@
 # Owner email operations — implementation candidate, NOT activated
 
-2026-10-07. Resend is proposed, not authorized or configured. No real mail has been sent; no inbox receipt, sender verification, production export or production notification acceptance is claimed. Existing production remains v0.2.0. See OWNER_OPERATIONS and PROVIDER_COSTS_AND_AUTHORIZATION for the concrete setup/cost proposal.
+2026-10-07. Resend Free is explicitly authorized, restricted to one fixed owner recipient, with no paid upgrades, payment method, recharge, overages or visitor mail. Account activation and configuration are not yet complete. No real mail has been sent; no inbox receipt, sender verification, production export or production notification acceptance is claimed. Existing production remains v0.2.0. See OWNER_OPERATIONS and PROVIDER_COSTS_AND_AUTHORIZATION for the concrete setup/cost proposal.
 
 Private Netlify submission records are the system of record. A notification failure cannot reverse durable form acknowledgement. Eligible public opted-in contacts create a reference-only durable outbox record; a recovery scan repairs missed creation after the configured activation timestamp. A fixed server-configured owner recipient receives plain text with timestamp UTC, role, chosen capabilities, consent and submission ID. No visitor receives mail; a contact is not called commercially qualified solely because it contains an email. No address, coordinates, replay, IP or analytics identifier is included.
 
@@ -12,7 +12,7 @@ Owner-only export uses an authorized Netlify token in the local environment and 
 
 Security review covers fixed destinations, no client-supplied headers, strict schemas, plaintext templating, private stores, no browser keys, production-only activation, no unapproved credential discovery, and synthetic tests. Adversarial testing includes duplicate/concurrent jobs, failed queue hooks, ambiguous responses, source deletion, expiry, configuration changes, quota caps, provider failures and formula injection. Remaining mandatory checks include clean checkout, staging runtime, actual authorized account limits, verified domain, private credential setup, owner inbox receipt, actual production journey, and export receipt. Material unresolved findings block release.
 
-Required owner decisions: explicit Resend Free activation approval; owner-controlled verified sending domain/subdomain and DNS changes; authorization for narrowly scoped credentials; owner confirmation of the synthetic test in the fixed recipient inbox. Google remains separately unapproved and license-unresolved. No new release tag will be created while these gates remain open.
+Remaining owner actions: complete Resend identity login and personally accept the displayed terms; apply the exact verification records after they are obtained for a dedicated subdomain of the authorized owner-controlled domain; approve any newly scoped credential access at the actual access-creation step if required; confirm the synthetic test in the fixed recipient inbox. Do not ask again for the already granted Free-plan or domain-preparation authorization. DNS control is not authorization to alter unrelated existing email records. Google remains separately unapproved and license-unresolved. No new release tag will be created while these gates remain open.
 
 ### Executed preview evidence
 

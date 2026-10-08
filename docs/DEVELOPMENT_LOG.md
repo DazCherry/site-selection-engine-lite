@@ -185,3 +185,11 @@ Actual production deploy 6ac65353c57314000835f649 published that commit. A fresh
 - Final adversarial refinement: delay yesterday's digest until 00:05 UTC so near-midnight in-flight writes settle. Added a clock-controlled regression. Mail remains disabled; no production promotion or release tag.
 - Owner authorization proposal submitted for Resend Free, verified sending subdomain and restricted credential setup; no approval has yet been received. Exact private-address Photon transmission authorization is also still pending. Google remains unenabled with the documented downstream-analysis licensing question.
 - Final local expanded gate after digest boundary fix: 94/94 PASS; publication/history and whitespace checks PASS. Activation and production acceptance remain blocked, not partially passed.
+
+## 2026-10-07 — owner approvals and exact-incident reproduction
+
+Owner authorized the private incident input to Photon, Resend Free for the sole fixed owner recipient, and dedicated sender-subdomain preparation. Financial restrictions and no visitor mail remain mandatory; Google billing is not authorized. Prior missing approval was not a refusal. Resend login/terms handoff is pending; no key, DNS change or real message has been made.
+
+Actual production v0.2.0 reproduced the misleading country/input error. Photon HTTP 200 free-text results contained only a bridge/street set without house numbers; expanded spelling and documented structured searches likewise produced no exact address point. No private address or raw response is retained in Git. The requested address is still unresolved and the incident remains open. Candidate code distinguishes nonempty but unusable results from empty coverage, with synthetic bridge and mismatch tests. No new provider, extra retry, approximate fallback or scoring change was introduced. Production remains unchanged; this new candidate delta still requires its full validation checkpoint.
+
+Candidate validation: all 96 local tests passed, including the unchanged v0.1.0 model integrity gate; publication/history scanning and git diff whitespace checks passed. New response-diagnostic tests use only fictional fixtures. Actual production baseline failure was reproduced, not repaired or promoted.
