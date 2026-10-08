@@ -1,3 +1,5 @@
+> Current Beta address architecture and acceptance supersede historical Photon descriptions below: see [ADR 0008](ADR/0008-beta-address-safety.md) and [Beta acceptance](BETA_ACCEPTANCE.md). Geocodio runs server-side; the frozen scoring model and existing owner operations are unchanged.
+
 # Architecture
 
 A static browser application uses ECMAScript modules and a small pinned PMTiles/vector-tile decoder bundle. Node's built-in tests exercise the same calculation and adapter modules. The Free scoring flow needs no account, LLM, browser secret, paid API or private scoring backend. Optional distribution features use Netlify Functions and private Blobs stores, separate from scoring.

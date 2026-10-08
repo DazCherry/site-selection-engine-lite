@@ -1,5 +1,13 @@
 # SiteBuddy project state
 
+## Current Beta candidate — 2026-10-08
+
+v0.3.0-beta.1 implements ADR 0008. Geocodio is active only in the local candidate and isolated `beta-address-safety` preview configuration; validated production remains v0.2.1 until promotion. Original incident locally resolved to independently checked property and live score 6.8. Original benchmark: 21 correct candidates / 9 withheld; holdout: 7 correct / 3 withheld. Two known raw wrong-building results are contained by dataset-level holds. Clean, CI, staging and new production gates remain pending. Historical entries below describe prior checkpoints, not current authorization needs.
+
+## Active recovery goal — 2026-10-07 PDT
+
+Branch address-resolution-recovery contains disabled Geocodio evaluation code and private benchmark tooling. Full 105-test mock/regression gate passes. Thirty official commercial-address references across 22 states are prepared outside Git. No actual Geocodio result exists; account/terms/key authorization is the next necessary owner action. Production is unchanged v0.2.1 and the original address incident remains OPEN. Read ADR 0007 before continuing.
+
 ## Current work — reliability and owner operations (2026-10-07)
 
 Production is v0.2.1, merged PR #3 at 277e3389dd19378f4de595de8e7ffa10f298d4cb, deploy 6ac71ed4dc21140008637c60. The owner explicitly approved controlled production acceptance after automatic merge review required clarification of validation order. Resend immediate QA and daily QA messages reached the owner inbox. Production form notification and automatic recovery reached provider acceptance; the owner explicitly confirmed both notices in the inbox. Authenticated private export, production desktop/live/share and 390px synthetic feedback checks passed. The reported address remains unresolved by Photon; production now gives accurate insufficient-detail diagnostics and withholds scores. No Google billing or chargeable API is authorized. Older entries below are historical.
@@ -63,3 +71,20 @@ The repeated 401 was investigated across Python, curl, identity, owned-site and 
 Actual owner export then succeeded against Private Blobs. Three CSVs and aggregate operations JSON use 0600 files in a 0700 directory outside Git. Current production records are QA-only: one feedback, one interest and sixteen analytics rows are available when explicitly including QA; default exports exclude them and contain zero eligible public rows. This validates authenticated read/export and real QA exclusion, not the presence of customer demand. Failed attempts produced no partial files.
 
 Resend domain is now verified and ready for sending. A sending-only, single-domain API credential is prepared but not yet created; actual send/inbox and remaining production gates remain unvalidated. Production and the scoring baseline are unchanged.
+
+
+## Current recovery checkpoint — 2026-10-08 PDT
+
+Geocodio credentials authenticated and a free-tier hard cap was saved. The original incident passed independent municipal parcel/building verification and local live Overture handoff (6.8), but has NOT passed production. The 30-address commercial sample yielded 22 correct property/address matches, 1 confirmed incorrect building, 7 unresolved and 0 provider errors. Three query variants and reverse geocoding repeat the wrong-building result despite maximum provider confidence. Geoapify public-demo alternatives did not establish original-property precision. See ADR 0007 for evidence, timing, narrow normalization changes and rejected mitigations.
+
+Active frontend remains v0.2.1. Candidate transport, disabled server route and quota remain isolated; no Netlify activation, public push or production deployment occurred. Provider-reported precision is explicitly labeled. The review gate rejects incorrect/unverified candidates and keeps every outcome in its denominator. A public-commercial supplier correction report is prepared outside Git but not sent; explicit communication authorization is needed. Subsequent clean/preview/production gates cannot turn this upstream quality failure into PASS. Earlier email/export acceptance remains unchanged; the address incident is OPEN.
+
+Executed local checkpoint: 113/113 tests passed (baseline plus adapter, quota, transport and independent-review regressions); publication/history checks and diff whitespace checks passed. An initial sandbox run could not bind the localhost security-test port; the approved rerun passed. The actual private 30-case review gate returns FAIL with 22 accurate, 1 incorrect, 7 unresolved, 0 provider errors and 0 unverified. Clean checkout verification follows; preview/production activation is deliberately blocked by this material finding.
+
+
+Clean-checkout evidence — 2026-10-08 PDT: local checkpoint 501bb9b was cloned without hardlinks into a fresh directory. Frozen-lockfile installation with lifecycle scripts disabled passed; all 113 tests passed; publication/history scanning, vendor rebuild and preview-asset build passed; the checkout stayed clean. This was a local preview asset build, NOT a Netlify Deploy Preview. Public production homepage returned HTTP 200 and displayed v0.2.1; no new production address acceptance is claimed. No candidate push, remote CI run, staging deployment or production promotion occurred. Provider data-quality finding remains open. The provider-report browser session currently needs owner login, and submitting the prepared report awaits explicit communication authorization.
+
+
+## Provider report sent — 2026-10-08 PDT
+
+Owner explicitly authorized the correction report. The report was sent to Geocodio official support by email, with Gmail confirming sent. The web form was not submitted because it adds a liability waiver; no new legal terms were accepted. Content contains only the public benchmark case, returned point/metadata, reproduction variants and official reference links. No credentials, owner incident input or visitor data were sent. Provider acknowledgement, ticket identifier and remediation remain unverified. Production stays v0.2.1 and the incident remains OPEN. This is a documentation-only update; no tests or deployment were rerun.

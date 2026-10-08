@@ -1,3 +1,5 @@
+> Current Beta address architecture and acceptance supersede historical Photon descriptions below: see [ADR 0008](ADR/0008-beta-address-safety.md) and [Beta acceptance](BETA_ACCEPTANCE.md). Geocodio runs server-side; the frozen scoring model and existing owner operations are unchanged.
+
 # Public data policy
 
 ## Consent and privacy

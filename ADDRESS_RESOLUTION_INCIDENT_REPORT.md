@@ -44,3 +44,24 @@ At public checkpoint 42d2686 / preview deployment 6ac6e5e4f8db3d00084c9122, the 
 
 
 Production v0.2.1 acceptance repeated the exact authorized case after deployment: provider places remained insufficient for a complete matching address, the new diagnostic appeared, and the score remained withheld. The private input was cleared; no additional provider received it. This is a verified mitigation, not a coverage repair.
+
+## Recovery evaluation — 2026-10-07 PDT
+
+Incident remains OPEN. Photon coverage is not repaired by the v0.2.1 diagnostic. Municipal property evidence confirms the commercial site but contains a postal-code inconsistency; no incorrect point is accepted to work around this. ADR 0007 documents Geocodio as the first candidate for actual evaluation, not a selected or proven replacement. A disabled server adapter, private evaluation harness and eight mock regressions are prepared; all 105 tests pass. Thirty commercial addresses across 22 states have independent official address references, but no candidate-provider accuracy result exists yet. Owner account/terms/key authorization is required next. No production change.
+
+Clean checkpoint 8725e5d: fresh clone, frozen dependency install with lifecycle scripts disabled, Node v24.19.0 / pnpm 11.25.0; all 105 tests and publication/history checks passed. Initial offline install lacked registry metadata; normal frozen install passed the supply-chain policy. No lockfile changes. This is local clean-environment evidence, not Netlify runtime validation.
+
+
+## Candidate data-quality finding — 2026-10-08 PDT
+
+Geocodio credentials authenticated and a free-tier hard cap was saved. The original incident passed independent municipal parcel/building verification and local live Overture handoff (6.8), but has NOT passed production. The 30-address commercial sample yielded 22 correct property/address matches, 1 confirmed incorrect building, 7 unresolved and 0 provider errors. Three query variants and reverse geocoding repeat the wrong-building result despite maximum provider confidence. Geoapify public-demo alternatives did not establish original-property precision. See ADR 0007 for evidence, timing, narrow normalization changes and rejected mitigations.
+
+Active frontend remains v0.2.1. Candidate transport, disabled server route and quota remain isolated; no Netlify activation, public push or production deployment occurred. Provider-reported precision is explicitly labeled. The review gate rejects incorrect/unverified candidates and keeps every outcome in its denominator. A public-commercial supplier correction report is prepared outside Git but not sent; explicit communication authorization is needed. Subsequent clean/preview/production gates cannot turn this upstream quality failure into PASS. Earlier email/export acceptance remains unchanged; the address incident is OPEN.
+
+
+Clean-checkout evidence — 2026-10-08 PDT: local checkpoint 501bb9b was cloned without hardlinks into a fresh directory. Frozen-lockfile installation with lifecycle scripts disabled passed; all 113 tests passed; publication/history scanning, vendor rebuild and preview-asset build passed; the checkout stayed clean. This was a local preview asset build, NOT a Netlify Deploy Preview. Public production homepage returned HTTP 200 and displayed v0.2.1; no new production address acceptance is claimed. No candidate push, remote CI run, staging deployment or production promotion occurred. Provider data-quality finding remains open. The provider-report browser session currently needs owner login, and submitting the prepared report awaits explicit communication authorization.
+
+
+## Provider report sent — 2026-10-08 PDT
+
+Owner explicitly authorized the correction report. The report was sent to Geocodio official support by email, with Gmail confirming sent. The web form was not submitted because it adds a liability waiver; no new legal terms were accepted. Content contains only the public benchmark case, returned point/metadata, reproduction variants and official reference links. No credentials, owner incident input or visitor data were sent. Provider acknowledgement, ticket identifier and remediation remain unverified. Production stays v0.2.1 and the incident remains OPEN. This is a documentation-only update; no tests or deployment were rerun.
