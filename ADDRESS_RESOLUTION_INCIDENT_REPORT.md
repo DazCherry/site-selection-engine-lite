@@ -1,6 +1,6 @@
 # Address resolution incident — open
 
-2026-10-07. Baseline v0.2.0; candidate branch `sitebuddy-reliability-operations`. Production remains the existing release. The exact privately reported address is deliberately omitted from this public repository.
+2026-10-07. Baseline v0.2.0; candidate branch `sitebuddy-reliability-operations`. Production now runs v0.2.1 with the validated matching/diagnostic mitigation; the coverage incident remains open. The exact privately reported address is deliberately omitted from this public repository.
 
 ## Evidence and root-cause status
 
@@ -41,3 +41,6 @@ Preview #3 at d54721b, deployment 6ac6c74cd7767700081b1ce1: actual comma-free pu
 ### Exact-case candidate validation
 
 At public checkpoint 42d2686 / preview deployment 6ac6e5e4f8db3d00084c9122, the authorized reported case rendered the distinct no-complete-matching-address explanation and kept the score unknown on desktop Chrome and 390px in-app-browser width. The same candidate preserved the independently public civic 9.6 result. CI, local and clean checkout each passed the 96-test gate. This is a validated diagnostic mitigation; the reported address still has no usable Photon match. No incident closure or production promotion is claimed.
+
+
+Production v0.2.1 acceptance repeated the exact authorized case after deployment: provider places remained insufficient for a complete matching address, the new diagnostic appeared, and the score remained withheld. The private input was cleared; no additional provider received it. This is a verified mitigation, not a coverage repair.

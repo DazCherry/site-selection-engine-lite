@@ -2,7 +2,7 @@
 
 ## Current work — reliability and owner operations (2026-10-07)
 
-Production baseline is v0.2.0; v0.2.1 is the candidate on PR #3. Resend Free and its restricted sending domain/key are authorized. Both immediate QA notice and daily QA digest reached the owner inbox, explicitly confirmed by the owner. Authenticated private export passed. Production-only secret configuration is saved, with activation still gated by release acceptance. The reported address remains unresolved in Photon; matching and diagnostic improvements are mitigation, not a coverage repair. No Google billing or chargeable API is authorized.
+Production is v0.2.1, merged PR #3 at 277e3389dd19378f4de595de8e7ffa10f298d4cb, deploy 6ac71ed4dc21140008637c60. The owner explicitly approved controlled production acceptance after automatic merge review required clarification of validation order. Resend immediate QA and daily QA messages reached the owner inbox. Production form notification and automatic recovery reached provider acceptance; final owner inbox confirmation is pending. Authenticated private export, production desktop/live/share and 390px synthetic feedback checks passed. The reported address remains unresolved by Photon; production now gives accurate insufficient-detail diagnostics and withholds scores. No Google billing or chargeable API is authorized. Older entries below are historical.
 
 ## Historical v0.2.0 checkpoint
 

@@ -1,12 +1,13 @@
-# Owner operations — candidate, DNS and credential setup pending
+# Owner operations — v0.2.1 production
 
-The owner approved Resend Free and preparation of a dedicated sending subdomain. Identity login is complete. Domain DNS verification, a domain-restricted sending credential and actual acceptance remain pending; do not request the already granted plan approval again. Keep `SITEBUDDY_MAIL_ENABLED` absent or `0` until staging and authorization gates pass. Existing feedback remains stored even when notifications are off.
+Resend Free, verified domain, restricted key and production activation are configured. QA immediate and daily digest messages were owner-confirmed in the inbox. Production form and scheduled recovery notices were accepted; final inbox confirmation is pending. Private Blobs remains the system of record. No new setup approval is needed. Historical setup entries below are superseded by this status and the latest development log.
+
 
 ## One-time approved setup
 
 1. Owner approves Resend Free only and accepts applicable terms personally; no upgrade, overages, payment method or auto-recharge.
 2. Owner approves a sending domain/subdomain and its DNS verification. Verify SPF/DKIM and appropriate DMARC configuration; preserve existing mail records. Recipient identity alone is not sender authorization.
-3. Create a sending-only API key restricted to the verified domain. Configure through secure Netlify environment settings, Functions scope and production context only: `RESEND_API_KEY`, `SITEBUDDY_MAIL_FROM` (bare verified email), `SITEBUDDY_OWNER_EMAIL` (the one destination privately specified by owner), `SITEBUDDY_MAIL_ENABLED_SINCE` (UTC ISO timestamp), then `SITEBUDDY_MAIL_ENABLED=1` only after acceptance. No client recipient input is supported. No key in chat or Git.
+3. Create a sending-only API key restricted to the verified domain. Configure through secure Netlify environment settings, production context only (Free-plan scope details below): `RESEND_API_KEY`, `SITEBUDDY_MAIL_FROM` (bare verified email), `SITEBUDDY_OWNER_EMAIL` (the one destination privately specified by owner), `SITEBUDDY_MAIL_ENABLED_SINCE` (UTC ISO timestamp), then `SITEBUDDY_MAIL_ENABLED=1` only after acceptance. No client recipient input is supported. No key in chat or Git.
 4. Keep previews/staging disabled, including a separate staging project's production context. Never copy production secrets into preview contexts. Recheck provider quota, Free plan, no overages and tracking disabled in the actual dashboard.
 
 ## Daily behavior
@@ -31,7 +32,7 @@ Run `node scripts/owner-export.mjs --out /absolute/private/folder-outside-reposi
 
 Only after activation authorization, supply the same approved variables plus authorized Netlify token/site ID to `node scripts/owner-mail-qa.mjs --send`. A fixed synthetic contact goes only to the configured owner recipient with `[QA]` subject. It uses a separate QA store, one stable idempotency identity, and cannot change destination via command arguments. Repeating the command does not deliberately create a new notification. Do not submit a real customer record for tests.
 
-Inspect the owner inbox, subject and content. Only after actual receipt has been observed, run `node scripts/owner-mail-qa.mjs --confirm-receipt` to record the owner verification time. A provider `accepted` response alone is not PASS. Verify no duplicate, then exercise the actual production form with a clearly synthetic test case and isolate/remove its test artifacts under the authorized QA procedure before launch reporting. No live inbox test has been executed yet.
+Inspect the owner inbox, subject and content. Only after actual receipt has been observed, run `node scripts/owner-mail-qa.mjs --confirm-receipt` to record the owner verification time. A provider `accepted` response alone is not PASS. Verify no duplicate, then exercise the actual production form with a clearly synthetic test case and isolate/remove its test artifacts under the authorized QA procedure before launch reporting. Both QA message types passed owner-confirmed inbox acceptance; production acceptance is recorded in the development log.
 
 ## Retention and limits
 
