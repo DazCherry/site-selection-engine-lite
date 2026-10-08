@@ -238,3 +238,31 @@ Clean 97/97 tests, publication/history checks, build, CI 37728393663 and latest 
 ## Final production inbox confirmation — 2026-10-07 PDT
 
 Owner explicitly confirmed both production notices received. Receipt timestamps were added to exactly the two accepted production outbox records; no messages were resent. Production form-to-inbox and automatic recovery-to-inbox acceptance are complete. QA lead and daily digest inbox acceptance, private export and the documented regression/staging/production checks also passed. The address coverage incident remains open; no claim is made of an observed real midnight digest boundary or full elapsed retention period. This final change is documentation and private receipt metadata only.
+
+## 2026-10-07 PDT — address recovery preparation
+
+Reviewed the renewed recovery goal and Geocodio, Google and Apple primary documentation. Preserved the Photon incident as open. Prepared Geocodio API v2 normalization/POST adapter and disabled same-origin handler, with default-denied quota injection. Added a private benchmark CLI that does not call a candidate accurate before independent location review. Eight new synthetic tests and all 105 full regression tests passed. A source-verified private corpus contains 30 addresses across 22 states and three retailer categories. No real Geocodio call, key, account, active route, deployment or scoring change. Provider selection, live acceptance and release remain unvalidated. See ADR 0007.
+
+Clean checkpoint 8725e5d: fresh clone, frozen dependency install with lifecycle scripts disabled, Node v24.19.0 / pnpm 11.25.0; all 105 tests and publication/history checks passed. Initial offline install lacked registry metadata; normal frozen install passed the supply-chain policy. No lockfile changes. This is local clean-environment evidence, not Netlify runtime validation.
+
+
+## Address recovery live evaluation — 2026-10-08 PDT
+
+Geocodio credentials authenticated and a free-tier hard cap was saved. The original incident passed independent municipal parcel/building verification and local live Overture handoff (6.8), but has NOT passed production. The 30-address commercial sample yielded 22 correct property/address matches, 1 confirmed incorrect building, 7 unresolved and 0 provider errors. Three query variants and reverse geocoding repeat the wrong-building result despite maximum provider confidence. Geoapify public-demo alternatives did not establish original-property precision. See ADR 0007 for evidence, timing, narrow normalization changes and rejected mitigations.
+
+Active frontend remains v0.2.1. Candidate transport, disabled server route and quota remain isolated; no Netlify activation, public push or production deployment occurred. Provider-reported precision is explicitly labeled. The review gate rejects incorrect/unverified candidates and keeps every outcome in its denominator. A public-commercial supplier correction report is prepared outside Git but not sent; explicit communication authorization is needed. Subsequent clean/preview/production gates cannot turn this upstream quality failure into PASS. Earlier email/export acceptance remains unchanged; the address incident is OPEN.
+
+Executed local checkpoint: 113/113 tests passed (baseline plus adapter, quota, transport and independent-review regressions); publication/history checks and diff whitespace checks passed. An initial sandbox run could not bind the localhost security-test port; the approved rerun passed. The actual private 30-case review gate returns FAIL with 22 accurate, 1 incorrect, 7 unresolved, 0 provider errors and 0 unverified. Clean checkout verification follows; preview/production activation is deliberately blocked by this material finding.
+
+
+Clean-checkout evidence — 2026-10-08 PDT: local checkpoint 501bb9b was cloned without hardlinks into a fresh directory. Frozen-lockfile installation with lifecycle scripts disabled passed; all 113 tests passed; publication/history scanning, vendor rebuild and preview-asset build passed; the checkout stayed clean. This was a local preview asset build, NOT a Netlify Deploy Preview. Public production homepage returned HTTP 200 and displayed v0.2.1; no new production address acceptance is claimed. No candidate push, remote CI run, staging deployment or production promotion occurred. Provider data-quality finding remains open. The provider-report browser session currently needs owner login, and submitting the prepared report awaits explicit communication authorization.
+
+
+## Provider report sent — 2026-10-08 PDT
+
+Owner explicitly authorized the correction report. The report was sent to Geocodio official support by email, with Gmail confirming sent. The web form was not submitted because it adds a liability waiver; no new legal terms were accepted. Content contains only the public benchmark case, returned point/metadata, reproduction variants and official reference links. No credentials, owner incident input or visitor data were sent. Provider acknowledgement, ticket identifier and remediation remain unverified. Production stays v0.2.1 and the incident remains OPEN. This is a documentation-only update; no tests or deployment were rerun.
+
+
+## 2026-10-08 — Beta safety candidate
+
+Implemented three-state address handling, source-wide containment of two independently observed wrong-building datasets, explicit withholding/future-interest UX, truthful provider-reported precision, privacy updates and expanded synthetic tests. Original incident local browser returned 6.8. Final original corpus 21/30 correct, 9 withheld; independent holdout 7/10 correct, 3 withheld. Holdout found the second source defect; containment then rerun on both sets. Known wrong raw results remain reported, never counted accurate. Provider support need not delay safe Beta under owner decision. No production promotion yet.

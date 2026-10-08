@@ -1,3 +1,5 @@
+> Current Beta address architecture and acceptance supersede historical Photon descriptions below: see [ADR 0008](ADR/0008-beta-address-safety.md) and [Beta acceptance](BETA_ACCEPTANCE.md). Geocodio runs server-side; the frozen scoring model and existing owner operations are unchanged.
+
 # Test strategy
 
 ## Automated gate
@@ -38,3 +40,12 @@ Additional tests cover release discovery, spherical tile coverage including date
 ## Reliability/operations candidate
 
 The expanded suite additionally imports the owner CLI's pinned Netlify SDK, so install locked dependencies before running all tests from a fresh checkout. Use `pnpm install --frozen-lockfile --ignore-scripts`, then the existing full gate. All email tests inject a mock sender and synthetic contacts; they never use live credentials. Concurrent CAS claims, deterministic duplicate keys, failure after durable storage, time-window expiry, bounded provider responses, source deletion, CSV formula injection, unauthorized exports and retention are required regressions. Staging must keep mail disabled and demonstrate core/form operation plus no public owner-read endpoint. Actual inbox receipt, authorized export and provider account controls are separate acceptance evidence; mocks cannot pass them.
+
+## Address recovery live acceptance
+
+Use the private 30-address commercial corpus and authorized original case; do not commit real incident fixtures. The evaluation CLI requires paths outside Git and produces owner-only files. Independently review each returned coordinate against retailer or official property evidence, not another confidence score. A nearby property is incorrect, not accurate. Keep unverified locations distinct, and retain unresolved/provider errors in the denominator. Summarize response times including slow failures. Original-address production success and Overture handoff are mandatory; mocked adapter tests cannot close the incident. Repeat unchanged model, analytics/share/forms/mail/export gates after production integration. See ADR 0007 for the disabled preparation state.
+
+
+### Independent location review gate
+
+Use scripts/geocode-review.mjs with private results and independent review records. Provider precision and accuracy metadata alone leave every candidate unverified. Every displayed candidate requires review; incorrect and unverified results fail the location gate, and unresolved/errors remain in the denominator. A passing location review still requires a separate coverage decision and original-case, licensing, clean, preview and production evidence. Synthetic regressions cover high-confidence wrong-building results and missing reviews. Preserve property-level versus literal building-center distinctions. Geocoding forward/reverse agreement is not independent ground truth.

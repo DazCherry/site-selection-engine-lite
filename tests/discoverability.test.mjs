@@ -10,8 +10,8 @@ test('core script failure cannot silently submit an address in a URL',()=>{const
 test('approved social card is a static 1200 by 630 PNG without textual metadata',()=>{const png=readFileSync(new URL('../dist/social-card.png',import.meta.url));assert.equal(png.readUInt32BE(16),1200);assert.equal(png.readUInt32BE(20),630);let offset=8;while(offset<png.length){const length=png.readUInt32BE(offset),type=png.subarray(offset+4,offset+8).toString();assert.ok(['IHDR','IDAT','IEND'].includes(type));offset+=length+12;}});
 
 test('production build does not serialize server mail configuration into any public asset or build output',()=>{
- const values=['synthetic-secret-sentinel-938271','owner-sentinel@example.invalid','sender-sentinel@example.invalid'];
- const output=execFileSync(process.execPath,['scripts/build-site.mjs'],{cwd:new URL('../',import.meta.url),env:{...process.env,CONTEXT:'production',SITEBUDDY_PUBLIC_RELEASE:'1',SITEBUDDY_PUBLIC_ORIGIN:'https://sitebuddy-validation.netlify.app',RESEND_API_KEY:values[0],SITEBUDDY_OWNER_EMAIL:values[1],SITEBUDDY_MAIL_FROM:values[2]},encoding:'utf8'});
+ const values=['synthetic-secret-sentinel-938271','owner-sentinel@example.invalid','sender-sentinel@example.invalid','geocode-synthetic-secret-sentinel-291833'];
+ const output=execFileSync(process.execPath,['scripts/build-site.mjs'],{cwd:new URL('../',import.meta.url),env:{...process.env,CONTEXT:'production',SITEBUDDY_PUBLIC_RELEASE:'1',SITEBUDDY_PUBLIC_ORIGIN:'https://sitebuddy-validation.netlify.app',GEOCODIO_API_KEY:values[3],RESEND_API_KEY:values[0],SITEBUDDY_OWNER_EMAIL:values[1],SITEBUDDY_MAIL_FROM:values[2]},encoding:'utf8'});
  for(const value of values)assert.equal(output.includes(value),false);
  const inspect=dir=>{for(const entry of readdirSync(dir,{withFileTypes:true})){const path=new URL(entry.name+(entry.isDirectory()?'/':''),dir);if(entry.isDirectory())inspect(path);else{const content=readFileSync(path);for(const value of values)assert.equal(content.includes(Buffer.from(value)),false,entry.name);}}};
  inspect(new URL('../build/',import.meta.url));

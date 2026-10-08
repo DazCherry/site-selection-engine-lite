@@ -1,0 +1,17 @@
+# ADR 0008 — Free Beta address safety
+
+Date: 2026-10-08. Status: implemented candidate; release gates recorded separately.
+
+Free Beta permits bounded, disclosed coverage gaps. It must not knowingly score the wrong location. No scoring formula, dimension, paid service, mapping framework or private method changes.
+
+The existing same-origin Geocodio adapter returns candidate, uncertain or no_match. Only rooftop-level, consistent U.S. address candidates reach explicit user confirmation. Provider confidence is not independent building verification. Formatting exceptions are narrow: a range starts at the requested door, city Saint/St normalization, or a disclosed missing suffix/direction in the same ZIP/locality. ZIP correction cannot override a street or house mismatch. Provider failures remain service errors rather than map-coverage claims.
+
+Independent reviews found maximum-confidence wrong-building results from two source datasets: Connecticut Geospatial Information Systems Council and City of Portland (Public Domain Dedication and License (PDDL) v1.0). A temporary dataset-level hold withholds all responses involving either source, and missing source metadata. It does not target individual addresses, businesses, coordinates or ZIPs. This intentionally also withholds some correct addresses. Removing a hold requires upstream correction evidence plus fresh independent samples and the complete affected regression/staging/production gates; no timed automatic release.
+
+Uncertain and empty results have no selected coordinates, context request, overall score, share result or replay. They offer another address and the existing voluntary future-analysis interest form. Future professional review is unavailable and has no price, payment, delivery promise or automated visitor email.
+
+The 30-address original corpus spans 22 states; it is a purposive commercial sample with substantial furniture-retailer representation, not a national accuracy estimate. Final decisions: 21 independently reviewed correct candidate properties, 9 withheld, no empty-result or provider failure. One raw wrong-building result is within the withheld count. The separate ten-address/ten-state/three-category holdout produced 7 independently reviewed correct properties, 3 withheld, no empty-result or provider failure; one additional raw wrong-building result is withheld. The holdout exposed the second dataset defect, prompted containment, and was rerun: final results are not an untouched blind test. No withheld result counts as correct. Some accepted points lie at an entrance/property edge rather than the literal building center; UI labels provider-reported precision accordingly.
+
+Free: basic discovery and the frozen three dimensions. Paid hypotheses: deeper professional/industry analysis, optional additional geocoding and cross-source verification, subscription or one-time report. Private Engine: separate custom enterprise/customer-data systems. Only Free infrastructure is implemented. Voluntary interest is not evidence of willingness to pay.
+
+Privacy: one authorized request, batch POST with bearer authorization, no key/address in application URLs or logs, private day/count quota, no searched-address history. Geocodio documents temporary request metadata retention; see privacy disclosure. A production quota of 850 and preview quota of 100 reserve capacity below the Free allocation; fail closed when quota accounting is unavailable. No billing or overages are authorized.

@@ -1,3 +1,7 @@
+# Beta acceptance status — 2026-10-08
+
+v0.3.0-beta.1 is a candidate, not yet production accepted. See docs/BETA_ACCEPTANCE.md and ADR 0008. Historical release evidence below does not certify the changed address workflow.
+
 > Historical v0.2.0 distribution acceptance. A subsequent address-reliability incident and owner-operations phase are open; see ADDRESS_RESOLUTION_INCIDENT_REPORT.md and OWNER_EMAIL_OPERATIONS_REPORT.md. This report does not certify the new candidate.
 
 # SiteBuddy distribution readiness report

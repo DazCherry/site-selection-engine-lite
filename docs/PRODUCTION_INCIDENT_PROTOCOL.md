@@ -5,7 +5,7 @@
 3. Establish root cause and blast radius. Identify the failure class; do not assume upstream fault. Preserve reliable production behavior while investigating.
 4. Design a systemic fix and consider adjacent failures: ambiguity, mismatched numbers/localities, malformed input, missing fields, stale results, retries, quota, runtime dependency and timeout. No address-specific patches or centroid substitution.
 5. Classify scope and provider rights before implementation. Keep the model frozen and credentials/data private. Obtain owner authorization for account, financial and legal commitments.
-6. Implement, locally debug, add synthetic regression fixtures and independently cross-check invariants. Use independently sourced public civic addresses for live checks.
+6. Implement, locally debug, add synthetic regression fixtures and independently cross-check invariants. Use independently sourced public civic or commercial addresses for live checks.
 7. Adversarially review, fix material findings, run the complete baseline and new suites, publication/security/privacy/cost/license/IP checks, and a clean checkout build.
 8. Validate Netlify staging and Deploy Preview. Promote only an accepted checkpoint. Test production desktop/mobile and actual destination receipt, not merely request dispatch. Repair or roll back material regressions and repeat affected gates.
 9. Document cause, evidence, rejected approaches, residual limitations, prevention and operational recovery. Record exactly which tests ran and their environment/version. Preserve old release tags.

@@ -77,3 +77,10 @@ Movement between layers requires an explicit future product decision. A paid fea
 | Launch experiment analysis | PUBLIC APPROVED; aggregate product-learning metrics, not score calibration or private methodology |
 
 No confidence scoring, new model dimensions, private coefficients, customer-derived fixtures, financial predictions or customer operating data may be introduced. Deployment and integration approval gates remain mandatory; local drafts are not production approval.
+
+
+## Address recovery evaluation (2026-10-07 PDT)
+
+PUBLIC APPROVED preparation: one replaceable server-side geocoding adapter, strict coordinate-precision gate, bounded same-origin request handler, and independently sourced public commercial-address acceptance tooling. Keep real incident details and raw provider outputs outside Git. No new scoring dimension, database, map framework, data append or multi-provider cascade. Credentials, account acceptance and zero-cost usage settings require the owner-specific gate. Candidate code remains disconnected from production until live acceptance.
+
+Beta address containment is PUBLIC APPROVED Free infrastructure: three-state geocoding outcome, source-level quality hold, explicit user confirmation and score withholding. The existing voluntary interest CTA may be shown after withholding. It is not Paid analysis and makes no willingness-to-pay inference. No new scoring dimension, business-specific rule, map framework or paid provider is introduced.
