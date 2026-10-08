@@ -266,3 +266,6 @@ Owner explicitly authorized the correction report. The report was sent to Geocod
 ## 2026-10-08 — Beta safety candidate
 
 Implemented three-state address handling, source-wide containment of two independently observed wrong-building datasets, explicit withholding/future-interest UX, truthful provider-reported precision, privacy updates and expanded synthetic tests. Original incident local browser returned 6.8. Final original corpus 21/30 correct, 9 withheld; independent holdout 7/10 correct, 3 withheld. Holdout found the second source defect; containment then rerun on both sets. Known wrong raw results remain reported, never counted accurate. Provider support need not delay safe Beta under owner decision. No production promotion yet.
+
+
+Beta pre-promotion gates: 117 tests and clean checkout/vendor/build/publication gates passed; runtime 7fa9efc CI and Netlify preview passed. Actual preview original incident 6.8, both known wrong buildings withheld, private feedback/interest/measurement receiving records, 390px layout and synthetic reset passed. Local fault injection distinguished empty/503/429. Fresh owner export authenticated with 0600 files. Detailed evidence in BETA_ACCEPTANCE. Production not yet promoted.
