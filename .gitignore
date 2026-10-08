@@ -11,3 +11,6 @@ test-results/
 .openai/
 build/
 .netlify/
+# Owner exports and local operational credentials are never publication artifacts.
+exports/
+*.csv

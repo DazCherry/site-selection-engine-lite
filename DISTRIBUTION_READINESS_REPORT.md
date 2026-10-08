@@ -1,3 +1,5 @@
+> Historical v0.2.0 distribution acceptance. A subsequent address-reliability incident and owner-operations phase are open; see ADDRESS_RESOLUTION_INCIDENT_REPORT.md and OWNER_EMAIL_OPERATIONS_REPORT.md. This report does not certify the new candidate.
+
 # SiteBuddy distribution readiness report
 
 **DISTRIBUTION READY — v0.2.0, for a controlled external product-learning test.** Updated 2026-10-07 UTC. No external launch posts or outreach have been published.

@@ -2,7 +2,7 @@
 
 Status: staging and production receipt gates passed. Actual private records matched the synthetic feedback and explicitly consented example-domain contact submitted through the deployed UI.
 
-The optional result CTA opens two short forms. Feedback uses fixed usefulness, intuitive agreement, decision-context and missing-capability choices. Interest accepts one to three future categories, broad role, optional email and separate contact consent. These capabilities are unavailable ideas, not delivered Paid products. No automatic email or external outreach occurs.
+The optional result CTA opens two short forms. Feedback uses fixed usefulness, intuitive agreement, decision-context and missing-capability choices. Interest accepts one to three future categories, broad role, optional email and separate contact consent. These capabilities are unavailable ideas, not delivered Paid products. No automatic visitor email or marketing outreach occurs. A disabled owner-only notification candidate is described in OWNER_OPERATIONS; activation requires separate authorization.
 
 Both forms POST JSON to /api/interest. The server validates the exact schema, same-origin header, type, body size, empty honeypot and explicit email consent. Request values never become HTML, URL parameters, telemetry properties or application logs. Only a validated receipt produces success. Failed or timed-out submissions retain entered values in page memory; retry uses the same random ID. No browser persistence exists. Starting another analysis clears the forms.
 

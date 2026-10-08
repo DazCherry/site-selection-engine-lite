@@ -1,0 +1,40 @@
+# Owner email operations — implementation candidate, NOT activated
+
+2026-10-07. Resend Free is explicitly authorized, restricted to one fixed owner recipient, with no paid upgrades, payment method, recharge, overages or visitor mail. Account activation and configuration are not yet complete. The sending domain is verified and authenticated production export has passed. No real mail has been sent; inbox receipt and production notification acceptance remain unvalidated. Existing production remains v0.2.0. See OWNER_OPERATIONS and PROVIDER_COSTS_AND_AUTHORIZATION for the concrete setup/cost proposal.
+
+Private Netlify submission records are the system of record. A notification failure cannot reverse durable form acknowledgement. Eligible public opted-in contacts create a reference-only durable outbox record; a recovery scan repairs missed creation after the configured activation timestamp. A fixed server-configured owner recipient receives plain text with timestamp UTC, role, chosen capabilities, consent and submission ID. No visitor receives mail; a contact is not called commercially qualified solely because it contains an email. No address, coordinates, replay, IP or analytics identifier is included.
+
+Daily digests count previous UTC-day feedback, interest, contacts, roles, capabilities and usefulness, with backlog/terminal/persistence warnings. QA is excluded, empty periods suppressed unless warnings exist, and counts are not unique visitors. Five-minute scheduled execution supports recovery and seven-day digest backfill; actual scheduled execution remains unvalidated until deployment/authorization. Provider response acceptance is recorded distinctly from inbox receipt.
+
+Per-job CAS claims, stable provider idempotency key, immutable payload hash, six attempts, exponential delays, 8-second request timeout, 23-hour ambiguous retry cutoff, seven-day unattempted expiry, and global 90/day / 2,500/month attempt caps are implemented. No exactly-once claim. Accepted/terminal metadata lasts 91 days, longer than 90-day source retention, and operational counters last 30 days. Retention runs separately even when mail is disabled. Provider/inbox copies have independent retention.
+
+Owner-only export uses an authorized Netlify token in the local environment and writes strict, formula-safe CSV columns outside the repository with exclusive 0600 permissions. No public read endpoint exists. It excludes QA and expired records and emits a sanitized aggregate operations report. Live authenticated export passed with QA-only source records; the default export correctly excludes those records. Unauthorized and synthetic data-path tests also pass. Exports must be privately stored and deleted after use.
+
+Security review covers fixed destinations, no client-supplied headers, strict schemas, plaintext templating, private stores, no browser keys, production-only activation, no unapproved credential discovery, and synthetic tests. Adversarial testing includes duplicate/concurrent jobs, failed queue hooks, ambiguous responses, source deletion, expiry, configuration changes, quota caps, provider failures and formula injection. Clean checkout, staging runtime, Free-plan configuration, domain verification and authenticated export have evidence recorded below and in DEVELOPMENT_LOG. Remaining mandatory checks include sending credential setup, owner inbox receipt and the complete production notification journey. Material unresolved findings block release.
+
+Remaining owner actions: approve the prepared domain-restricted sending credential at the actual access-creation step; confirm the synthetic test in the fixed recipient inbox after it is sent. DNS records are saved and the domain is verified. Do not ask again for the already granted Free-plan or domain-preparation authorization. DNS control is not authorization to alter unrelated existing email records. Google remains separately unapproved and license-unresolved. No new release tag will be created while these gates remain open.
+
+### Executed preview evidence
+
+At d54721b, clean checkout and CI passed 93 tests; Netlify preview deployed. Desktop/narrow-browser synthetic forms returned durable acknowledgements; private preview storage lists one feedback and two interest records and no mail queue. HTTP duplicate/conflict/consent/origin tests produced 200/409/400/403 as intended. Private code/export routes were 404 and scheduled-function direct access 403. Email activation, live sender/domain, full authenticated export, provider delivery and owner inbox receipt remain BLOCKED / UNVALIDATED. A later midnight-digest regression refinement is tracked in DEVELOPMENT_LOG; it does not activate sending.
+
+### Earlier account preparation, 2026-10-07 (superseded by acceptance below)
+
+Owner completed Resend login. Actual Billing shows 3,000 transactional emails at $0/month and no payment methods. Pay-as-you-go controls are disabled/unchecked. A dedicated sending domain was added with manual DNS verification; three exact records were provided privately in one owner request. No existing domain records were changed. TLS is Enforced, receiving remains off, and tracking configuration is not activated. Verification remains pending, so a domain-restricted sending key cannot yet be selected; no broader key was created.
+
+The owner was given a precise seven-day Netlify token handoff and hidden-input local setup helper for real export validation. The UI lacks project-only/read-only scope, which was disclosed before any token creation. No token has been generated or read. Neither provider acceptance nor inbox receipt nor real private export is claimed.
+
+## Authenticated export acceptance and credential incident
+
+The repeated 401 was investigated across Python, curl, identity, owned-site and Blobs endpoints. The generated token was registered and unexpired; Site ID matched the intended project. Local input contained three identical copies of the same token concatenated. Validating a single original copy returned identity HTTP 200; the local private file was normalized only after validation. No token rotation was needed and no credential was logged. The hidden-input helper now rejects repeated token prefixes before saving; single/double/triple-paste and 0600-permission regressions passed.
+
+Actual owner export then succeeded against Private Blobs. Three CSVs and aggregate operations JSON use 0600 files in a 0700 directory outside Git. Current production records are QA-only: one feedback, one interest and sixteen analytics rows are available when explicitly including QA; default exports exclude them and contain zero eligible public rows. This validates authenticated read/export and real QA exclusion, not the presence of customer demand. Failed attempts produced no partial files.
+
+Resend domain is now verified and ready for sending. A sending-only, single-domain API credential is prepared but not yet created; actual send/inbox and remaining production gates remain unvalidated. Production and the scoring baseline are unchanged.
+
+
+## Resend provider acceptance — 2026-10-08 UTC
+
+The owner created and securely supplied the approved single-domain sending key. Local file mode is 0600. Actual private QA lead processing returned accepted; the owner explicitly confirmed inbox receipt, recorded in private QA state. Reprocessing retained one attempt without another send. A separate QA daily aggregate was accepted and explicitly confirmed in the owner inbox. QA data is isolated from product-learning stores. No visitor received email.
+
+The key is saved as a Netlify Secret in production context only, with builds/functions/runtime scopes. HTTP 422 was traced to unsupported post_processing scope for secrets; excluding that scope succeeded with HTTP 201. No upgrade or secret disclosure occurred. The 97-test suite passed again, including frozen scoring, retries, quotas, privacy and public-asset secret isolation. Preview synthetic result remains 7.5. Candidate version is v0.2.1; production triggers and scheduler acceptance remain pending. The address coverage incident remains open.

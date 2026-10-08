@@ -24,3 +24,7 @@ The 45-day policy applies only to Overture release cadence. Legacy OSM normaliza
 Bounded transport, limited retry, cache and cooldown are implemented and tested. There is no service-level agreement for public providers. Growing or business-critical usage requires ongoing terms/capacity review; no infrastructure can guarantee every address or every request. The stable gate requires repeated successful live execution and explicit failure behavior, not fabricated complete coverage.
 
 No confidential reference material, privately derived rubric, proprietary outcome or customer data is part of these sources or transformations.
+
+## Owner-operations candidate (activation pending)
+
+Private submission retention remains 90 days. Optional fixed-owner Resend notification shares only explicitly consented contact fields; anonymous feedback contributes only to aggregates. No visitor notification or marketing automation exists. Mail states/references expire at 91 days; operational failure counters at 30 days, even with sending disabled. Provider logs, owner inbox and downloaded CSV have separate retention and require operator deletion. Export files cannot target the repository. Account and sender authorization are required before this path becomes active. Public analytics remain opt-in and never include searched addresses or contact emails.
