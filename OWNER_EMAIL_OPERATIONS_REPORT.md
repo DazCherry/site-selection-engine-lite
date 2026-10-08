@@ -23,3 +23,11 @@ At d54721b, clean checkout and CI passed 93 tests; Netlify preview deployed. Des
 Owner completed Resend login. Actual Billing shows 3,000 transactional emails at $0/month and no payment methods. Pay-as-you-go controls are disabled/unchecked. A dedicated sending domain was added with manual DNS verification; three exact records were provided privately in one owner request. No existing domain records were changed. TLS is Enforced, receiving remains off, and tracking configuration is not activated. Verification remains pending, so a domain-restricted sending key cannot yet be selected; no broader key was created.
 
 The owner was given a precise seven-day Netlify token handoff and hidden-input local setup helper for real export validation. The UI lacks project-only/read-only scope, which was disclosed before any token creation. No token has been generated or read. Neither provider acceptance nor inbox receipt nor real private export is claimed.
+
+## Authenticated export acceptance and credential incident
+
+The repeated 401 was investigated across Python, curl, identity, owned-site and Blobs endpoints. The generated token was registered and unexpired; Site ID matched the intended project. Local input contained three identical copies of the same token concatenated. Validating a single original copy returned identity HTTP 200; the local private file was normalized only after validation. No token rotation was needed and no credential was logged. The hidden-input helper now rejects repeated token prefixes before saving; single/double/triple-paste and 0600-permission regressions passed.
+
+Actual owner export then succeeded against Private Blobs. Three CSVs and aggregate operations JSON use 0600 files in a 0700 directory outside Git. Current production records are QA-only: one feedback, one interest and sixteen analytics rows are available when explicitly including QA; default exports exclude them and contain zero eligible public rows. This validates authenticated read/export and real QA exclusion, not the presence of customer demand. Failed attempts produced no partial files.
+
+Resend domain is now verified and ready for sending. A sending-only, single-domain API credential is prepared but not yet created; actual send/inbox and remaining production gates remain unvalidated. Production and the scoring baseline are unchanged.
