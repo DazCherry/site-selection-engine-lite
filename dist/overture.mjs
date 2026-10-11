@@ -15,6 +15,16 @@ export function validateRelease(raw,now=Date.now()){
  return {release,sourceTime};
 }
 
+// Only public release metadata is shared between assessments; never locations or tile data.
+const catalogCache=new WeakMap();
+export async function currentRelease(transport,fetchImpl,now){
+ const cached=catalogCache.get(fetchImpl);
+ if(cached&&now>=cached.at&&now-cached.at<300000)return validateRelease({latest:cached.release},now);
+ const {data}=await transport.request(CATALOG,{},65536);let catalog;
+ try{catalog=JSON.parse(new TextDecoder().decode(data));}catch{throw fail('Invalid public release catalog.');}
+ const result=validateRelease(catalog,now);catalogCache.set(fetchImpl,{release:result.release,at:now});return result;
+}
+
 // The full spherical bounding box includes every point inside the assessment circle.
 export function coveringTiles(origin,z){
  coordinate(origin);if(Math.abs(origin.lat)>84||![13,14].includes(z))throw fail('This location is outside supported map-tile coverage.');
@@ -103,8 +113,7 @@ export async function retrieveOverture(origin,{fetchImpl=fetch,now=Date.now(),si
  const transport=createTileTransport({fetchImpl,signal});
  try{
   onProgress('Finding the latest public map release…');
-  const {data}=await transport.request(CATALOG,{},65536);let catalog;try{catalog=JSON.parse(new TextDecoder().decode(data));}catch{throw fail('Invalid public release catalog.');}
-  const {release,sourceTime}=validateRelease(catalog,now),records=new Map();let featureCount=0,decompressedBytes=0,tileCount=0,maxTileBytes=0;
+  const {release,sourceTime}=await currentRelease(transport,fetchImpl,now),records=new Map();let featureCount=0,decompressedBytes=0,tileCount=0,maxTileBytes=0;
   const decompress=(buffer,compression)=>boundedDecompress(buffer,compression,signal);
   for(const [theme,layer,z] of [['places','place',14],['base','infrastructure',13]]){
    onProgress(theme==='places'?'Reading nearby retail and amenities…':'Reading nearby transit and public amenities…');
