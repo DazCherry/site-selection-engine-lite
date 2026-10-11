@@ -50,3 +50,8 @@ test('abort interrupts stalled body reading and cancels the underlying stream',a
  const c=new AbortController();let cancelled=false;const stream=new ReadableStream({cancel(){cancelled=true;}});
  const pending=readBounded(stream,10,c.signal);c.abort();await assert.rejects(pending,/cancelled/);assert.equal(cancelled,true);
 });
+test('unchanged ETag cannot conceal a changed archive total across chunks',async()=>{
+ const good=segmentedFetch();let calls=0;
+ const transport=createTileTransport({fetchImpl:async(...args)=>{const r=await good(...args);if(++calls===2)r.headers.set('content-range',r.headers.get('content-range').replace(String(64*MiB),String(65*MiB)));return r;}});
+ await assert.rejects(transport.source('https://example.invalid').getBytes(0,6*MiB),/size changed/);
+});
