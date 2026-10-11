@@ -1,3 +1,7 @@
+# Regional incident update — v0.3.0-beta.3
+
+Nationwide distribution is NOT ACCEPTED. The production-validated dense-map and address-format repairs do not eliminate provider precision, source-quality, taxonomy-integrity or incomplete-context limitations. See docs/REGIONAL_INCIDENT.md and docs/PROJECT_STATE.md for current evidence. Historical readiness statements below are bounded earlier decisions, not approval of nationwide availability.
+
 # SiteBuddy Free Beta — readiness update (2026-10-08)
 
 **READY for a controlled Beta experiment**, version v0.3.0-beta.1. Live product: https://sitebuddy-free.netlify.app/. PR #4 runtime merge 0c1e7f78c49711481c2e9106ca8fcb0537495e84, accepted production deploy 6ac8174273c0a40008b33888. Final record checkpoint is the v0.3.0-beta.1 release tag.

@@ -1,10 +1,16 @@
-# Open production incident — 2026-10-10
+# Current production — v0.3.0-beta.3 (2026-10-10 PDT)
 
-Nationwide distribution gate is OPEN / NOT ACCEPTED pending regional incident resolution. Owner screenshots reveal separate candidate-filter withholding, failed dense-tile retrieval and legitimate missing-dimension withholding. Released v0.3.0-beta.1 remains deployed during investigation. See REGIONAL_INCIDENT.md. Historical readiness statements below do not close this incident.
+Production: https://sitebuddy-free.netlify.app/. Runtime merge 770247412f5bc551d9ed1d9fdf1aa4bbb510446e; accepted deployment 6acad9769dcb9900081f2c1e. Final documentation checkpoint is identified by tag v0.3.0-beta.3. PRs #5 and #6 repaired dense PMTiles reads, corroborated address formatting and redundant public-catalog requests. Frozen scoring remains lite-map-context-1.0.0, byte-identical to the prior release.
+
+**Application repairs are production-validated; nationwide distribution is NOT ACCEPTED.** Twenty-case production matrix: 15 candidates, 14 complete maps, 12 complete scores; five precision/source holds, two missing-transit totals withheld and one upstream taxonomy integrity failure. None are silently omitted. The new upstream data issue remains open. See REGIONAL_INCIDENT.md for root causes, resources and actual gates. Older readiness statements below are historical.
+
+126 tests pass locally, in clean checkout and CI. Preview and actual production desktop 1280px / mobile-width 390px flows, fail-closed behavior, share recipient, synthetic forms/private receiving records and address-free QA analytics were exercised. Owner-only export authenticated with 0600 files. Resend code and healthy accepted-mail state are unchanged; prior owner-confirmed inbox evidence is retained, with no new inbox claim this incident. No Paid/Private features, model changes, new provider, billing or secrets in public assets.
+
+Daily regional monitoring is configured in the owner app for independently sourced public holdouts only; unchanged results stay quiet. Public catalog metadata alone is reused in memory for five minutes, with release-age validation on every reuse. Rate limits still cause withholding; the mitigation is not a universal service guarantee.
 
 # SiteBuddy project state
 
-## Current production — v0.3.0-beta.1 (2026-10-08)
+## Historical production — v0.3.0-beta.1 (2026-10-08)
 
 **READY for controlled Free Beta distribution.** Production: https://sitebuddy-free.netlify.app/. Canonical repository: https://github.com/DazCherry/site-selection-engine-lite. PR #4 runtime merge 0c1e7f78c49711481c2e9106ca8fcb0537495e84, accepted Netlify deploy 6ac8174273c0a40008b33888. Release tag v0.3.0-beta.1 identifies the final record checkpoint. Read BETA_ACCEPTANCE and ADR 0008 before continuing; older pending-authorization/release entries below are historical.
 
