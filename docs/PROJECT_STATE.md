@@ -1,3 +1,7 @@
+# Open production incident — 2026-10-10
+
+Nationwide distribution gate is OPEN / NOT ACCEPTED pending regional incident resolution. Owner screenshots reveal separate candidate-filter withholding, failed dense-tile retrieval and legitimate missing-dimension withholding. Released v0.3.0-beta.1 remains deployed during investigation. See REGIONAL_INCIDENT.md. Historical readiness statements below do not close this incident.
+
 # SiteBuddy project state
 
 ## Current production — v0.3.0-beta.1 (2026-10-08)
