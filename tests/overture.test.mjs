@@ -18,7 +18,7 @@ test('range transport verifies status, exact range, byte count and immutable ETa
 test('transient failures retry once with a shared budget; 429 never retries',async()=>{let calls=0,sleeps=0;const transport=createTileTransport({fetchImpl:async()=>++calls===1?new Response('',{status:503}):rangeResponse(),sleep:async()=>{sleeps++;}});await transport.source('https://example.invalid').getBytes(0,3);assert.equal(calls,2);assert.equal(sleeps,1);assert.equal(transport.stats().retries,1);calls=0;await assert.rejects(createTileTransport({fetchImpl:async()=>{calls++;return new Response('',{status:429,headers:{'retry-after':'120'}});}}).request('https://example.invalid'),e=>e.retryAfterMs===120000);assert.equal(calls,1);});
 test('cancellation does not issue another network call',async()=>{const c=new AbortController();c.abort();let calls=0;await assert.rejects(createTileTransport({signal:c.signal,fetchImpl:async()=>{calls++;return rangeResponse();}}).request('https://example.invalid'),/cancelled/);assert.equal(calls,0);});
 test('gzip inflation is bounded even when compressed size is tiny',async()=>{
- const source=new Blob([new Uint8Array(33*1024*1024)]).stream().pipeThrough(new CompressionStream('gzip'));
+ const source=new Blob([new Uint8Array(49*1024*1024)]).stream().pipeThrough(new CompressionStream('gzip'));
  const compressed=await new Response(source).arrayBuffer();assert.ok(compressed.byteLength<100000);
  await assert.rejects(boundedDecompress(compressed,2),/safety limit/);
 });
@@ -31,4 +31,22 @@ test('stale release and failed partial archive never return a context',async()=>
  const {retrieveOverture}=await import('../dist/overture.mjs');
  await assert.rejects(retrieveOverture(origin,{now,fetchImpl:async()=>new Response(JSON.stringify({latest:'2025-01-01.0'}))}),/stale/);
  let calls=0;await assert.rejects(retrieveOverture(origin,{now,fetchImpl:async()=>++calls===1?new Response(JSON.stringify({latest:'2026-09-23.1'})):new Response('unavailable',{status:404})}),/unavailable/);assert.equal(calls,2);
+});
+const MiB=1024*1024;
+function segmentedFetch(change){let count=0;return async(url,{headers})=>{const [start,end]=headers.Range.slice(6).split('-').map(Number);const body=new Uint8Array(end-start+1).fill(start===0?7:9);count++;return new Response(body,{status:206,headers:{'content-range':`bytes ${start}-${end}/${64*MiB}`,etag:change&&count===2?'changed':'fixed'}});};}
+test('large logical reads are assembled only from fully validated bounded HTTP ranges',async()=>{
+ const t=createTileTransport({fetchImpl:segmentedFetch()});const r=await t.source('https://example.invalid').getBytes(0,6*MiB);
+ assert.equal(r.data.byteLength,6*MiB);assert.equal(new Uint8Array(r.data)[4*MiB],9);assert.deepEqual(t.stats(),{bytes:6*MiB,requests:2,retries:0});
+ await assert.rejects(createTileTransport({fetchImpl:segmentedFetch(true)}).source('https://example.invalid').getBytes(0,6*MiB),/changed/);
+});
+test('logical, integer overflow, cumulative wire and truncated second-chunk failures are closed',async()=>{
+ const t=createTileTransport({fetchImpl:segmentedFetch()}),s=t.source('https://example.invalid');
+ await assert.rejects(s.getBytes(0,9*MiB),/budget/);await assert.rejects(s.getBytes(Number.MAX_SAFE_INTEGER,2),/range/);assert.equal(t.stats().requests,0);
+ for(let i=0;i<4;i++)await s.getBytes(0,8*MiB);await assert.rejects(s.getBytes(0,1),/budget/);assert.equal(t.stats().bytes,32*MiB);
+ const fetchGood=segmentedFetch();let n=0;const bad=createTileTransport({fetchImpl:async(...args)=>++n===2?rangeResponse(4*MiB,6*MiB-1,'fixed','x'):fetchGood(...args)});
+ await assert.rejects(bad.source('https://example.invalid').getBytes(0,6*MiB),/range/);
+});
+test('abort interrupts stalled body reading and cancels the underlying stream',async()=>{
+ const c=new AbortController();let cancelled=false;const stream=new ReadableStream({cancel(){cancelled=true;}});
+ const pending=readBounded(stream,10,c.signal);c.abort();await assert.rejects(pending,/cancelled/);assert.equal(cancelled,true);
 });

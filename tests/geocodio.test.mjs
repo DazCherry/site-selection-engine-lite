@@ -59,3 +59,17 @@ test('omitted suffix or direction is disclosed; conflicting directions and posta
  r.address_components.postal_code='90001';r.address_components.formatted_street='Example Ave';assert.equal(normalizeGeocodio({results:[r]},input.replace('Example Avenue','Example')).length,1);
  r.address_components.city='Saint Example';assert.equal(normalizeGeocodio({results:[r]},input.replace('Sample City','St. Example')).length,1);
 });
+test('hyphen-number zero normalization preserves both numeric components and structure',()=>{
+ const r=row();r.address_components.number='27-4';const query=input.replace('120','27-04');assert.equal(normalizeGeocodio({results:[r]},query).length,1);
+ for(const n of ['274','27-5','28-4','27','27-4A']){r.address_components.number=n;assert.equal(normalizeGeocodio({results:[r]},query).length,0);}
+});
+test('unmarked unit requires identical structured provider unit and exact building street',()=>{
+ const r=row();Object.assign(r.address_components,{unit_type:'Ste',unit_number:'J3'});const query=input.replace('Avenue','Avenue J-3');assert.equal(normalizeGeocodio({results:[r]},query).length,1);
+ for(const n of ['','J4','3']){r.address_components.unit_number=n;assert.equal(normalizeGeocodio({results:[r]},query).length,0);}
+ r.address_components.unit_number='J3';r.address_components.formatted_street='Other Ave';assert.equal(normalizeGeocodio({results:[r]},query).length,0);
+});
+test('documented NYC dual street name is exact-locality scoped and cannot override precision or house',()=>{
+ const r=row();Object.assign(r.address_components,{formatted_street:'Avenue of the Americas',city:'New York',state_province:'NY',postal_code:'10001'});const query='120 Sixth Avenue, New York, NY 10001';assert.equal(normalizeGeocodio({results:[r]},query).length,1);
+ for(const q of [query.replace('120','122'),query.replace('Sixth','Seventh'),query.replace('10001','10002'),query.replace('New York, NY','Example, NY')])assert.equal(normalizeGeocodio({results:[r]},q).length,0);
+ r.accuracy_type='range_interpolation';assert.equal(normalizeGeocodio({results:[r]},query).length,0);
+});

@@ -19,6 +19,23 @@ export function normalizeGeocodio(raw,input){
   if(!props.street||!props.city||!props.state||!/^\d{5}(?:-\d{4})?$/.test(props.postcode))continue;
   const corrections=[];
   const comparison={...props,postcode:a.zip||props.postcode};
+  // Numeric hyphen components retain their structure; only insignificant zeroes differ.
+  const hyphenNumber=s=>/^\d+-\d+$/.test(s)?s.split('-').map(x=>x.replace(/^0+(?=\d)/,'')).join('-'):null;
+  if(hyphenNumber(a.house)&&hyphenNumber(a.house)===hyphenNumber(props.housenumber))comparison.housenumber=a.house;
+  // Unmarked suite suffixes require corroborating structured unit metadata.
+  // Never strip arbitrary trailing words from an input street.
+  const unit=text(p.unit_number).replace(/[- ]/g,'').toLowerCase();
+  const suffix=/^(.+?)\s+([A-Za-z]\d[\w-]*|[A-Za-z]-\d[\w-]*)$/.exec(a.street);
+  if(unit&&text(p.unit_type)&&suffix&&suffix[2].replace(/[- ]/g,'').toLowerCase()===unit&&words(suffix[1])===words(props.street)){
+   comparison.street=a.street;corrections.push('Provider matched the building and supplied unit. Confirm the intended location.');
+  }
+  // NYC DOT documents the official Sixth Avenue / Avenue of the Americas dual name.
+  // This is a locality-scoped street alias, never a house-number exception.
+  const sixth=s=>['6th ave','sixth ave','ave of the americas'].includes(words(s));
+  if(a.state==='NY'&&props.state==='NY'&&words(a.city)==='new york'&&words(props.city)==='new york'&&a.zip===props.postcode.slice(0,5)&&sixth(a.street)&&sixth(props.street)){
+   comparison.street=a.street;corrections.push('Provider uses the official alternative street name. Verify the full address before confirming.');
+  }
+
   // A building's address range can include its explicitly supplied first door.
   // Do not infer an arbitrary number inside the range or change street parity.
   if(/^\d+-\d+$/.test(props.housenumber)&&props.housenumber.split('-')[0]===a.house){

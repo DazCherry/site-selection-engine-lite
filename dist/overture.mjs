@@ -4,7 +4,7 @@ import {coordinate,distanceMeters,RADIUS_M,DataError,validTime} from './model.mj
 export const CATALOG='https://stac.overturemaps.org/catalog.json';
 export const TILE_ROOT='https://overturemaps-extras-us-west-2.s3.us-west-2.amazonaws.com/tiles/';
 export const RELEASE_MAX_AGE_MS=45*86400000;
-const RANGE_LIMIT=4*1024*1024, TOTAL_LIMIT=32*1024*1024, DECOMPRESSED_LIMIT=32*1024*1024;
+const RANGE_LIMIT=4*1024*1024, TOTAL_LIMIT=32*1024*1024, LOGICAL_LIMIT=8*1024*1024, DECOMPRESSED_LIMIT=48*1024*1024;
 const fail=message=>new DataError(message);
 
 export function validateRelease(raw,now=Date.now()){
@@ -23,15 +23,16 @@ export function coveringTiles(origin,z){
  const result=[];for(let x=tx(origin.lon-dlon);x<=tx(origin.lon+dlon);x++)for(let y=ty(origin.lat+dlat);y<=ty(origin.lat-dlat);y++)result.push({z,x:(x%n+n)%n,y});
  if(result.length>32)throw fail('Assessment area exceeds the bounded tile budget.');return result;
 }
-export async function readBounded(stream,limit){
- if(!stream?.getReader)throw fail('Empty public data response.');const reader=stream.getReader(),chunks=[];let length=0;
- try{while(true){const {done,value}=await reader.read();if(done)break;length+=value.byteLength;if(length>limit)throw fail('Public data exceeds the safety limit. Assessment withheld.');chunks.push(value);}}catch(e){await reader.cancel().catch(()=>{});throw e;}
+export async function readBounded(stream,limit,signal){
+ if(!stream?.getReader)throw fail('Empty public data response.');if(signal?.aborted)throw fail('Public data request timed out or was cancelled.');const reader=stream.getReader(),chunks=[];let length=0;
+ const abort=()=>{reader.cancel().catch(()=>{});};signal?.addEventListener('abort',abort,{once:true});
+ try{while(true){const {done,value}=await reader.read();if(signal?.aborted)throw fail('Public data request timed out or was cancelled.');if(done)break;length+=value.byteLength;if(length>limit)throw fail('Public data exceeds the safety limit. Assessment withheld.');chunks.push(value);}}catch(e){await reader.cancel().catch(()=>{});throw e;}finally{signal?.removeEventListener('abort',abort);}
  const out=new Uint8Array(length);let offset=0;for(const chunk of chunks){out.set(chunk,offset);offset+=chunk.byteLength;}return out.buffer;
 }
-export async function boundedDecompress(buffer,compression){
- if(buffer.byteLength>RANGE_LIMIT)throw fail('Compressed public data exceeds the safety limit.');
+export async function boundedDecompress(buffer,compression,signal){
+ if(buffer.byteLength>LOGICAL_LIMIT)throw fail('Compressed public data exceeds the safety limit.');
  if(compression===1)return buffer;if(compression!==2)throw fail('Unsupported public data compression.');
- return readBounded(new Blob([buffer]).stream().pipeThrough(new DecompressionStream('gzip')),DECOMPRESSED_LIMIT);
+ return readBounded(new Blob([buffer]).stream().pipeThrough(new DecompressionStream('gzip')),DECOMPRESSED_LIMIT,signal);
 }
 const delay=(ms,signal)=>new Promise((resolve,reject)=>{if(signal.aborted)return reject(fail('Public data request cancelled.'));const onAbort=()=>{clearTimeout(timer);reject(fail('Public data request cancelled.'));};const timer=setTimeout(()=>{signal.removeEventListener('abort',onAbort);resolve();},ms);signal.addEventListener('abort',onAbort,{once:true});});
 
@@ -39,6 +40,7 @@ const delay=(ms,signal)=>new Promise((resolve,reject)=>{if(signal.aborted)return
 export function createTileTransport({fetchImpl=fetch,signal=new AbortController().signal,sleep=delay}={}){
  let bytes=0,requests=0,retries=0;
  async function request(url,headers={},limit=RANGE_LIMIT){
+  if(limit>TOTAL_LIMIT-bytes)throw fail('Public data download budget exceeded.');
   for(let attempt=0;attempt<2;attempt++){
    if(signal.aborted)throw fail('Public data request timed out or was cancelled.');if(++requests>100)throw fail('Public data request budget exceeded.');
    const timeout=AbortSignal.timeout(10000),combined=AbortSignal.any([signal,timeout]);let response;
@@ -49,15 +51,24 @@ export function createTileTransport({fetchImpl=fetch,signal=new AbortController(
    if([502,503,504].includes(response.status)&&attempt===0&&retries<2){await response.body?.cancel();retries++;await sleep(700,signal);continue;}
    if(!response.ok){await response.body?.cancel();throw fail('Public data is unavailable. No score was created.');}
    if(Number(response.headers.get('content-length'))>limit){await response.body?.cancel();throw fail('Public data exceeds the safety limit.');}
-   const data=await readBounded(response.body,limit);bytes+=data.byteLength;if(bytes>TOTAL_LIMIT)throw fail('Public data download budget exceeded.');return {response,data};
+   const data=await readBounded(response.body,limit,combined);bytes+=data.byteLength;if(bytes>TOTAL_LIMIT)throw fail('Public data download budget exceeded.');return {response,data};
   }
  }
- return {request,source(url){let archiveEtag=null;return {getKey:()=>url,async getBytes(offset,length,unusedSignal,expectedEtag){
-  if(!Number.isSafeInteger(offset)||offset<0||!Number.isSafeInteger(length)||length<=0||length>RANGE_LIMIT)throw fail('Invalid map archive range.');
-  const {response,data}=await request(url,{Range:`bytes=${offset}-${offset+length-1}`},length);
-  const range=response.headers.get('content-range'),match=/^bytes (\d+)-(\d+)\/(\d+)$/.exec(range||'');
-  if(response.status!==206||!match||Number(match[1])!==offset||Number(match[2])!==offset+length-1||Number(match[3])<=Number(match[2])||data.byteLength!==length)throw fail('Map archive returned an incomplete or incorrect byte range.');
-  const etag=response.headers.get('etag');if(!etag||(archiveEtag&&etag!==archiveEtag)||(expectedEtag&&etag!==expectedEtag))throw fail('Map archive changed during retrieval. Please retry.');archiveEtag=etag;return {data,etag};
+ return {request,source(url){let archiveEtag=null,archiveLength=null;return {getKey:()=>url,async getBytes(offset,length,unusedSignal,expectedEtag){
+  if(!Number.isSafeInteger(offset)||offset<0||!Number.isSafeInteger(length)||length<=0||!Number.isSafeInteger(offset+length))throw fail('Invalid map archive range.');
+  if(length>LOGICAL_LIMIT)throw fail('Map tile exceeds the bounded resource budget. Assessment withheld.');
+  if(length>TOTAL_LIMIT-bytes)throw fail('Public data download budget exceeded.');
+  const output=new Uint8Array(length);
+  for(let position=0;position<length;position+=RANGE_LIMIT){
+   const start=offset+position,size=Math.min(RANGE_LIMIT,length-position),end=start+size-1;
+   const {response,data}=await request(url,{Range:`bytes=${start}-${end}`},size);
+   const match=/^bytes (\d+)-(\d+)\/(\d+)$/.exec(response.headers.get('content-range')||'');
+   if(response.status!==206||!match||Number(match[1])!==start||Number(match[2])!==end||!Number.isSafeInteger(Number(match[3]))||Number(match[3])<=end||data.byteLength!==size)throw fail('Map archive returned an incomplete or incorrect byte range.');
+   const total=Number(match[3]);if(archiveLength!==null&&archiveLength!==total)throw fail('Map archive size changed during retrieval.');archiveLength=total;
+   const etag=response.headers.get('etag');if(!etag||(archiveEtag&&etag!==archiveEtag)||(expectedEtag&&etag!==expectedEtag))throw fail('Map archive changed during retrieval. Please retry.');
+   archiveEtag=etag;output.set(new Uint8Array(data),position);
+  }
+  return {data:output.buffer,etag:archiveEtag};
  }};},stats:()=>({bytes,requests,retries})};
 }
 const retailGroups={food:['grocery_store','convenience_store','specialty_foods_store','butcher_shop','bakery'],clothing:['clothing_store','shoe_store','fashion_accessories_store'],home:['furniture_store','home_goods_store','home_decor_store','bedding_and_bath_store'],electronics:['electronics_store','mobile_phone_store'],personal:['beauty_supply_store','cosmetics_and_fragrance_store','hair_salon','beauty_salon'],books:['bookstore','stationery_store','newsstand'],leisure:['sporting_goods_store','bike_store','toy_store','musical_instrument_store'],hardware:['hardware_store','home_improvement_store','nursery_and_gardening_store'],gifts:['flowers_and_gifts_store','florist','gift_shop','jewelry_store'],pets:['pet_store','pet_grooming'],general:['department_store','variety_store','shopping_mall'],repair:['auto_repair','laundry_service','tailor']};
@@ -76,7 +87,7 @@ export function normalizeTileFeature(feature,layer,origin){
   if(['permanently_closed','temporarily_closed','closed'].includes(props.operating_status))return null;
   if(props.taxonomy===undefined||props.taxonomy===null)return null;
   const taxonomy=objectJSON(props.taxonomy);const hierarchy=taxonomy.hierarchy;
-  if(typeof taxonomy.primary!=='string'||!Array.isArray(hierarchy)||hierarchy.length>16||!hierarchy.every(s=>typeof s==='string'&&s.length<=100)||hierarchy.at(-1)!==taxonomy.primary)throw fail('Unsupported public category schema.');
+  if(typeof taxonomy.primary!=='string'||!Array.isArray(hierarchy)||hierarchy.length>16||!hierarchy.every(s=>typeof s==='string'&&s.length<=100)||hierarchy.at(-1)!==taxonomy.primary)throw fail('Public map categories are inconsistent. Assessment withheld to avoid using incomplete data.');
   retail=matchGroup(hierarchy,retailGroups);service=matchGroup(hierarchy,serviceGroups);
   transit=['bus_station','train_station','subway_station','tram_station'].includes(taxonomy.primary);
  }else{
@@ -93,19 +104,21 @@ export async function retrieveOverture(origin,{fetchImpl=fetch,now=Date.now(),si
  try{
   onProgress('Finding the latest public map release…');
   const {data}=await transport.request(CATALOG,{},65536);let catalog;try{catalog=JSON.parse(new TextDecoder().decode(data));}catch{throw fail('Invalid public release catalog.');}
-  const {release,sourceTime}=validateRelease(catalog,now),records=new Map();let featureCount=0,decompressedBytes=0;
+  const {release,sourceTime}=validateRelease(catalog,now),records=new Map();let featureCount=0,decompressedBytes=0,tileCount=0,maxTileBytes=0;
+  const decompress=(buffer,compression)=>boundedDecompress(buffer,compression,signal);
   for(const [theme,layer,z] of [['places','place',14],['base','infrastructure',13]]){
    onProgress(theme==='places'?'Reading nearby retail and amenities…':'Reading nearby transit and public amenities…');
-   const source=transport.source(`${TILE_ROOT}${release}/${theme}.pmtiles`),cache=new ResolvedValueCache(32,false,boundedDecompress),archive=new PMTiles(source,cache,boundedDecompress);
+   const source=transport.source(`${TILE_ROOT}${release}/${theme}.pmtiles`),cache=new ResolvedValueCache(32,false,decompress),archive=new PMTiles(source,cache,decompress);
    const header=await archive.getHeader();if(header.tileType!==1||header.maxZoom!==z||header.specVersion!==3)throw fail('Unsupported map archive schema.');
    const metadata=await archive.getMetadata();if(!Array.isArray(metadata?.vector_layers)||!metadata.vector_layers.some(l=>l.id===layer&&l.maxzoom===z))throw fail('Unsupported map layer schema.');
    for(const tile of coveringTiles(origin,z)){
     if(signal.aborted)throw fail('Public data retrieval timed out. No score was created.');
     const content=await archive.getZxy(tile.z,tile.x,tile.y,signal);if(!content)continue;
-    decompressedBytes+=content.data.byteLength;if(decompressedBytes>96*1024*1024)throw fail('Public decompression budget exceeded.');
+    tileCount++;maxTileBytes=Math.max(maxTileBytes,content.data.byteLength);decompressedBytes+=content.data.byteLength;if(decompressedBytes>160*1024*1024)throw fail('Public decompression budget exceeded.');
     const parsed=new VectorTile(new PbfReader(new Uint8Array(content.data))),features=parsed.layers[layer];if(!features)continue;
-    featureCount+=features.length;if(featureCount>100000)throw fail('Public feature budget exceeded. Assessment withheld.');
+    featureCount+=features.length;if(featureCount>200000)throw fail('Public feature budget exceeded. Assessment withheld.');
     for(let i=0;i<features.length;i++){
+     if(i%512===0)await delay(0,signal);
      const f=features.feature(i);if(f.type!==1)continue;
      const r=normalizeTileFeature(f.toGeoJSON(tile.x,tile.y,tile.z),layer,origin);if(!r)continue;
      const previous=records.get(r.id);if(previous&&JSON.stringify(previous)!==JSON.stringify(r))throw fail('Contradictory public map records. Assessment withheld.');records.set(r.id,r);
@@ -113,6 +126,6 @@ export async function retrieveOverture(origin,{fetchImpl=fetch,now=Date.now(),si
     }
    }
   }
-  return {sourceTime,release,fetchedAt:new Date(now).toISOString(),records:[...records.values()].sort((a,b)=>a.id.localeCompare(b.id,'en')),provider:'Overture Maps Places and Base',license:'https://docs.overturemaps.org/attribution/',transport:transport.stats()};
+  return {sourceTime,release,fetchedAt:new Date(now).toISOString(),records:[...records.values()].sort((a,b)=>a.id.localeCompare(b.id,'en')),provider:'Overture Maps Places and Base',license:'https://docs.overturemaps.org/attribution/',transport:{...transport.stats(),decompressedBytes,featureCount,tileCount,maxTileBytes}};
  }catch(e){if(e instanceof DataError)throw e;throw fail('Public map data could not be validated. No score was created.');}finally{clearTimeout(timer);}
 }
