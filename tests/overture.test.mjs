@@ -55,3 +55,17 @@ test('unchanged ETag cannot conceal a changed archive total across chunks',async
  const transport=createTileTransport({fetchImpl:async(...args)=>{const r=await good(...args);if(++calls===2)r.headers.set('content-range',r.headers.get('content-range').replace(String(64*MiB),String(65*MiB)));return r;}});
  await assert.rejects(transport.source('https://example.invalid').getBytes(0,6*MiB),/size changed/);
 });
+test('validated public catalog is reused briefly without retaining location data; expiry revalidates',async()=>{
+ const {currentRelease}=await import('../dist/overture.mjs');let calls=0;const fetchIdentity=()=>{};
+ const transport={request:async()=>{calls++;return {data:new TextEncoder().encode(JSON.stringify({latest:'2026-09-23.1'})).buffer};}};
+ const first=await currentRelease(transport,fetchIdentity,now);assert.deepEqual(await currentRelease(transport,fetchIdentity,now+299999),first);assert.equal(calls,1);
+ await currentRelease(transport,fetchIdentity,now+300000);assert.equal(calls,2);
+ await assert.rejects(currentRelease({request:async()=>{throw Error('unavailable');}},fetchIdentity,now+600000),/unavailable/);
+});
+test('catalog cache never accepts malformed data, stale releases or time rollback',async()=>{
+ const {currentRelease}=await import('../dist/overture.mjs');const identity=()=>{};let calls=0;
+ const transport={request:async()=>{calls++;return {data:new TextEncoder().encode(JSON.stringify({latest:calls===1?'invalid':'2026-09-23.1'})).buffer};}};
+ await assert.rejects(currentRelease(transport,identity,now));await currentRelease(transport,identity,now);assert.equal(calls,2);
+ await currentRelease(transport,identity,now-1);assert.equal(calls,3);
+ await assert.rejects(currentRelease(transport,identity,now+46*86400000),/stale/);
+});
